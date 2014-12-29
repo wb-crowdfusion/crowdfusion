@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<context
+    xmlns="http://www.crowdfusion.com/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.crowdfusion.com/schema/context http://www.crowdfusion.com/schema/crowdfusion-context-2.0.xsd">
+    <info>
+        <title>CLI Application Context</title>
+        <provider>Crowd Fusion, Inc.</provider>
+        <description>Core object definitions for cli MVC framework</description>
+        <version>1.0</version>
+        <priority>1000</priority>
+    </info>
+
+    <import>shared-context.xml</import>
+
+    <objects>
+        <object id="PrimaryCacheStore" class="NullCacheStore"/>
+    </objects>
+
+</context>

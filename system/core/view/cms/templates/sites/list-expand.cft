@@ -1,0 +1,27 @@
+{% set DataSource %}sites-single{% end %}
+{% begin contents %}
+<tr id="expanded_%Slug%" class="expanded">
+	<td colspan="8">
+
+		<div class="expanded-wrapper">
+            <div class="expanded-contents">
+                <h3>%Name%</h3>
+                <p class="excerpt">%Description%</p>
+            </div>
+		</div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#expanded_%Slug%')
+                    .data('ElementSlug','')
+                    .data('SiteSlug','')
+                    .data('Slug','%Slug%')
+                    .data('Type','sites')
+                    .data('RowID','%Slug%')
+            });
+        </script>
+	</td>
+
+</tr>
+{% end %}
+{% begin noresults %}
+{% end %}

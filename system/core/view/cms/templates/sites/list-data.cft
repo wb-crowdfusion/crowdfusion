@@ -1,0 +1,26 @@
+{% set DataSource %}sites-items{% end %}
+{% begin contents %}
+<tr id="collapsed_%Slug%" class="collapsed">
+    <td>%Name%
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('#collapsed_%Slug%')
+                        .data('ElementSlug','')
+                        .data('SiteSlug','')
+                        .data('Slug','%Slug%')
+                        .data('Type','sites')
+                        .data('RowID','%Slug%')
+                });
+            </script>
+    </td>
+    <td>%Slug%</td>
+    <td>%Domain%</td>
+
+	{% if %Count% == 1 %}
+	<td class="total">%TotalRecords%</td>
+	{% endif %}
+</tr>
+{% end %}
+{% begin noresults %}
+{% end %}
+

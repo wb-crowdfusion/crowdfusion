@@ -1,0 +1,20 @@
+{% set DataSource %}aspects-items{% end %}
+{% set CacheTime %}600{% end %}
+{% begin header %}
+{
+{% end %}
+
+{% begin contents %}
+    "%Slug%" : {% filter node-json-encode?keys=AspectID,Slug,Name,Description,Schema %}
+{% end %}
+
+{% begin contents-inbetween %},{% end %}
+
+{% begin footer %}
+}
+{% end %}
+
+{% begin noresults %}
+{}
+{% end %}
+

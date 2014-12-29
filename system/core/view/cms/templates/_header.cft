@@ -1,0 +1,166 @@
+{% setGlobal BodyID %}%INPUT_CONTROLLER%{% end %}
+{% setGlobal PageTitle %}CMS: %SERVER_SERVER_NAME%{% end %}
+
+{% begin contents %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>%PageTitle%</title>
+
+<base href="%BASE_URL%" />
+<meta name="description" content="Crowd Fusion publishing tools." />
+<meta name="robots" content="noindex,nofollow"/>
+
+<meta http-equiv="imagetoolbar" content="no" />
+
+<script type="text/javascript" language="JavaScript">
+    window.onerror=function(msg, url, linenumber){
+        if(typeof console != 'undefined') {
+            var err = 'An unexpected error occurred:\n\nCause: '+msg+'\n\nURL: '+url+'\n\nLine Number: '+linenumber;
+            {% if cms-onerror-alert-enabled %}
+            alert(err);
+            {% else %}
+            if(typeof console != 'undefined')
+                console.log(err);
+            {% endif %}
+        }
+        return true;
+    }
+</script>
+
+{% asset css?src=css/master.css&min=true %}
+{% asset css?src=css/tagwidget-new.css&min=true %}
+{% asset css?src=css/tagwidget-new-ie7.css&min=true&iecond=IE 7 %}
+{% asset css?src=css/ie.css&iecond=IE %}
+{% asset css?src=css/ie7.css&iecond=IE 7 %}
+
+{% asset css?src=css/datepicker.css&min=true %}
+{% asset css?src=css/custom.css&min=true %}
+
+{% asset css?src=css/ui.datepicker.css&min=true %}
+
+{% asset js?src=js/jquery/jquery.js&pack=true %}
+
+{% asset js?src=js/jquery/plugins/jquery.cookie.js&pack=true %}
+{% asset js?src=js/jquery/plugins/jquery.dimensions.js&pack=true %}
+{% asset js?src=js/jquery/plugins/jquery.scrollto.js&pack=true %}
+{% asset js?src=js/jquery/plugins/jquery.bgiframe.js&pack=true %}
+{% asset js?src=js/jquery/plugins/jquery.query.js&pack=true %}
+
+{% asset js?src=js/jquery/ui/jquery.ui.core.js&pack=true %}
+
+{% asset js?src=js/jquery/ui/jquery.ui.widget.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.mouse.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.position.js&pack=true %}
+
+{% asset js?src=js/jquery/ui/jquery.ui.draggable.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.droppable.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.resizable.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.sortable.js&pack=true %}
+
+{% asset js?src=js/jquery/ui/jquery.ui.datepicker.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.dialog.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.progressbar.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.slider.js&pack=true %}
+{% asset js?src=js/jquery/ui/jquery.ui.tabs.js&pack=true %}
+
+{% asset js?src=js/jquery/effects/jquery.effects.core.js&pack=true %}
+{% asset js?src=js/jquery/effects/jquery.effects.highlight.js&pack=true %}
+
+{% asset js?src=js/general.js&pack=true %}
+
+{% asset js?src=js/JSON.js&pack=true %}
+{% asset js?src=js/SlugUtils.js&pack=true %}
+{% asset js?src=js/PartialUtils.js&pack=true %}
+{% asset js?src=js/Date.js&pack=true %}
+{% asset js?src=js/InlineHelp.js&pack=true %}
+{% asset js?src=js/FieldClasses.js&pack=true %}
+{% asset js?src=js/BulkActionToolbar.js&pack=true %}
+{% asset js?src=js/BulkTagAction.js&pack=true %}
+
+
+{% asset js?src=js/TagFormManager.js&pack=true %}
+{% asset js?src=js/SectionFormManager.js&pack=true %}
+{% asset js?src=js/expand/TableExpander.js&pack=true %}
+{% asset js?src=js/expand/SimpleExpander.js&pack=true %}
+{% asset js?src=js/expand/FieldsetExpander.js&pack=true %}
+
+{% asset js?src=js/MetaLabelTools.js&pack=true %}
+
+{% /* Tag Widget Tools */ %}
+{% asset js?src=js/decorators/Taggable.js&pack=true %}
+{% asset js?src=js/decorators/Eventable.js&pack=true %}
+
+{% asset js?src=js/model/Meta.js&pack=true %}
+{% asset js?src=js/model/MetaPartial.js&pack=true %}
+{% asset js?src=js/model/NodeObject.js&pack=true %}
+{% asset js?src=js/model/NodeQuery.js&pack=true %}
+{% asset js?src=js/model/Section.js&pack=true %}
+{% asset js?src=js/model/Tag.js&pack=true %}
+{% asset js?src=js/model/TagPartial.js&pack=true %}
+
+
+{% asset js?src=js/services/SystemService.js&pack=true %}
+{% asset js?src=js/services/NodeService.js&pack=true %}
+{% asset js?src=js/services/SectionsService.js&pack=true %}
+{% asset js?src=js/widgets/AbstractTagWidget.js&pack=true %}
+{% asset js?src=js/widgets/NodeTagWidget.js&pack=true %}
+{% asset js?src=js/widgets/SectionWidget.js&pack=true %}
+
+{% asset js?src=js/widgets/DateWidget.js&pack=true %}
+
+{% asset js?src=js/List.js&min=true %}
+{% asset js?src=js/Edit.js&min=true %}
+{% asset js?src=js/Navigation.js&min=true %}
+{% asset js?src=js/SlugHelper.js&pack=true %}
+{% asset js?src=js/HotDeploy.js&min=true %}
+{% asset js?src=js/ie.js&min=true %}
+
+{% filter event?name=cms-head&allowTemplateCode=true %}
+
+<script language="JavaScript" type="text/javascript">
+
+	SystemService.init({% template _js-sites.cft %},{% template _js-elements.cft %},{% template _js-aspects.cft %});
+
+    if(typeof $ != 'undefined') {
+	    $(document).ready(function() {
+    		{% template _js-errors.cft %}
+    	});
+    };
+
+    document.assetBasePath = '{% asset resolve?src=/ %}';
+
+</script>
+
+
+</head>
+<body id="%BodyID%" class="%BodyClass%">
+<div id="app-container">
+	<div id="app-header">
+		<h1><a href="/"><img src="{% asset version?src=/images/cluster-logo.png %}" alt="%SERVER_CLUSTER%" border="0"/></a></h1>
+
+		<div id="utilities">
+            <div>
+            {% if permission?action=hotdeploy-toggle %}
+                {% if Data:SERVER_DEVELOPMENT_MODE %}
+                    <div id="hot-deploy" class=""><span>Hot Deploy Mode</span></div>
+                {% else %}
+                    <div id="hot-deploy" class="off"><span>Pre-Compiled Mode</span><a href="#" title="Refresh Deployed Files">redeploy</a></div>
+                {% endif %}
+            {% endif %}
+
+            {% filter event?name=cms-utilities %}
+            </div>
+		</div>
+
+		<div id="cms-error" class="cms-error">Loading: Please Wait!</div>
+        <div id="app-menu">
+            {% filter cms-menu?id=primarynav&class=menu %}
+        </div>
+    </div>
+
+	<div id="app-body">
+
+{% end %}

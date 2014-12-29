@@ -1,0 +1,32 @@
+{% begin contents %}
+
+	</div>
+
+	<div id="app-footer">
+		<p id="loading" class="loading" style="display:none">Loading...</p>
+	</div>
+
+</div>
+
+{% if Global:HasErrors %}
+<!-- <![CDATA[
+
+%ErrorString%
+
+// ]]> -->
+{% endif %}
+
+{% if Global:BodyID !eq 'signin' %}
+<script language="JavaScript" type="text/javascript">
+
+    $(document).ready(function(){
+        FieldsetExpander.init();
+    });
+
+    $(window).load(function() { $(document).trigger('hide_initial_error'); });
+
+</script>
+{% endif %}
+</body></html>
+
+{% end %}

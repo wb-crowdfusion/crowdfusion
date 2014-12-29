@@ -1,0 +1,17 @@
+{% set DataSource %}dashboard-svn-info{% end %}
+
+{% begin contents %}
+
+<h4>SVN Information</h4>
+<p>
+<strong>Current:</strong> r%Revision%
+<br/>
+{% filter date?value=Data:LastChangedDate&format=M j, Y g:i A T %}<br/>
+{% if Data:LatestRevision && Data:Revision != Data:LatestRevision %}
+<br/><strong>Latest:</strong> r%LatestRevision%<br/>
+{% filter date?value=Data:LatestChangedDate&format=M j, Y g:i A T %}
+{% else %}
+<br/><strong>NO UPDATE AVAILABLE</strong>
+{% endif %}
+</p>
+{% end %}

@@ -1,0 +1,51 @@
+{% setGlobal BodyClass %}{% end %}
+{% set DataSource %}%CONTROL_ACTION_DATASOURCE%{% end %}
+{% set Slugs.in %}%INPUT_SLUG%{% end %}
+{% set Elements.in %}%INPUT_ELEMENT%{% end %}
+{% begin contents %}
+{% template _header.cft %}
+
+<div id="app-sidebar">
+	<a href="/" onclick="$('.button-cancel').click(); return false;" class="back-link">Return</a>
+	<ul id="app-sub-menu"></ul>
+</div>
+
+<form method="post">
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>Nonce Mismatch!</h2>
+	</div>
+
+	<div id="app-content">
+		{% filter form-hiddenFormFields?fields=Global:NonceMismatch-Params %}
+
+		<div id="errors-row">
+			<div class="errors-messages">
+				<p>The form you attempted to save has expired.  This is typically caused by editing a record for longer than 12 hours without saving.<br/><br/>  <strong>IF YOU WERE NOT EDITING THIS RECORD, AND YOU ENCOUNTERED THIS ERROR BY MISTAKE, PLEASE CLICK CANCEL BELOW!</strong><br/><br/></p>
+
+
+				<p>Are you sure you want to submit your changes to <strong>{% if Data:Title %}%Title%{% else %}{% if Data:Name %}%Name%{% else %}this item{% endif %}{% endif %}</strong>?</p>
+				<br/><br/>
+			</div>
+		</div>
+
+	</div>
+	<div id="app-main-footer">
+		<div class="left">
+	  		<input tabindex="50" type="submit" class="button-save" name="b_saveandcontinue" value="Save" />
+		</div>
+
+		<div class="left">
+	  		<input class="button-cancel" tabindex="53" type="submit" name="b_cancel" value="Cancel" />
+		</div>
+  	</div>
+</div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //show buttons since there are no input fields to trigger a form change
+        $('#app-main-footer input').show();
+    });
+</script>
+{% template _footer.cft %}
+{% end %}

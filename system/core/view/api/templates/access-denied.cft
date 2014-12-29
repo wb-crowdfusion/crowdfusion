@@ -1,0 +1,25 @@
+{% /* JSON */ %}
+{% begin json-noresults %}
+{
+    "Errors" : [
+        {
+            "Code" : 401,
+            "Message" : "Unauthorized API Access"
+        }
+    ]
+}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-noresults %}
+<?xml version="1.0"?>
+<API>
+    <Errors>
+        <Error>
+            <Code>401</Code>
+            <Message>Unauthorized API Access</Message>
+        </Error>
+    </Errors>
+</API>
+{% end %}

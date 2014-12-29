@@ -1,0 +1,64 @@
+{% set DataSource %}node-find-all{% end %}
+
+{% /* JSON */ %}
+{% begin json-header %}
+{
+    "TotalRecords": {% filter json-encode?value=Global:TotalRecords %},
+    "Nodes": [
+{% end %}
+{% begin json-contents %}
+{% filter node-json-encode?keys=%INPUT_KEYS% %}
+{% end %}
+{% begin json-contents-inbetween %}
+,
+{% end %}
+{% begin json-footer %}
+    ]
+}
+{% end %}
+
+{% begin json-noresults %}
+    {% if Global:HasErrors %}
+    {
+        "Errors" : {% filter errors-api-json %}
+    }
+    {% else %}
+    {
+        "TotalRecords" : 0,
+        "Nodes" : []
+    }
+    {% endif %}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<API>
+    <TotalRecords>{% filter json-encode?value=Data:TotalRecords %}</TotalRecords>
+    <Nodes>
+{% end %}
+{% begin xml-contents %}
+{% filter node-xml-encode?keys=%INPUT_KEYS%&rootNodeName=Node %}
+{% end %}
+{% begin xml-footer %}
+    </Nodes>
+</API>
+{% end %}
+
+{% begin xml-noresults %}
+    {% if Global:HasErrors %}
+    <?xml version="1.0"?>
+    <API>
+        <Errors>
+            {% filter errors-api-xml %}
+        </Errors>
+    </API>
+    {% else %}
+    <?xml version="1.0"?>
+    <API>
+        <TotalRecords>0</TotalRecords>
+        <Nodes />
+    </API>
+    {% endif %}
+{% end %}

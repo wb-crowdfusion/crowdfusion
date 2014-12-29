@@ -1,0 +1,10 @@
+{% set DataSource %}dashboard-versions{% end %}
+
+{% begin contents %}
+
+<h4>Version Information</h4>
+<p>
+<strong>Crowd Fusion:</strong> v%CFVersion%<br/>
+<strong>Deployment:</strong> v%DeploymentRevision%<br/>
+</p>
+{% end %}

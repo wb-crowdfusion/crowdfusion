@@ -1,0 +1,34 @@
+{% set DataSource %}node-get{% end %}
+
+{% /* JSON */ %}
+{% begin json-contents %}
+{% filter node-json-encode?keys=%INPUT_KEYS% %}
+{% end %}
+
+{% begin json-noresults %}
+{
+    "Errors" : {% filter errors-api-json %}
+}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<NodeGet>
+{% end %}
+{% begin xml-contents %}
+{% filter node-xml-encode?keys=%INPUT_KEYS%&rootNodeName=Node %}
+{% end %}
+{% begin xml-footer %}
+</NodeGet>
+{% end %}
+
+{% begin xml-noresults %}
+<?xml version="1.0"?>
+<NodeGet>
+    <Errors>
+        {% filter errors-api-xml %}
+    </Errors>
+</NodeGet>
+{% end %}

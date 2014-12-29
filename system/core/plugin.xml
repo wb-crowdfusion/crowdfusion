@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<plugin
+    xmlns="http://www.crowdfusion.com/schema/plugin"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.crowdfusion.com/schema/plugin http://www.crowdfusion.com/schema/crowdfusion-plugin-2.0.xsd">
+    <info>
+        <title>Crowd Fusion Core</title>
+        <provider>Crowd Fusion Inc.</provider>
+        <description>Core service definitions for Crowd Fusion</description>
+        <priority>1</priority>
+        <version>1.0</version>
+        <locked>1</locked>
+    </info>
+
+    <permissions>
+        <permission slug="cms-view" title="View the CMS" />
+        <permission slug="all" title="All Permissions" />
+        <permission slug="sites-list" title="List Sites" />
+        <permission slug="plugins-list" title="List Plugins" />
+        <permission slug="plugins-edit" title="Edit Plugins" />
+        <permission slug="plugins-install" title="Install Plugins" />
+        <permission slug="plugins-uninstall" title="Uninstall Plugins" />
+        <permission slug="hotdeploy-toggle" title="Toggle Hot Deploy Mode" />
+        <permission slug="cache-edit" title="Edit Cache" />
+    </permissions>
+    <cmsnavitems>
+        <item label="Dashboard" sort_order="1" permissions="cms-view" uri="" />
+        <item label="Settings" sort_order="100" uri="plugins/" permissions="plugins-list">
+            <item label="Plugins" uri="plugins/" sort_order="20" permissions="plugins-list" />
+            <item label="Cache" uri="cache/" sort_order="70" permissions="cache-edit"/>
+        </item>
+    </cmsnavitems>
+</plugin>

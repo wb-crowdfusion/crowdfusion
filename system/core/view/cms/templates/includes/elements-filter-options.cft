@@ -1,0 +1,4 @@
+{% set DataSource %}elements-items{% end %}
+{% begin contents %}
+        <option value="%Slug%">%Name%</option>
+{% end %}

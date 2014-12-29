@@ -1,0 +1,28 @@
+{% set DataSource %}sites-items{% end %}
+
+{% begin header %}
+    {% if Data:DisplayRecords == 1 %}
+        <input type="hidden" name="%Field%" value="%Slug%"/>
+        <div>%Name%</div>
+    {% else %}
+        <select name="%Field%">
+    {% endif %}
+{% end %}
+{% begin contents %}
+    {% if Data:DisplayRecords == 1 %}
+
+    {% else %}
+
+        {% if Data:Slug !eq Data:ExcludeSlug %}
+            <option value="%Slug%" {% if Data:SelectedSlug eq Data:Slug %}selected="selected"{% endif %}>%Name%</option>
+        {% endif %}
+
+    {% endif %}
+{% end %}
+
+{% begin footer %}
+
+    {% if Data:DisplayRecords > 1 %}
+        </select>
+    {% endif %}
+{% end %}

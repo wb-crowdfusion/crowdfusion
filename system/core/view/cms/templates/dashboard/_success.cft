@@ -1,0 +1,17 @@
+{% set DataSource %}dashboard-successes{% end %}
+{% begin header %}
+        <div id="status-row">
+            <div class="status-messages">
+{% end %}
+
+{% begin contents %}
+        <p>%Message%</p>
+{% end %}
+
+{% begin footer %}
+            </div>
+        </div>
+{% end %}
+
+{% begin noresults %}
+{% end %}

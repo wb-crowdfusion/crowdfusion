@@ -1,0 +1,34 @@
+{% set DataSource %}node-get-tags{% end %}
+
+{% /* JSON */ %}
+{% begin json-contents %}
+{% filter json-encode?value=Data:Tags %}
+{% end %}
+
+{% begin json-noresults %}
+{
+    "Errors" : {% filter errors-api-json %}
+}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<NodeGetTags>
+{% end %}
+{% begin xml-contents %}
+{% filter node-xml-encode?keys=SiteSlug,ElementSlug,NodeSlug,Tag,Success&rootNodeName=Node %}
+{% end %}
+{% begin xml-footer %}
+</NodeGetTags>
+{% end %}
+
+{% begin xml-noresults %}
+<?xml version="1.0"?>
+<NodeGetTags>
+    <Errors>
+        {% filter errors-api-xml %}
+    </Errors>
+</NodeGetTags>
+{% end %}

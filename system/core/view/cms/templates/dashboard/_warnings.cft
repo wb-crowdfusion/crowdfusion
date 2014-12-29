@@ -1,0 +1,16 @@
+{% set DataSource %}dashboard-warnings{% end %}
+{% begin header %}
+
+        <div id="errors-row">
+
+{% end %}
+
+{% begin contents %}
+            <div class="errors">{% filter display?value=Data:Message %}</div>
+
+{% end %}
+
+{% begin footer %}
+        </div>
+
+{% end %}

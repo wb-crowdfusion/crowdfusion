@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        attributeFormDefault="unqualified"
+        elementFormDefault="qualified"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.crowdfusion.com/schema/aspect"
+        targetNamespace="http://www.crowdfusion.com/schema/aspect">
+    <xs:annotation xml:lang="en">
+        <xs:documentation xml:lang="en">
+            Aspect XML Schema
+            Crowd Fusion
+            Copyright (C) 2009 Crowd Fusion, Inc.
+            http://www.crowdfusion.com/
+
+            Redistribution and use in source and binary forms, with or without
+            modification, are permitted under the terms of the BSD License.
+
+            http://www.opensource.org/licenses/bsd-license.php BSD License
+        </xs:documentation>
+    </xs:annotation>
+    <xs:element name="aspect" type="aspectType"/>
+    <xs:complexType name="aspectType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This is the root element of the aspect descriptor file. The slug of the aspect is determined from
+                the name of this file.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="infoType" name="info" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="metadefsType" name="meta_defs" maxOccurs="1" minOccurs="0"/>
+            <xs:element type="tagdefsType" name="tag_defs" maxOccurs="1" minOccurs="0"/>
+            <!-- REMOVED PENDING SECTIONS xs:element type="sectiondefsType" name="section_defs" maxOccurs="1" minOccurs="0"/-->
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="sectiondefsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains the section definitions. Sections are repeatable blocks of metas and tags
+                for a record.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="title" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This element specifies the title of the section. This value is commonly used as a label on
+                        section widgets.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="metadefsType" name="meta_defs" maxOccurs="1" minOccurs="0"/>
+            <xs:element type="tagdefsType" name="tag_defs" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="slugType" name="id" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the unique identifier of the section. This attribute is usually the
+                    sluggified version of the section title.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="sortable" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if individual section entries are manually sortable using the section
+                    widget. Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:positiveInteger" name="min" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the minimum section entries allowed. Defaults to "0" if not specified.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:positiveInteger" name="max" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the maximum section entries allowed. Defaults to unlimited if not specified.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="infoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains the details which identify the aspect to the Crowd Fusion system.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="name" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The name of the aspect.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="description" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The description of the aspect. It is recommended to briefly describe the purpose
+                        of the aspect and how to utilize it with elements.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="elementmode" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The element mode of the aspect. Use the value 'many' if the aspect can be assigned
+                        to multiple elements. Use the value 'one' if the aspect should be assigned to only
+                        one element. Use the value 'anchored' if the aspect can only be assigned to an
+                        anchored element.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="many"/>
+                    <xs:enumeration value="one"/>
+                    <xs:enumeration value="anchored"/>
+                  </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tagdefsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains all the tag definitions for the aspect.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="tagType" name="tag" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="tagType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a tag.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="title" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This element specifies the title of the tag. This value is commonly used as a label on
+                        tag widgets.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="validationType" name="validation" maxOccurs="1" minOccurs="0"/>
+            <xs:element type="partialType" name="partial" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="valueoptionsType" name="value_options" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:boolean" name="quickadd" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if the tag widget will allow quick-adding of new items for this tag.
+                    Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="multiple" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if there can be more than one tag of this role on the record.
+                    Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="direction" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the direction of the tag relationship. Defaults to 'out'.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="in"/>
+                <xs:enumeration value="out"/>
+              </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="sortable" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if the tag is sortable. This allows drag-and-drop sorting in the tag widget.
+                    Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="filter" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies a filter to use when querying for nodes in the tag widget. Use this filter
+                    to restrict the scope of the search.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="fieldlike" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if the tag should be treated like a "first-class" field on the node.
+                    Defaults to "true".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="treeorigin" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if the tag relationship represents a tree (versus a flat list).
+                    If this attribute is "true", then the "multiple" attribute must be "false". Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="partialType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines the tag partial.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute type="slugType" name="element" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    Only nodes having the specified element are allowed to participate in the tag relationship.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="aspectSlugType" name="aspect" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    Only nodes having the specified aspect are allowed to participate in the tag relationship.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="roleSlugType" name="role" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute defines the role which tagged nodes fulfill. The role becomes the unique identifier
+                    for the tag. Tag roles must be unique for an element. The role should follow slug syntax.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="roledisplay" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the user-friendly version of the role. This is used for display purposes.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the value of the tag relationship. If multiple values are required, use
+                    the "value_options" child element.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="valueoptionsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This defines the value options for a tag.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="valueType" name="value" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="mode" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This defines the value mode. The default value is "none" which is the same as not specifying
+                    the "value_options" element at all. Specifying "predefined" mandates a list of pre-defined values
+                    be declared as children to this element.
+                    Specifying "typein" allows the user to enter a value when creating the tag (using the tag widget).
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="none"/>
+                    <xs:enumeration value="predefined"/>
+                    <xs:enumeration value="typein"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="multiple" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if the multiple values are permitted. Defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="valueType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element specifies the user-friendly title of a pre-defined value for a tag.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="value">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">
+                            This attribute specifies the pre-defined value for a tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="metadefsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains all the meta definitions for the aspect.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="metaType" name="meta" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="metaType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a meta.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="title" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This element specifies the title of the meta. This value is commonly used as an input label on
+                        forms within the CMS.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="validationType" name="validation" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="xs:string" name="default" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This element specifies the default value for the meta.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute type="roleSlugType" name="id" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the id of the meta. The id has to be unique among all metas
+                    for an element. The id must follow slug conventions and is usually a sluggified version of the Title.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="validationType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines the validation parameters for the tag.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="datatype" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the datatype of the value.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="int"/>
+                <xs:enumeration value="float"/>
+                <xs:enumeration value="string"/>
+                <xs:enumeration value="slug"/>
+                <xs:enumeration value="slugwithslash"/>
+                <xs:enumeration value="date"/>
+                <xs:enumeration value="boolean"/>
+                <xs:enumeration value="url"/>
+                <xs:enumeration value="html"/>
+                <xs:enumeration value="email"/>
+                <xs:enumeration value="flag"/>
+                <xs:enumeration value="binary"/>
+                <xs:enumeration value="json"/>
+              </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="nullable" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if the tag is required or not. Defaults to false.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="match" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies a regular expression that the value must match (unless it's allowed by another option).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="allowedtags" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies a comma-separated list of HTML tag to allow during HTML clean.
+                    Default: 'b,i,em,strong,a[href],p,br'
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="min" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the minimum string length or minimum scalar amount of the value.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:union memberTypes="xs:float xs:int"/>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="max" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the maximum string length or minimum scalar amount of the value.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:union memberTypes="xs:float xs:int xs:string"/>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:positiveInteger" name="precision" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the precision of the scalar value.  This is used as a hint to convert scalar
+                    values to more precise storage data types.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="unix" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute allows you to specify storage for dates using unix timestamp.  Default is true.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="dateonly" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute allows you to specify that time will not be configurable.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:simpleType name="slugType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-z0-9-]+"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="aspectSlugType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="@[a-z0-9-]+"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="256"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="roleSlugType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="#[a-z0-9-]+"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="256"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

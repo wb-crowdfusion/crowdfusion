@@ -1,0 +1,34 @@
+{% setGlobal BodyClass %}list{% end %}
+{% setGlobal BodyID %}plugins{% end %}
+
+{% begin noresults %}
+{% template _header.cft %}
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>Plugins</h2>
+	</div>
+
+	<div id="app-content">
+		<table class="data">
+			<tbody>
+				<tr>
+					<th class="first"><span>&nbsp;</span></th>
+                    <th><span>Title</span></th>
+                    <th><span>Slug</span></th>
+                    <th><span>Version</span></th>
+                    <th><span>Status</span></th>
+                    <th><span>Installed</span></th>
+                    <th><span>Locked</span></th>
+                    <th><span>Priority</span></th>
+				</tr>
+				{% template plugins/list-data.cft %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript" language="JavaScript">
+    List.updateOption('listDataTemplate','plugins/list-data.cft');
+    List.updateOption('listExpandTemplate','plugins/list-expand.cft');
+</script>
+{% template _footer.cft %}
+{% end %}

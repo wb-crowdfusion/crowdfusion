@@ -1,0 +1,54 @@
+{% setGlobal BodyClass %}{% end %}
+
+{% set DataSource %}cache-info{% end %}
+
+{% begin header %}
+
+{% template _header.cft %}
+
+<div id="app-sidebar">
+
+
+    <div class="sidebar-info">
+        <h3>&nbsp;</h3>
+    </div>
+
+
+</div>
+
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>Cache</h2>
+	</div>
+
+	<div id="app-content">
+
+{% end %}
+
+{% begin contents %}
+
+
+        <div class="static">
+            <p><a href="?action=cache-clear&b_save=true&store=%CacheStoreName%">Clear %CacheStoreName% - %ClassName%</a></p>
+        </div>
+
+
+{% end %}
+
+{% begin footer %}
+
+        <div class="static">
+            <p><a href="?action=cache-clear&b_save=true&store=all">Clear All</a></p>
+        </div>
+
+	</div>
+</div>
+{% template _footer.cft %}
+
+{% end %}
+
+{% begin noresults %}
+
+
+
+{% end %}

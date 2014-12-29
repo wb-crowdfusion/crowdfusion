@@ -1,0 +1,57 @@
+{% set DataSource %}system-localdate{% end %}
+
+{% /* JSON */ %}
+{% begin json-header %}
+{
+{% end %}
+{% begin json-contents %}
+    "Date"     : "%Date%",
+    "Time"     : "%Time%"
+{% end %}
+{% begin json-footer %}
+}
+{% end %}
+
+{% begin json-noresults %}
+    {% if Global:HasErrors %}
+    {
+        "Errors" : {% filter errors-api-json %}
+    }
+    {% endif %}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<System>
+    <LocalDate>{% end %}
+{% begin xml-contents %}
+        <Unix>%Unix%</Unix>
+        <Year>%Year%</Year>
+        <Month>%Month%</Month>
+        <Day>%Day%</Day>
+        <Hour>%Hour%</Hour>
+        <Minute>%Minute%</Minute>
+        <Second>%Second%</Second>
+        <Timezone>%Timezone%</Timezone>
+{% end %}
+{% begin xml-footer %}
+    </LocalDate>
+</System>
+{% end %}
+
+{% begin xml-noresults %}
+    {% if Global:HasErrors %}
+    <?xml version="1.0"?>
+    <System>
+        <Errors>
+            {% filter errors-api-xml %}
+        </Errors>
+    </System>
+    {% else %}
+    <?xml version="1.0"?>
+    <System>
+    </System>
+    {% endif %}
+{% end %}

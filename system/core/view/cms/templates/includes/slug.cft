@@ -1,0 +1,12 @@
+{% begin contents %}
+	<div id="slug-container{% if Data:NoUpdate eq '1' %}-noupdate{% endif %}">
+		<label for="Slug">URL:</label>
+		<input id="Slug" type="hidden" value="%Slug%" name="Slug"/>
+		<div>
+			%Site.BaseURL%/%Element.BaseURL%<span>{% if Data:Slug !eq '' %}%Slug%{% else %}(unknown){% endif %}</span>/
+		</div>
+	</div>
+
+    {% template includes/_js-slug.cft %}
+
+{% end %}

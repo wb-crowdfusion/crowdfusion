@@ -1,0 +1,33 @@
+{% setGlobal BodyClass %}{% end %}
+
+{% begin noresults %}
+{% template _header.cft %}
+
+<div id="app-sidebar">
+    <div class="sidebar-info">
+        <h3>&nbsp;</h3>
+        <ul>
+            <li class="separator">
+                {% template dashboard/_svn.cft %}
+            </li>
+
+            <li class="separator">
+                {% template dashboard/_versions.cft %}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>Dashboard</h2>
+	</div>
+
+	<div id="app-content">
+        {% template dashboard/_success.cft %}
+        {% template dashboard/_warnings.cft %}
+        {% template dashboard/_intro.mft %}
+	</div>
+</div>
+{% template _footer.cft %}
+{% end %}

@@ -1,0 +1,147 @@
+<?php
+/**
+ * NodeCacheInterface
+ *
+ * PHP version 5
+ *
+ * Crowd Fusion
+ * Copyright (C) 2009-2010 Crowd Fusion, Inc.
+ * http://www.crowdfusion.com/
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted under the terms of the BSD License.
+ *
+ * @package     CrowdFusion
+ * @copyright   2009-2010 Crowd Fusion Inc.
+ * @license     http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @version     $Id: NodeCacheInterface.php 2012 2010-02-17 13:34:44Z ryans $
+ */
+
+/**
+ * NodeCache: Stores nodes to cache
+ *
+ * @package     CrowdFusion
+ */
+interface NodeCacheInterface
+{
+    /**
+     * Returns the nodes specified by {@link $nodeRef} and {@link $slugs} from cache
+     *
+     * @param NodeRef $nodeRef The nodeRef that we'll used to find our stored nodes. Should not contain a Slug
+     * @param array   $slugs   An array of slugs that when combined with the NodeRef specifies the nodes to get
+     *
+     * @return array An array containing 2 items. First, an array of cachedSlugs and second an array of cachedRows.
+     */
+    public function getNodes(NodeRef $nodeRef, $slugs, $localOnly = false);
+
+    /**
+     * Stores a node to cache
+     *
+     * @param NodeRef $nodeRef The NodeRef of the node that's stored
+     * @param array   $row     An array containing our Node data
+     *
+     * @return void
+     */
+    public function putNode(NodeRef $nodeRef, $row, $localOnly = false);
+
+    /**
+     * Deletes the node specified by NodeRef from cache
+     *
+     * @param NodeRef $nodeRef The NodeRef of the node to remove
+     *
+     * @return void
+     */
+    public function deleteNode(NodeRef $nodeRef, $localOnly = false);
+
+    /**
+     * Retrieves the specified meta data from cache
+     *
+     * @param string $datatype The datatype of the meta data we'll retrieve
+     * @param array  $ids      An array like ['favorite-color' => 51, 'meta-id' => 52, $meta_id => $id, ...]
+     *
+     * @return array An array like [array $cachedIds, array $rows]
+     */
+    public function getMeta($datatype, array $ids, $localOnly = false);
+
+    /**
+     * Stores meta data to cache
+     *
+     * @param string $datatype      The datatype of the meta data
+     * @param array  $ids           An array containing $nodeStr's as keys and $id's as values
+     * @param array  $dbRowsToCache An array of $id's in $ids that should be cached
+     *
+     * @return void
+     */
+    public function putMeta($datatype, array $ids, array $dbRowsToCache, $localOnly = false);
+
+    /**
+     * Removes the specified meta item from cache
+     *
+     * @param string  $datatype The datatype of the meta item to remove
+     * @param NodeRef $nodeRef  The nodeRef for the node that we will remove meta data for
+     *
+     * @return void
+     */
+    public function deleteMeta($datatype, NodeRef $nodeRef, $localOnly = false);
+
+    /**
+     * Retrieves the specified tags from cache
+     *
+     * @param string $direction The cached tag direction. Should be 'in' or 'out'
+     * @param array  $ids       An array containing $nodeStr's as keys and $id's as values
+     *
+     * @return array An array like [array $cachedIds, array $rows]
+     */
+    public function getTags($direction, array $ids, $localOnly = false);
+
+    /**
+     * Stores the specified tags to cache
+     *
+     * @param string $direction     The direction of the tags we're caching. Should be 'in' or 'out'.
+     * @param array  $ids           An array containing $nodeStr's as keys and $id's as values. This is a list of all tags.
+     * @param array  $dbRowsToCache An array of $id's in $ids that we want to store to cache.
+     *
+     * @return void
+     */
+    public function putTags($direction, array $ids, array $dbRowsToCache, $localOnly = false);
+
+    /**
+     * Removes the cached tag data for the nodeRefs specified
+     *
+     * @param string  $direction The direction of the tags on $nodeRef to clear
+     * @param NodeRef $nodeRef   The nodeRef containing tags in {@link $direction} that we want to clear from cache
+     * @param NodeRef $nodeRef2  The corresponding opposite-direction NodeRef that we need to clear tags from
+     *
+     * @return void
+     */
+    public function deleteTags($direction, NodeRef $nodeRef,  NodeRef $nodeRef2, $localOnly = false);
+
+    /**
+     * Retrieves the specified sections from cache
+     *
+     * @param array $ids An array containing section-type's as keys and section-id's as values.
+     *
+     * @return array An array like [array $cachedIds, array $rows]
+     */
+//    public function getSections(array $ids);
+
+    /**
+     * Stores the specified sections to cache
+     *
+     * @param array $ids           An array containing section-type's as keys and section-id's as values.
+     * @param array $dbRowsToCache An array of section-id's in {@link $ids} that will be stored to cache.
+     *
+     * @return void
+     */
+//    public function putSections(array $ids, array $dbRowsToCache);
+
+    /**
+     * Removes sections for the specified NodeRef
+     *
+     * @param NodeRef $nodeRef The NodeRef to remove sections for
+     *
+     * @return void
+     */
+//    public function deleteSections(NodeRef $nodeRef);
+
+}

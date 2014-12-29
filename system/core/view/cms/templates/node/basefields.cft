@@ -1,0 +1,14 @@
+{% begin contents %}
+            <fieldset id="article-details" class="general-details">
+
+                <h3>%Element.Name% Details</h3>
+                <ul>
+                    {% template includes/title-slug.cft?inherit=true %}
+                </ul>
+                <ul>
+                    {% template includes/activedate.cft?inherit=true&width=half %}
+
+                    {% /* template includes/sortorder.cft?inherit=true&width=half */ %}
+                </ul>
+            </fieldset>
+{% end %}

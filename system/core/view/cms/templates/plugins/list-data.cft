@@ -1,0 +1,48 @@
+{% set DataSource %}plugins-items{% end %}
+{% begin contents %}
+<tr id="collapsed_%Slug%" class="collapsed">
+    <td>
+        {% if !Data:PathInvalid %} <a href="plugins/edit/%PluginID%" class="icon edit-icon" title="Edit Plugin">[edit]</a>{% endif %}
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#collapsed_%Slug%')
+                    .data('ElementSlug','')
+                    .data('SiteSlug','')
+                    .data('Slug','%Slug%')
+                    .data('Type','plugins')
+                    .data('RowID','%Slug%')
+            });
+        </script>
+    </td>
+    <td>%Title% {% if Data:PathInvalid %} <span class="error">directory missing!</span>{% endif %}</td>
+    <td>%Slug%</td>
+    <td>%Version% {% if Data:AutoUpgraded %}<span class="error">auto-upgraded</span>{% endif %}{% if Data:Installed eq 1 && Data:NewVersion %} <span class="error"><a href="?action=plugins-edit&a_upgrade=true&id=%PluginID%&action_nonce={% filter nonce?action=plugins-edit %}" title="Click to upgrade %Title% to %NewVersion%">(upgrade to %NewVersion%)</a></span>{% else %}
+     {% if Data:Installed && Data:Enabled && !Data:Locked %}(<a href="?action=plugins-edit&&a_upgrade=true&id=%PluginID%&action_nonce={% filter nonce?action=plugins-edit %}" title="Click to upgrade %Title%">upgrade</a>){% endif %}{% endif %}</td>
+    <td>
+    {% if Data:Installed %}
+        {% if Data:Enabled %}
+        Enabled {% if !Data:Locked %}(<a href="?action=plugins-edit&Enabled=0&b_save=true&id=%PluginID%&action_nonce={% filter nonce?action=plugins-edit %}" title="Click to disable %Title%">disable</a>){% endif %}
+        {% else %}
+        Disabled {% if !Data:Locked %}(<a href="?action=plugins-edit&Enabled=1&b_save=true&id=%PluginID%&action_nonce={% filter nonce?action=plugins-edit %}" title="Click to enable %Title%">enable</a>){% endif %}
+        {% endif %}
+    {% else %}
+    -
+    {% endif %}</td>
+    <td>
+        {% if Data:Installed %}
+        Installed {% if !Data:Locked %}(<a href="?action=plugins-edit&a_uninstall=true&id=%PluginID%&action_nonce={% filter nonce?action=plugins-edit %}" title="Click to uninstall %Title%">uninstall</a>){% endif %}
+        {% else %}
+        {% if !Data:PathInvalid %}<a href="?action=plugins-edit&a_install=true&id=%PluginID%&action_nonce={% filter nonce?action=plugins-edit %}" title="Click to install %Title%">Click to Install</a>{% endif %}
+        {% endif %}
+    </td>
+    <td>{% if Data:Locked %}Yes{% endif %}{% if !Data:Locked %}No{% endif %}</td>
+    <td>%Priority%</td>
+
+	{% if %Count% == 1 %}
+	<td class="total">%TotalRecords%</td>
+	{% endif %}
+</tr>
+{% end %}
+{% begin noresults %}
+{% end %}
+

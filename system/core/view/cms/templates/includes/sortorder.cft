@@ -1,0 +1,9 @@
+{% begin contents %}
+                    <li id="sort" class="input-{% if Data:width %}%width%{% else %}half{% endif %}-width">
+
+                        <label for="SortOrder">Sorting Value</label>
+                        <div>
+                            <input id="SortOrder" type="text" value="%SortOrder%" name="SortOrder" maxlength="255"/>
+                        </div>
+                    </li>
+{% end %}

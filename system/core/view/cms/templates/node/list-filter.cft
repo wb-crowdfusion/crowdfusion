@@ -1,0 +1,50 @@
+{% begin contents %}
+<div id="app-sidebar">
+    <form method="get" class="filter">
+        <h3>Filter Results</h3>
+
+    <ul>
+        <li class="separator">
+            <label for="search">Search Title</label>
+            <div class="clearableinput">
+                <input type="text" name="filter[Title.like]" autocomplete="off" id="search" onkeydown="var ev = event; var me = this; return keypressDelay(event, function() { List.filter(me, 'Title.like', $(me).val());});"/>
+                <a class="clearlink" href="#" onclick="clearSearchInput(event);">Clear</a>
+            </div>
+        </li>
+        <li>
+            <label for="element">Element</label>
+            <select id="element" name="filter[Elements.in]" onchange="List.filter(this, 'Elements.in', $(this).val()); return false">
+            <option value="">All Elements</option>
+                {% template includes/elements-filter-options.cft?IncludesAspect=%INPUT_ASPECT% %}
+            </select>
+        </li>
+        <li>
+            <label for="StatusFilter">Status</label>
+            <select id="StatusFilter" name="filter[Status.eq]" onchange="List.filter(this, 'Status.eq', $(this).val()); return false">
+                    <option value="deleted">Deleted</option>
+                    <option selected="selected" value="">Any status</option>
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+            </select>
+        </li>
+
+        <li class="filter-date">
+            <label for="ActiveAfter">Start Date</label>
+            <div class="clearabledate">
+                <input id="ActiveAfter" type="text" name="filter[ActiveDate.start]" value="" onchange="List.filter(this, 'ActiveDate.start', $(this).val()); return false;"/>
+                <a class="clearlink" href="#" onclick="clearSearchInput(event);">Clear</a>
+            </div>
+        </li>
+
+        <li class="filter-date separator">
+            <label for="ActiveBefore">End Date</label>
+            <div class="clearabledate">
+                <input id="ActiveBefore" type="text" name="filter[ActiveDate.end]" value="" onchange="List.filter(this, 'ActiveDate.end', $(this).val()); return false;"/>
+                <a class="clearlink" href="#" onclick="clearSearchInput(event);">Clear</a>
+            </div>
+        </li>
+    </ul>
+    <input type="image" src="{% asset version?src=/images/button_clear-results.png %}" name="clearfilter" value="Clear" onclick="List.clearFilters();  return false;" />
+    </form>
+</div>
+{% end %}

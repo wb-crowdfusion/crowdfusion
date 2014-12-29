@@ -1,0 +1,7 @@
+#app-header {
+    background: #3a4750 url(../css/themes/matrix-bg.jpg) repeat-x top left;
+    border-top: #000 5px solid;
+}
+
+#app-header #utilities #hot-deploy {
+}

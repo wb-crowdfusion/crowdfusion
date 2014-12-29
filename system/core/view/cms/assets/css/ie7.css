@@ -1,0 +1,34 @@
+
+#bulk-action-toolbar > div.current-selection > p {
+    display: inline;
+}
+
+#bulk-action-toolbar > div.action-tools > a.select-action {
+    cursor: pointer;
+}
+
+#bulk-action-toolbar > div.action-tools > a.confirm {
+    cursor: pointer;
+}
+
+#bulk-action-toolbar > div.action-tools > a.confirm > span {
+    cursor: pointer;
+}
+
+#bulk-progress > div > div.progress-bar {
+    position: relative;
+}
+
+#bulk-progress > div > div.result-output {
+    top: 15px;
+    margin-bottom: 0;
+}
+
+a.dp-now {
+	float: none !important;
+    display: inline !important;
+}
+
+a.dp-now:hover {
+    text-decoration: none;
+}

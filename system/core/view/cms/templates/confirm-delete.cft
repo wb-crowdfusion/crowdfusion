@@ -1,0 +1,64 @@
+{% setGlobal BodyClass %}edit{% end %}
+{% set DataSource %}%CONTROL_ACTION_ELEMENT%-single{% end %}
+{% set Elements.in %}%INPUT_ELEMENT%{% end %}
+{% set Slugs.in %}%INPUT_SLUG%{% end %}
+{% begin contents %}
+{% template _header.cft %}
+
+<div id="app-sidebar">
+	<a href="/" onclick="$('.button-cancel').click(); return false;" class="back-link">Return</a>
+	<ul id="app-sub-menu"></ul>
+</div>
+
+<form method="post">
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>Confirm This Deletion</h2>
+	</div>
+
+	<div id="app-content">
+		<input type="hidden" name="action" value="%CONTROL_ACTION_ELEMENT%-delete"/>
+		<input type="hidden" name="action_form_view" value="confirm-delete.cft"/>
+		<input type="hidden" name="action_nonce" value="{% filter nonce?action=%CONTROL_ACTION_ELEMENT%-delete %}" />
+		<input type="hidden" name="Slug" value="%Slug%" />
+
+		<div id="errors-row">
+		{% if Global:HasErrors %}
+			<div class="errors">Warning! There was an error in your data. Please correct the fields below and try again.</div>
+			<div class="errors-messages">
+			{% filter errors %}
+			</div>
+		{% else %}
+			<div class="errors-messages">
+				<p>Are you sure you want to delete <strong>
+					{% if Data:DeleteDisplay %}
+						%DeleteDisplay%
+					{% else %}
+						{% if Data:Title %}%Title%{% else %}%Name%{% endif %}
+					{% endif %}
+
+					</strong> and any related records?</p>
+                {% if %CONTROL_ACTION_ELEMENT% eq 'node' %}
+				    {% template _reassign-delete.cft %}
+				{% endif %}
+				<br/><br/>
+			</div>
+		{% endif %}
+		</div>
+
+	</div>
+	<div id="app-main-footer">
+	    {% if !Global:HasErrors %}
+		<div class="left">
+	  		<input tabindex="52" type="submit" class="button-delete" name="b_save" value="Delete" />
+		</div>
+		{% endif %}
+
+		<div class="left">
+	  		<input class="button-cancel" tabindex="53" type="submit" name="b_cancel" value="Cancel" />
+		</div>
+  	</div>
+</div>
+</form>
+{% template _footer.cft %}
+{% end %}

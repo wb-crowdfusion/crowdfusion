@@ -1,0 +1,63 @@
+{% set DataSource %}system-storagedate{% end %}
+
+{% /* JSON */ %}
+{% begin json-header %}
+{
+{% end %}
+{% begin json-contents %}
+    "Unix"     : "%Unix%",
+    "Year"     : "%Year%",
+    "Month"    : "%Month%",
+    "Day"      : "%Day%",
+    "Hour"     : "%Hour%",
+    "Minute"   : "%Minute%",
+    "Second"   : "%Second%",
+    "Timezone" : "%Timezone%"
+{% end %}
+{% begin json-footer %}
+}
+{% end %}
+
+{% begin json-noresults %}
+    {% if Global:HasErrors %}
+    {
+        "Errors" : {% filter errors-api-json %}
+    }
+    {% endif %}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<System>
+    <StorageDate>{% end %}
+{% begin xml-contents %}
+        <Unix>%Unix%</Unix>
+        <Year>%Year%</Year>
+        <Month>%Month%</Month>
+        <Day>%Day%</Day>
+        <Hour>%Hour%</Hour>
+        <Minute>%Minute%</Minute>
+        <Second>%Second%</Second>
+        <Timezone>%Timezone%</Timezone>
+{% end %}
+{% begin xml-footer %}
+    </StorageDate>
+</System>
+{% end %}
+
+{% begin xml-noresults %}
+    {% if Global:HasErrors %}
+    <?xml version="1.0"?>
+    <System>
+        <Errors>
+            {% filter errors-api-xml %}
+        </Errors>
+    </System>
+    {% else %}
+    <?xml version="1.0"?>
+    <System>
+    </System>
+    {% endif %}
+{% end %}

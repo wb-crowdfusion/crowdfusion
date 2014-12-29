@@ -1,0 +1,35 @@
+{% begin contents %}
+    <script language="JavaScript" type="text/javascript">
+
+    $(document).ready(function() {
+
+		$('form').bind('submit', function(e) {
+			if($('input#slug-editor').length > 0 && !confirm("You haven't saved the slug! Continue?"))
+            {
+                document.madeChanges = true;
+                document.formSubmitting = false;
+
+                return false;
+            }
+        } );
+
+		    $('input.slug-update').blur(function() {
+    			if($.data(this,'events')['slug_update']) {
+    				$(this).trigger('slug_update');
+    			} else {
+    				SlugHelper.update(this.value);
+    			}
+    		});
+
+    		$('#slug-container').each(function(i,e) {
+
+                var slugEdit = $('<a href="#">edit</a>').click(SlugHelper.toggleField);
+                $(this).append(slugEdit);
+
+    		});
+
+
+        });
+
+	</script>
+{% end %}

@@ -1,0 +1,52 @@
+{% set DataSource %}%CONTROL_ACTION_ELEMENT%-single{% end %}
+{% set Slugs.in %}%INPUT_SLUG%{% end %}
+{% set Elements.in %}%INPUT_ELEMENT%{% end %}
+{% begin contents %}
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    document.taggableRecord = new NodeObject({% filter node-json-encode?keys=Slug,Title,Status,ActiveDate,CreationDate,ModifiedDate,SortOrder,OutTags,InTags,Metas,NodeRef,Element,Site,RecordLink,Cheaters %});
+    document.sectionableRecord = document.taggableRecord;
+
+    var partial = new TagPartial("%INPUT_ELEMENT%#merge");
+
+	document.tagFormManager = new TagFormManager(
+		document.taggableRecord,
+		'form'
+	);
+
+	document.taggableRecord.bind(Taggable.EVENTS.TAGS_UPDATED,function(){
+        var tags = document.taggableRecord.getOutTags();
+        $.each(tags,function(i,e){
+            if(e.TagSlug == '%INPUT_SLUG%') {
+                document.taggableRecord.removeTags(Tag.DIRECTION.OUT,partial);
+                alert("You cannot select the record you are attempting to delete as the target of a merge operation. Please select a different record.");
+            }
+        });
+	});
+
+	new NodeTagWidget(
+		document.taggableRecord,
+		partial,
+		"#newpage",
+		{
+			Label : "Chosen Record",
+			ActivateButtonLabel : "Record",
+			AllowMultiple : false,
+			AllowQuickAdd : false,
+			AllowClearChosenList : false,
+			ShowLabelWhenEmpty: false,
+			ShowSlugInSearchResults: true,
+			SearchParameters : { 'Elements.in' : '%INPUT_ELEMENT%' }
+		}
+	);
+
+	document.taggableRecord.init();
+});
+</script>
+<p><br/>Optionally, you can also reassign anything tagged to this deleted record to another existing record:</p>
+
+<div><br/><div id="newpage"></div></div>
+
+{% end %}

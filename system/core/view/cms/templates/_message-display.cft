@@ -1,0 +1,21 @@
+{% begin contents %}
+
+	{% if Data:FLASH_SAVED %}
+	<div id="status-row">
+		<div class="status-messages">
+			Success! The changes have been saved.
+		</div>
+	</div>
+	{% endif %}
+
+	{% if Global:HasErrors %}
+	<div id="errors-row">
+		<div class="errors">Warning! There was an error in your data. Please correct the fields below and try again.</div>
+		<div class="errors-messages">
+		{% filter errors %}
+		</div>
+	</div>
+
+	{% endif %}
+
+{% end %}

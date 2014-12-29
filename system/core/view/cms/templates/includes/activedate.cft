@@ -1,0 +1,12 @@
+{% begin contents %}
+    <li id="publish-date" class="input-{% if Data:width %}%width%{% else %}half{% endif %}-width">
+        <label for="PublishDate">Active Date</label>
+        <div id="PublishDate-holder">
+            <input id="PublishDate" type="text" value="{% filter date?value=Data:ActiveDate&format=Y-m-d H:i:s %}" name="ActiveDate"  tabindex="%TabIndex%" />
+        </div>
+
+        <script type="text/JavaScript">
+            new DateWidget('PublishDate', '{% if Data:INPUT_ACTIVEDATEDATE %}%INPUT_ACTIVEDATEDATE%{% else %}{% filter date?value=Data:ActiveDate&format=Y-m-d %}{% endif %}', '{% if Data:INPUT_ACTIVEDATETIME %}%INPUT_ACTIVEDATETIME%{% else %}{% filter date?value=Data:ActiveDate&format=g:i A %}{% endif %}');
+        </script>
+    </li>
+{% end %}

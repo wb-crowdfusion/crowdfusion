@@ -1,0 +1,77 @@
+input.hasDatepicker {
+    margin-right: 5px;
+}
+
+.ui-datepicker {
+    background-color: white;
+    border: 1px solid #aaa;
+    color: #222;
+    font-family: Verdana,sans-serif;
+    font-size: 10px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 2px;
+    display: none;
+    z-index: 30000;
+}
+
+.ui-datepicker-header {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 2px 0;
+    background-color: #ccc;
+    border: 1px solid #aaa;
+    font-weight: bold;
+}
+
+.ui-datepicker-header a {
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.ui-datepicker-title {
+    text-align: center;
+}
+
+.ui-datepicker-prev {
+    float: left;
+}
+
+.ui-datepicker-next {
+    float: right;
+}
+
+.ui-datepicker a {
+    text-decoration: none;
+
+}
+
+.ui-datepicker-calendar td, .ui-datepicker-calendar th {
+    text-align: right;
+}
+
+.ui-datepicker-calendar th {
+    text-align: center;
+    padding: 7px 3px;
+}
+
+.ui-datepicker-calendar td a.ui-state-default {
+    border: 1px solid #D3D3D3;
+    display: block;
+    color: #555;
+    background-color: #e6e6e6;
+    padding: 2px 3px 1px 3px;
+}
+
+.ui-datepicker-calendar td a.ui-state-hover {
+    border-color: #999;
+    color: #212121;
+
+}
+
+.ui-datepicker-calendar td.ui-datepicker-current-day a {
+    background-color: #fbf9ee;
+    border-color: #FCEFA1;
+    color: #363636;
+
+}

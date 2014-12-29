@@ -1,0 +1,169 @@
+{% set DataSource %}plugins-single{% end %}
+{% set Slug %}%INPUT_SLUG%{% end %}
+{% setGlobal BodyClass %}edit{% end %}
+
+{% begin contents %}
+{% template _header.cft %}
+<div id="app-sidebar">
+	<a href="plugins/" class="back-link">Return to Plugins List</a>
+	<ul id="app-sub-menu"></ul>
+</div>
+<form method="post">
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>Manage Plugin</h2>
+	</div>
+
+	<div id="app-content">
+
+        {% template _message-display.cft %}
+
+		<fieldset id="article-details" class="general-details">
+
+	  	    <h3>Plugin Details</h3>
+	  	    <ul>
+				<li id="page-title" class="input-full-width">
+					<label for="Title">Title</label>
+					<div>
+						<input id="Title" type="text" value="%Title%" disabled="true" name="Title"
+							{% if Data:ActiveDate > Data:PublishDate %}class="slug-update"{% endif %} maxlength="255"/>
+	      			</div>
+				</li>
+			</ul>
+			<ul>
+				<li class="input-full-width">
+				    <label>Description</label>
+				    <div><textarea disabled="true">%Description%</textarea></div>
+				</li>
+            </ul>
+            <ul>
+				<li class="input-quarter-width">
+				    <label>Status</label>
+				    <div><strong>
+                        {% if !Data:Installed %}
+                        Not Installed /
+                        {% endif %}
+                        {% if Data:Installed %}
+                        Installed /
+                        {% endif %}
+                        {% if Data:Status eq 'disabled' %}
+                        Disabled
+                        {% endif %}
+                        {% if Data:Status eq 'enabled' %}
+                        Enabled
+                        {% endif %}
+                        {% if !Data:Status %}
+                        -
+                        {% endif %}
+				    </strong></div>
+				</li>
+				<li class="input-quarter-width">
+				    <label>Slug</label>
+				    <div><input disabled="true" type="text" name="" maxlength="255" value="%Slug%"/></div>
+				</li>
+            </ul>
+            <ul>
+				<li class="input-half-width">
+				    <label>Provider</label>
+				    <div><input disabled="true" type="text" name="" maxlength="255" value="%Provider%"/></div>
+				</li>
+            </ul>
+            <ul>
+				<li class="input-quarter-width">
+				    <label>Version</label>
+				    <div><input disabled="true" type="text" name="" maxlength="255" value="%Version%"/></div>
+				</li>
+				<li class="input-quarter-width">
+				    <label>Priority</label>
+				    <div><input {% if Data:Locked %}disabled="true"{% endif %} type="text" name="" maxlength="255" value="%Priority%"/></div>
+				</li>
+				<li class="input-quarter-width controlset">
+				    <span class="label"> </span>
+				    <div>
+				    <input disabled="disabled" type="checkbox" {% if Data:Locked %}checked="checked"{% endif %}/>
+				    <label>Locked</label>
+				    </div>
+				</li>
+			</ul>
+            <ul>
+				<li class="input-full-width">
+				    <label>Path</label>
+				    <div><input disabled="true" type="text" name="" value="%Path%"/></div>
+				</li>
+            </ul>
+		</fieldset>
+		<fieldset id="plugin-aspects">
+		    <h3>Aspects</h3>
+		    <ul>
+		        <li>
+		            <div></div>
+		        </li>
+		    </ul>
+		</fieldset>
+		<fieldset id="plugin-elements">
+		    <h3>Elements</h3>
+		    <ul>
+		        <li>
+		            <div></div>
+		        </li>
+		    </ul>
+		</fieldset>
+		<fieldset id="plugin-permissions">
+		    <h3>Permissions</h3>
+		    <ul>
+		        <li>
+		            <div></div>
+		        </li>
+		    </ul>
+		</fieldset>
+		<fieldset id="plugin-cmsnavitems">
+		    <h3>CMS Navigation Items</h3>
+		    <ul>
+		        <li>
+		            <div></div>
+		        </li>
+		    </ul>
+		</fieldset>
+		<fieldset id="plugin-prefs">
+		    <h3>Preferences</h3>
+		    <ul>
+		        <li>
+		            <div></div>
+		        </li>
+		    </ul>
+		</fieldset>
+	</div>
+
+  	<div id="app-main-footer">
+		<div class="left">
+            {% if !Data:Installed %}
+            <!--input type="hidden" name="action" value="plugins-install"/-->
+            <input type="submit" class="button-install" name="a_install" value="Install" />
+            {% endif %}
+		    {% if !Data:Locked %}
+		        {% if Data:Installed %}
+    	  		<input type="submit" class="button-install" name="a_uninstall" value="Uninstall" />
+                <input type="submit" class="button-install" name="a_uninstallPurge" value="Purge" />
+	  		    {% endif %}
+		        {% if Data:Status eq 'disabled' %}
+    	  		<input type="submit" class="button-enable" name="a_enable" value="Enable" />
+	  		    {% endif %}
+		        {% if Data:Status eq 'enabled' %}
+	      		<input type="submit" class="button-enable" name="a_disable" value="Disable" />
+	  		    {% endif %}
+	  		{% endif %}
+	  		{% if Data:NewVersion %}
+	  		<input type="submit" class="button-upgrade" name="a_upgrade" value="Upgrade" />
+	  		{% endif %}
+		</div>
+
+		<div class="left">
+	  		<input class="button-cancel" type="submit" name="b_cancel" value="Cancel" />
+		</div>
+
+        <input type="hidden" name="path" value="%Path%"/>
+  	</div>
+</div>
+</form>
+{% template _footer.cft %}
+{% end %}

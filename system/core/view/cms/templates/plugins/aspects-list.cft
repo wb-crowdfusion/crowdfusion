@@ -1,0 +1,18 @@
+{% begin header %}
+<div class="list">
+<h5>Defined Aspects:</h5>
+<ul>
+{% end %}
+
+{% begin contents %}
+    <li>
+        %Name% {% if Data:Description %}(%Description%) {% endif %}<a href="#" onclick="preventDefault(event);$(event.target||event.srcElement).next().toggle();List.adjustExpandedHeight();">schema &raquo;</a>
+        <code style="display:none;">{% filter xml-pretty?value=%XMLSchema% %}</code>
+    </li>
+{% end %}
+
+{% begin footer %}
+</ul>
+</div>
+{% end %}
+{% begin noresults %}{% end %}

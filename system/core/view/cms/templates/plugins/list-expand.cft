@@ -1,0 +1,47 @@
+{% set DataSource %}plugins-single{% end %}
+{% set id %}%INPUT_ID%{% end %}
+{% set IncludeAspects %}true{% end %}
+
+{% begin contents %}
+<tr id="expanded_%Slug%" class="expanded">
+	<td colspan="8">
+
+		<div class="expanded-wrapper">
+            <div class="expanded-contents">
+                <h3>%Provider% - %Title%</h3>
+                <p class="excerpt">%Description% <a href="%Homepage%" target="_blank" title="Visit Plugin Homepage">homepage &raquo;</a></p>
+                {% template plugins/aspects-list.cft?data=Data:Aspects %}
+                {% if Data:Path %}
+                    <h5>Path</h5>
+                    <code>%Path%</code>
+                {% endif %}
+                {% if Data:License %}
+                    <h5>License</h5>
+                    <code>%License%</code>
+                {% endif %}
+                {% if Data:Dependencies %}
+                    <h5>Dependencies</h5>
+                    <code>%Dependencies%</code>
+                {% endif %}
+                {% if Data:CfVersions %}
+                    <h5>CrowdFusion Compatibility</h5>
+                    <code>%CfVersions%</code>
+                {% endif %}
+            </div>
+		</div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#expanded_%Slug%')
+                    .data('ElementSlug','')
+                    .data('SiteSlug','')
+                    .data('Slug','%Slug%')
+                    .data('Type','plugins')
+                    .data('RowID','%Slug%')
+            });
+        </script>
+	</td>
+
+</tr>
+{% end %}
+{% begin noresults %}
+{% end %}

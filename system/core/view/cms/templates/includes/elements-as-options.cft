@@ -1,0 +1,6 @@
+{% set DataSource %}elements-items{% end %}
+{% begin contents %}
+    {% if Data:ElementID !eq Data:ExcludeID %}
+        <option value="{% if Data:Value eq 'Slug' %}%Slug%{% else %}%ElementID%{% endif %}" {% if %SelectedID% eq %ElementID% %}selected="selected"{% endif %}>%Name%</option>
+    {% endif %}
+{% end %}

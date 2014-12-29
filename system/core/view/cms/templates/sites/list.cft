@@ -1,0 +1,29 @@
+{% setGlobal BodyClass %}list{% end %}
+{% setGlobal BodyID %}sites{% end %}
+
+{% begin noresults %}
+{% template _header.cft %}
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>Sites</h2>
+	</div>
+
+	<div id="app-content">
+		<table class="data">
+			<tbody>
+				<tr>
+                    <th><a id="SortName" onclick="List.sort(this, 'Name', 'ASC'); return false;" href="sites/?{% filter cms-sorting-link?field=Name&order=ASC %}" title="Sort by Name">Name</a></th>
+                    <th><a id="SortSlug" onclick="List.sort(this, 'Slug', 'ASC'); return false;" href="sites/?{% filter cms-sorting-link?field=Slug&order=ASC %}" title="Sort by Slug">Slug</a></th>
+                    <th><a id="SortDomain" onclick="List.sort(this, 'Domain', 'ASC'); return false;" href="sites/?{% filter cms-sorting-link?field=Domain&order=ASC %}" title="Sort by Domain">Domain</a></th>
+				</tr>
+				{% template sites/list-data.cft %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript" language="JavaScript">
+    List.updateOption('listDataTemplate','sites/list-data.cft');
+    List.updateOption('listExpandTemplate','sites/list-expand.cft');
+</script>
+{% template _footer.cft %}
+{% end %}

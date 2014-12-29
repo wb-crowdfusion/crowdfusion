@@ -1,0 +1,63 @@
+table {
+	border-collapse: collapse;
+}
+form li.input-quarter-width {
+	width: 24%;
+}
+
+form li.input-eighth-width {
+	width: 11.5%;
+}
+
+form li.input-quarter-clear {
+	width: 24.5%;
+}
+
+form li.input-half-width {
+	width: 49.5%;
+}
+
+form li.input-threequarters-width {
+	width: 74.5%;
+}
+
+form li.input-half-clear {
+	width: 49.5%;
+}
+
+#app-sidebar .filter li.filter-date,
+form fieldset ul,
+.tw-val-choicelist,
+.tw-resultscount,
+#app-content li.content-editor ul.tabs {
+	height: 1%;
+}
+
+.tag-widget a.tw-cancelsearchlink, .tag-widget .tw-input .tw-clearsearchlink {
+	top: 6px;
+}
+div.expanded-side {
+	margin-left: -424px;
+}
+.expanded-wrapper {
+	width: 97%;
+}
+#app-content li.content-editor div.sidepane {
+	margin-left: -250px !important;
+}
+
+#tasks-main2 {
+	height: 250px;
+	min-height: none !important;
+	position: relative;
+	max-height: 250px !important;
+}
+
+#tasks-main2 table {
+	width: 97%;
+}
+
+#clickshield {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75); /* IE7 */
+}

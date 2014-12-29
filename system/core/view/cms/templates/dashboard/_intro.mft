@@ -1,0 +1,9 @@
+{% begin contents %}
+
+<div class="static" markdown="1">
+
+## Dashboard Intro
+
+</div>
+
+{% end %}

@@ -1,0 +1,34 @@
+{% set DataSource %}node-delete{% end %}
+
+{% /* JSON */ %}
+{% begin json-contents %}
+{% filter node-json-encode?keys=%INPUT_KEYS% %}
+{% end %}
+
+{% begin json-noresults %}
+{
+    "Errors" : {% filter errors-api-json %}
+}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<NodeDelete>
+{% end %}
+{% begin xml-contents %}
+{% filter node-xml-encode?keys=%INPUT_KEYS%&rootNodeName=Node %}
+{% end %}
+{% begin xml-footer %}
+</NodeDelete>
+{% end %}
+
+{% begin xml-noresults %}
+<?xml version="1.0"?>
+<NodeDelete>
+    <Errors>
+        {% filter errors-api-xml %}
+    </Errors>
+</NodeDelete>
+{% end %}

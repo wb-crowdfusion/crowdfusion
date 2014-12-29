@@ -1,0 +1,34 @@
+{% set DataSource %}node-undelete{% end %}
+
+{% /* JSON */ %}
+{% begin json-contents %}
+{% filter node-json-encode?keys=SiteSlug,ElementSlug,NodeSlug,Success %}
+{% end %}
+
+{% begin json-noresults %}
+{
+    "Errors" : {% filter errors-api-json %}
+}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<NodeUndelete>
+{% end %}
+{% begin xml-contents %}
+{% filter node-xml-encode?keys=SiteSlug,ElementSlug,NodeSlug,Success&rootNodeName=Node %}
+{% end %}
+{% begin xml-footer %}
+</NodeUndelete>
+{% end %}
+
+{% begin xml-noresults %}
+<?xml version="1.0"?>
+<NodeUndelete>
+    <Errors>
+        {% filter errors-api-xml %}
+    </Errors>
+</NodeUndelete>
+{% end %}

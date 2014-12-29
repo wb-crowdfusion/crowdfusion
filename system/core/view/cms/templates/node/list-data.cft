@@ -1,0 +1,48 @@
+{% set DataSource %}node-items{% end %}
+{% set Elements.in %}@%INPUT_ASPECT%{% end %}
+{% set MaxRows %}%INPUT_MAXROWS%{% end %}
+{% set Offset %}%INPUT_OFFSET%{% end %}
+
+{% begin contents %}
+<tr id="collapsed_%NodeRef.AsSafeSlug%" class="collapsed {% if Data:Status eq 'deleted' %} deleted{% else %}{% if Data:Status eq 'draft' %} draft{% else %}{% if Data:ActiveDate > Data:TIME %} queued{% endif %}{% endif %}{% endif %}">
+    <td><input type="checkbox" class="bulk-action-id" name="bulk-action-id" onclick="BulkActionToolbar.toggleRecord(this)"/>
+         {% if Data:Status eq 'deleted' %}
+            {% if permission-pass-node?action=undelete %}
+              <a href="%INPUT_ASPECT%/undelete/%Element.Slug%/%Slug%/?filter[Status.eq]=deleted&b_save=true" class="icon undelete-icon" title="Undelete"
+                onclick="return confirm('This will un-delete the record and reset it to draft. Continue?');">[undelete]</a>
+            {% endif %}
+        {% else %}
+            {% if permission-pass-node?action=edit %}
+            <a href="%INPUT_ASPECT%/edit/%Element.Slug%/%Slug%/" class="icon edit-icon" title="Edit">[edit]</a>
+            {% endif %}
+            {% if permission-pass-node?action=add %}
+            <a href="%INPUT_ASPECT%/duplicate/%Element.Slug%/%Slug%/" class="icon clone-icon" title="Clone"
+                onclick="if(!confirm('Are you sure you\'d like to duplicate this record?')){preventDefault(event);}">[clone]</a>
+            {% endif %}
+        {% endif %}
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#collapsed_%NodeRef.AsSafeSlug%')
+                    .data('ElementSlug','%Element.Slug%')
+                    .data('SiteSlug','%Site.Slug%')
+                    .data('Aspect','%INPUT_ASPECT%')
+                    .data('Slug','%Slug%')
+                    .data('Type','node')
+                    .data('RowID','%NodeRef.AsSafeSlug%')
+            });
+        </script>
+    </td>
+    <td>%Title% &nbsp; <a href="%RecordLink%" target="_blank">{% if Data:ActiveDate > Data:TIME %}pre{% endif %}view&nbsp;&raquo;</a></td>
+    <td>%Slug%</td>
+    {% if elements-num-having-aspect?aspect=Data:INPUT_ASPECT > 1 %}
+    <td>{% filter display-non-breaking?value=Data:Element.Name %}</td>
+    {% endif %}
+    <td>{% filter date?value=Data:ActiveDate&format=M j, Y g:i A T&nonbreaking=true %}</td>
+
+    {% if Data:Count == 1 %}
+    <td class="total">%TotalRecords%</td>
+    {% endif %}
+</tr>
+{% end %}
+{% begin noresults %}
+{% end %}

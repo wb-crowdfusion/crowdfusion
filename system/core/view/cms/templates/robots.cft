@@ -1,0 +1,5 @@
+{% set CacheTime %}86400{% end %}
+{% begin txt-contents %}
+User-agent: *
+Disallow: /
+{% end %}

@@ -1,0 +1,52 @@
+{% begin contents %}
+    <div>
+        {% if Data:Status eq 'draft' %}
+
+            {% if permission-pass-node?action=publish %}
+            <input id="Status" type="checkbox" name="Status" value="published" {% if Data:Status eq 'published' %}checked="checked"{% endif %} /> <label for="Status">Published</label>
+            <input type="hidden" name="_Status" value="draft"/>
+            {% else %}
+            <input type="hidden" id="Status" name="Status" value="%Status%"/>
+            <label for="Status">{% if Data:Status eq 'published' %}Published{% else %}Draft{% endif %}</label>
+            {% endif %}
+
+        {% else %}
+
+            {% if permission-pass-node?action=unpublish %}
+            <input id="Status" type="checkbox" name="Status" value="published" {% if Data:Status eq 'published' %}checked="checked"{% endif %} /> <label for="Status">Published</label>
+            <input type="hidden" name="_Status" value="draft"/>
+            {% else %}
+            <input type="hidden" id="Status" name="Status" value="%Status%"/>
+            <label for="Status">{% if Data:Status eq 'published' %}Published{% else %}Draft{% endif %}</label>
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+    <script language="JavaScript" type="text/javascript">
+
+    $(document).ready(function() {
+
+            var updateStatus = function(e) {
+
+                var status = $('#status-header');
+                // Remove any status classes
+                status.removeClass('draft');
+                status.removeClass('published');
+
+                // Add the selected status class
+                if(($(e.target).attr('checked') && e.target.checked) || ($(e.target).attr('type') == 'hidden' && $(e.target).val() == 'published')) {
+                    status.addClass('published');
+                } else {
+                    status.addClass('draft');
+                }
+            };
+            $('#Status').bind('upd', updateStatus).change(updateStatus).trigger('upd');
+
+
+        });
+
+	</script>
+
+{% end %}

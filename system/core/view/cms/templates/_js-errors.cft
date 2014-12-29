@@ -1,0 +1,6 @@
+{% begin contents %}
+	{% if Data:ErrorFields %}
+	Edit.setErrorFields({% filter json-encode?value=Data:ErrorFields %});
+	Edit.highlightErrorFields();
+	{% endif %}
+{% end %}

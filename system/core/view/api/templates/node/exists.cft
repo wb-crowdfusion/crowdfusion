@@ -1,0 +1,34 @@
+{% set DataSource %}node-exists{% end %}
+
+{% /* JSON */ %}
+{% begin json-contents %}
+{% filter node-json-encode?keys=SiteSlug,ElementSlug,NodeSlug,Exists %}
+{% end %}
+
+{% begin json-noresults %}
+{
+    "Errors" : {% filter errors-api-json %}
+}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<NodeExists>
+{% end %}
+{% begin xml-contents %}
+{% filter node-xml-encode?keys=SiteSlug,ElementSlug,NodeSlug,Exists&rootNodeName=Node %}
+{% end %}
+{% begin xml-footer %}
+</NodeExists>
+{% end %}
+
+{% begin xml-noresults %}
+<?xml version="1.0"?>
+<NodeExists>
+    <Errors>
+        {% filter errors-api-xml %}
+    </Errors>
+</NodeExists>
+{% end %}

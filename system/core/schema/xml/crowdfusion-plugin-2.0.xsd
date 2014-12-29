@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        attributeFormDefault="unqualified"
+        elementFormDefault="qualified"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.crowdfusion.com/schema/plugin"
+        targetNamespace="http://www.crowdfusion.com/schema/plugin">
+    <xs:annotation xml:lang="en">
+        <xs:documentation xml:lang="en">
+            Plugin XML Schema
+            Crowd Fusion
+            Copyright (C) 2009 Crowd Fusion, Inc.
+            http://www.crowdfusion.com/
+
+            Redistribution and use in source and binary forms, with or without
+            modification, are permitted under the terms of the BSD License.
+
+            http://www.opensource.org/licenses/bsd-license.php BSD License
+        </xs:documentation>
+    </xs:annotation>
+    <xs:element name="plugin" type="pluginType"/>
+    <xs:complexType name="cmsnavitemsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains the set of CMS navigation items provided by the plugin.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="itemType" name="item" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="permissionsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains the set of permissions provided by this plugin.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="permissionType" name="permission" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="infoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains the details which identify the plugin to
+                the Crowd Fusion system and amongst other versions of the same plugin.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="title" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The title of the plugin.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="provider" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The provider name of the plugin. This is usually the organization or individual
+                        holding the rights to distribute the plugin.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="description" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The description of the plugin. It is recommended to briefly describe the purpose
+                        of the plugin and what the plugin provides.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:positiveInteger" name="priority" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The priority of the plugin is a positive integer. Plugins with a higher priority
+                        are loaded last; allowing the opportunity to override plugins with a lower priority.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="versionType" name="version" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The version of the plugin follows the standard numeric dot notation. For example:
+                        1.0, 1.1, 1.0.1, 0.9
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="license" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        It is recommended to include a license here, especially if the plugin is distributed
+                        to other.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="dependencies" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        If the plugin has a dependency on one or more other plugins, please include the list
+                        of slugs [and versions] here. Plugin slugs are comman-separated. To specify
+                        a version, include the version number in square brackets immediately after the slug.
+                        To specify a version wild char, use an 'x'. To specify a dependency on multiple plugins
+                        where any of those plugins are enough to meet the dependency, use parens to enclose the group
+                        of slugs and the vertical pipe character to separate the slugs.
+                        For example: plugin-slug,plugin-slug[1.0],plugin-slug[0.9.x],(plugin-slug|plugin-slug[1.x])
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="cfversions" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        If the plugin is developed for one or more specific versions of Crowd Fusion, specify the
+                        versions here. Multiple version numbers are separated by commas and can contain the 'x' wild char.
+                        It is recommended to specify a minimum Crowd Fusion version for a plugin to avoid issues
+                        when upgrading Crowd Fusion.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:anyURI" name="homepage" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The URL of the plugin homepage or the homepage of the plugin developer.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:boolean" name="locked" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        If the plugin is locked it cannot be managed or altered once it is installed. This option is
+                        primarily used for built-in plugins provided with Crowd Fusion or bundled solution.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="itemType" mixed="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a CMS [navigational] menu item. Menu items may be nested.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="itemType" name="item" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="slugType" name="slug" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the slug of the menu item. If the slug is not specified, a slug is generated
+                    from the label attribute.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="label" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the text for the menu item link.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="uri" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the URI for the menu item link.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:positiveInteger" name="sort_order" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute is a positive integer which specifies the sorting order for the menu item.
+                    Menu items are rendered from top to bottom in increasing sort order. It is recommended to
+                    leave "numeric space" between consecutive menu items so other plugins have the option to
+                    insert a new menu item in between two existing menu items.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="slugType" name="parent_slug" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the slug of the menu item under which this menu item should be located.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="slugListType" name="permissions" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the permissions needed to view this menu item. This attribute
+                    accepts a comma-separated list of permission slugs. A user must have ALL the permissions to
+                    see this menu item.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="aspectOrElementType" name="create_add_menu" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies an aspect slug (using the @ prefix) or an element slug.
+                    An "add" menu item is created for all elements in the system having this aspect; or if an element
+                    is specified just that element.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="pluginType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This is the root element of the plugin descriptor file.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="infoType" name="info" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="xs:string" name="config" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The contents of this element are directly inserted into the pluginconfig.php
+                        file. This allows the plugin to define system-wide configuration settings.
+                        It is recommened to wrap the contents in CDATA to allow use of literal PHP code.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="elementsType" name="elements" maxOccurs="1" minOccurs="0"/>
+            <xs:element type="permissionsType" name="permissions" maxOccurs="1" minOccurs="0"/>
+            <xs:element type="cmsnavitemsType" name="cmsnavitems" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="elementsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This contains the set of elements to be created by this plugin during install.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="elementType" name="element" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="elementType" mixed="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This defines an element to be created when the plugin is installed.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="elementInfoType" name="info" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="aspectsType" name="aspects" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="slugType" name="slug" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the slug of the element.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="elementInfoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This defines the required information for an element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="name" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="xs:string" name="description" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="defaultOrderType" name="default_order" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="xs:boolean" name="allow_slug_slashes" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="xs:string" name="base_url" maxOccurs="1" minOccurs="1"/>
+            <xs:element type="xs:string" name="node_class" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="aspectsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This defines the aspects which will be assigned to this element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="aspectType" name="aspect" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="aspectType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This defines an aspect which will be assigned to this element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute type="slugType" name="slug" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the slug of the aspect. The aspect must be defined in this plugin or another plugin.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="permissionType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a permission. Permissions should be related to
+                the aspects provided with this plugin and usually correspond to a
+                single action carried out by a user or automated process.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="slugType" name="slug" use="required">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">
+                            The permission slug. This must be a unqiue, valid slug within the system.
+                            The common convention for permission slugs is to built upon two words:
+                            the aspect and an action verb. For example: news-edit.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute type="xs:string" name="title" use="required">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">
+                            The title of the permission. For example: 'Edit News'.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="versionType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]+.[0-9]+(.[0-9]+)*"/>
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="slugType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-z0-9-]+"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="aspectOrElementType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="@?[a-z0-9-]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="slugListType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([a-z0-9-]+)(,([a-z0-9-]+))*"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="defaultOrderType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([#A-Za-z0-9-]+)\s(DESC|ASC)"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

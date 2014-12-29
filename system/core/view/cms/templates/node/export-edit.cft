@@ -1,0 +1,46 @@
+{% set DataSource %}hotdeploy-single{% end %}
+{% setGlobal BodyClass %}edit{% end %}
+
+{% begin contents %}
+{% template _header.cft %}
+<div id="app-sidebar">
+	<a href="./" class="back-link">Return to Dashboard</a>
+	<ul id="app-sub-menu"></ul>
+</div>
+<form method="post">
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>Export</h2>
+	</div>
+
+	<div id="app-content">
+	    {% template _message-display.cft %}
+		<fieldset id="article-details" class="general-details">
+
+	  	    <h3>Export</h3>
+            <ul>
+				<li class="input-quarter-width">
+				    <label for="exportfile">Export File</label>
+				    <div>
+                  <input id="file" type="text" value="%file%" name="file" maxlength="255"/>
+				    </div>
+				</li>
+            </ul>
+		</fieldset>
+	</div>
+
+  	<div id="app-main-footer">
+		<div class="left">
+            <input type="hidden" name="action_nonce" value="{% filter nonce %}" />
+	  		<input type="submit" class="button-save" name="b_saveandcontinue" value="Save" />
+	  		<input type="submit" class="button-save" name="b_save" value="Save &amp; Close" />
+		</div>
+
+		<div class="left">
+	  		<input class="button-cancel" type="submit" name="b_cancel" value="Cancel" />
+		</div>
+  	</div>
+</div>
+</form>
+{% template _footer.cft %}
+{% end %}

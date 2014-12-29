@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        attributeFormDefault="unqualified"
+        elementFormDefault="qualified"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.crowdfusion.com/schema/xmod"
+        targetNamespace="http://www.crowdfusion.com/schema/xmod">
+    <xs:annotation xml:lang="en">
+        <xs:documentation xml:lang="en">
+            Xmodule XML Schema
+            Crowd Fusion
+            Copyright (C) 2009 Crowd Fusion, Inc.
+            http://www.crowdfusion.com/
+
+            Redistribution and use in source and binary forms, with or without
+            modification, are permitted under the terms of the BSD License.
+
+            http://www.opensource.org/licenses/bsd-license.php BSD License
+        </xs:documentation>
+    </xs:annotation>
+    <xs:element name="xmodule" type="xmoduleType"/>
+    <xs:complexType name="xmoduleType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This is the root element of the xmodule. Any element is allowed to be a child of this element, however
+                fieldset elements are generally specified as children.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="infoType" name="info" minOccurs="1" maxOccurs="1"/>
+            <xs:any minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="infoType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element defines the global information for this xmodule.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute type="xbuilderType" name="xbuilder"/>
+    </xs:complexType>
+    <xs:element name="template">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element allows other templates to be included. Any template having a template engine registered
+                with the Renderer can be included using this element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="src" use="required">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        The relative location of the template file.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="fieldset">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates an HTML fieldset.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:any minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute type="slugType" name="id" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies the unique HTML "id" for the fieldset. The "id" is used to
+                        create a quick navigation menu on the left side of the CMS edit screen.
+                        If this attribute is not specified, a random "id" is generated for the fieldset.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="collapsableType" name="collapsable" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="title" type="nonEmptyString">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates an HTML title heading.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="group">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates an HTML unordered list. All children of this element are placed into list items.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:any minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="help" type="nonEmptyString">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element defines the help text which appears in the help pop-up when the input/widget has focus.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="checkbox">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates an HTML checkbox input.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="help" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="roleSlugType" name="id" use="required"/>
+            <xs:attribute type="widthType" name="width" use="optional"/>
+            <xs:attribute type="permsType" name="edit_perms" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="datewidget">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates the HTML and JavaScript necessary to create a Date Widget input. The "id"
+                attribute of this element should only reference a meta having a "date" datatype.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="help" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="roleSlugType" name="id" use="required"/>
+            <xs:attribute type="widthType" name="width" use="optional"/>
+            <xs:attribute type="permsType" name="edit_perms" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+            <xs:attribute type="xs:boolean" name="dateOnly" use="optional">
+                    <xs:annotation xml:lang="en">
+                        <xs:documentation>
+                            This attribute specifies if the widget should only render the date selector.
+                        </xs:documentation>
+                    </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="display">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates a read-only display of the value of the referenced meta or tag.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="roleSlugType" name="id" use="required"/>
+            <xs:attribute type="widthType" name="width" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="dropdown">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates an HTML dropdown select input.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="help" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="option" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation xml:lang="en">
+                        <xs:documentation>
+                            This element specifies an option for the dropdown select input. Follows the same syntax as
+                            the XHTML option tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="nonEmptyString">
+                                <xs:attribute type="xs:string" name="value" use="required">
+                                </xs:attribute>
+                                <xs:attribute type="xs:boolean" name="selected" use="optional">
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="roleSlugType" name="id" use="required"/>
+            <xs:attribute type="widthType" name="width" use="optional"/>
+            <xs:attribute type="permsType" name="edit_perms" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="image">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates an HTML img.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute type="partialType" name="id" use="required"/>
+            <xs:attribute type="widthType" name="width" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tagwidget">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates the HTML and JavaScript necessary to create a Tag Widget input. The "id" attribute
+                must reference a tag definition. The options on the tag defintion drive the options to the Tag Widget.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="help" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="roleSlugType" name="id" use="required"/>
+            <xs:attribute type="widthType" name="width" use="optional"/>
+            <xs:attribute type="permsType" name="edit_perms" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+            <xs:attribute type="xs:string" name="class" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies the JavaScript class to use for the Tag Widget. The default value is "NodeTagWidget".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="search-parameters" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies the parameters to use (in addition to the search keyword) during a tag search. The default value is "Elements.in={element|aspect}", where element or aspect is dynamic.
+                        Parameters use the standard URL encoding, using = to separate keys and values and %26 to separater parameters.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="search-url" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies the URL to use when searching for tags. The default value uses the standard API find-all URL.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="quick-add-element" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies the element or aspect to use when quick adding a record using this widget. The default value is derived from the tag partial.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="show-element" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies if the element should appear in the chosen list and search results.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="partial" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies an optional partial override for the Tag Widget. The default value is "#{role}".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="textarea">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates an HTML textarea input.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="help" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="roleSlugType" name="id" use="required"/>
+            <xs:attribute type="widthType" name="width" use="optional"/>
+            <xs:attribute type="permsType" name="edit_perms" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+            <xs:attribute type="xs:positiveInteger" name="rows" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies the number of rows for the textarea.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="textbox">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates an HTML text input.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="help" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="roleSlugType" name="id" use="required"/>
+            <xs:attribute type="permsType" name="edit_perms" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+            <xs:attribute type="widthType" name="width" use="optional"/>
+            <xs:attribute type="xs:positiveInteger" name="maxlength" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies the maximum length for the text input. Defaults to 255.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:boolean" name="amazonsearch" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies if an Amazon search link should be added to the text input. Defaults to "false".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:boolean" name="newwindow" use="optional">
+                <xs:annotation xml:lang="en">
+                    <xs:documentation>
+                        This attribute specifies if a "new window" link should be added to the text input. This allows
+                        opening a new browser window to the location specified in the value of the text input. Defaults to "false".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="wysiwyg">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This element generates a WYSIWYG editor. The implementation of this editor is dependent on the active
+                plugins. Only one WYSIWYG plugin should be active at a time. The rendering of the WYSIWYG editor
+                is a passive JavaScript event.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="help" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="roleSlugType" name="id" use="required"/>
+            <xs:attribute type="permsType" name="edit_perms" use="optional"/>
+            <xs:attribute type="permsType" name="view_perms" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    SIMPLE TYPES
+    -->
+    <xs:simpleType name="slugType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-z0-9-]+"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="roleSlugType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This attribute specifies the role of a meta or tag definition.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="#[a-z0-9-]+"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="256"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="permsType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This attribute specifies one or more permission slugs separated by commas.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-z0-9-]+(,[a-z0-9-]+)*"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="256"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="partialType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This attribute specifies a full partial expression.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="((#[a-z0-9-]+)(=[a-zA-Z0-9-]+)?)(\.((#[a-z0-9-]+)(=[a-zA-Z0-9-]+)?))*"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="256"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="providedBuilders">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EditCmsBuilder"/>
+            <xs:enumeration value="EditAspectsCmsBuilder"/>
+            <xs:enumeration value="InlineEditAspectsCmsBuilder"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="customBuilder">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="c:(.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="xbuilderType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This attribute defines the xbuilder class to use to process this xmod file. Provided xbuilders include:
+                EditCmsBuilder, EditAspectsCmsBuilder, and InlineEditAspectsCmsBuilder. A custom xbuilder (not provided)
+                can be specified using the 'c:' prefix; for example xbuilder="c:MyCustomBuilder".
+
+                Solution 3 used from http://www.ibm.com/developerworks/library/x-extenum/
+            </xs:documentation>
+        </xs:annotation>
+        <xs:union memberTypes="providedBuilders customBuilder"/>
+    </xs:simpleType>
+    <xs:simpleType name="widthType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This attribute specifies the width of an input. The value is used to class the input and the CSS
+                is responsible for setting the actual width.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="eighth"/>
+            <xs:enumeration value="quarter"/>
+            <xs:enumeration value="half"/>
+            <xs:enumeration value="threequarters"/>
+            <xs:enumeration value="full"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="collapsableType">
+        <xs:annotation xml:lang="en">
+            <xs:documentation>
+                This attribute specifies the collapsability and initial state of the fieldset.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="open"/>
+            <xs:enumeration value="closed"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

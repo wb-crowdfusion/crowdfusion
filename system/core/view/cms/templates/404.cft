@@ -1,0 +1,27 @@
+{% setGlobal BodyClass %}{% end %}
+{% begin contents %}
+
+{% template _header.cft %}
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>404 - Page Not Found</h2>
+	</div>
+
+	<div id="app-content">
+
+
+        <div id="errors-row">
+        {% if Global:NotFoundException %}
+            <div class="errors">%NotFoundException%</div>
+        {% else %}
+		    <div class="errors">We're sorry, this page does not exist.  Please try the navigation above. Thank you!</div>
+        {% endif %}
+
+       </div>
+
+	</div>
+</div>
+
+{% template _footer.cft %}
+
+{% end %}

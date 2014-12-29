@@ -1,0 +1,11 @@
+{% begin noresults %}
+
+{% if Data:INPUT_EXPAND eq 'true' %}
+	{% template node/list-expand.cft?NoFilters=true %}
+{% else %}
+	{% if Data:INPUT_SLUG %}
+		{% template %INPUT_TEMPLATE%?DataSource=node-items&Slugs.in=%INPUT_SLUG%&Elements.in=%INPUT_ELEMENT%&MaxRows=%INPUT_MAXROWS%&Offset=%INPUT_OFFSET%&ForceReadWrite=true %}
+	{% endif %}
+{% endif %}
+
+{% end %}

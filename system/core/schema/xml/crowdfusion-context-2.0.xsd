@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        attributeFormDefault="unqualified"
+        elementFormDefault="qualified"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.crowdfusion.com/schema/context"
+        targetNamespace="http://www.crowdfusion.com/schema/context">
+    <xs:annotation xml:lang="en">
+        <xs:documentation xml:lang="en">
+            Context XML Schema
+            Crowd Fusion
+            Copyright (C) 2009 Crowd Fusion, Inc.
+            http://www.crowdfusion.com/
+
+            Redistribution and use in source and binary forms, with or without
+            modification, are permitted under the terms of the BSD License.
+
+            http://www.opensource.org/licenses/bsd-license.php BSD License
+        </xs:documentation>
+    </xs:annotation>
+    <xs:element name="context" type="contextType"/>
+    <xs:complexType name="contextType">
+        <xs:sequence>
+            <xs:element type="infoType" name="info" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="xs:string" name="import" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This element specifies the relative path to another context file to import into the current
+                        context file.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="propertyFilesType" name="property-files" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="objectsType" name="objects" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="eventsType" name="events" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="infoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains the details which identify the context to the Crowd Fusion system.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="title" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The title of the context.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="provider" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The provider name of the context. This is usually the organization or individual
+                        holding the rights to distribute the context file.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:string" name="description" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The description of the context. It is recommended to briefly describe the purpose
+                        of the context and what the context provides.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:positiveInteger" name="priority" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The priority of the context is a positive integer. Context files with a higher priority
+                        are loaded last; allowing the opportunity to override the objects in a context file having a lower priority.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="versionType" name="version" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The version of the context follows the standard numeric dot notation. For example:
+                        1.0, 1.1, 1.0.1, 0.9
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="propertyFilesType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains a list of relative paths to property files to include into the context.
+                Variables defined in a property file are injectable into objects defined by a context.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="property-file" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This element contains a relative path to a PHP property file.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="objectsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains a list of objects to be managed by the Application Context.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="objectType" name="object" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="objectType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a context-managed object.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="alias" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        This element defines an alias to this object. The alias can be used to refer to this object
+                        from elsewhere in this context and other context files (using the "ref" attribute).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="constructorArgType" name="constructor-arg" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element type="propertyType" name="property" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element type="invokeType" name="invoke" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element type="initializeMethodType" name="initialize-method" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="id" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute defines the unique identifier for an object. If multiple object definitions have the
+                    same "id", then the object definition process last (highest priority) overrides the other objects.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="class" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the PHP class name for this object. The PHP class must exist in the
+                    class resolution scope of the Application Context.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="autowire" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies if the Application Context will attempt to auto wire this object upon
+                    instantiation. Defaults to "true".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="scope" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the scope of this object's lifecycle. Specifying "singleton" tells the
+                    Application Context to only instantiate this object once for the entire request (or the lifetime
+                    of the Application Context). Specifying "prototype" tells the Application Context to instantiate
+                    a new copy of this object every time it is requested (via injection or explicitly).
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="singleton"/>
+                    <xs:enumeration value="prototype"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="eventsType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element contains a list of "bind" or "unbind" directives. These allow for binding or unbinding
+                event handlers to an event.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="bindType" name="bind" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element type="unbindType" name="unbind" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="unbindType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element allows an event handler function to be unbound from an event.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute type="xs:string" name="name" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the name of the event.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="ref" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the class name of the event handler.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="method" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the method (or function) name on the event handler class.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="bindType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element allows an event handler function to be bound to an event.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="unbindType">
+                <xs:attribute type="xs:positiveInteger" name="priority" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">
+                            This attribute defines the priority of the event handler. Higher priority event handlers
+                            are triggered after lower priority event handlers.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute type="xs:boolean" name="pass-context" use="optional">
+                    <xs:annotation>
+                        <xs:documentation xml:lang="en">
+                            This attributes allows the "event context" to be passed as the first argument to the
+                            event handler function.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="initializeMethodType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a method to invoke when this object is instantiated.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute type="xs:string" name="name" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribue specifies the name of the method on this object to invoke after the constructor
+                    is called.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="invokeType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a method to be invoked when this object is instantiated. This element is typically
+                used when a 3rd-party class doesn't follow the setter-injection convention.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="propertyType" name="method-arg" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="name" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute defines the name of the method (or function) argument.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="propertyType" mixed="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a property. Properties are used to inject values or object instances into a
+                managed object instance.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="constructorArgType">
+                <xs:attribute type="xs:string" name="name" use="optional">
+                    <xs:annotation xml:lang="en">
+                        <xs:documentation>
+                            This attribute defines the name of the property. The container will take this attribute,
+                            upper case the first character, and call the setProperty method, passing the value as the only argument.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="constructorArgType" mixed="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a constructor argument, property, or method argument. This element may contain
+                text or CDATA contents.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="arrayValueType" name="value" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="ref" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies an object reference. Must contain the "id" of a defined object.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="property" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the name of a configuration property.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies a scalar value to inject.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="constant" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies a global constant value to inject.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="id" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the id (or name) of the parameter or argument to set.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="arrayValueType" mixed="true">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                This element defines a array value. Arrays may be nested. This element may contain text or CDATA contents.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="arrayValueType" name="value" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="key" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the array key.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:string" name="property" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the name of a configuration property.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>        
+        <xs:attribute type="xs:string" name="ref" use="optional">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    This attribute specifies the id of an object (defined in a context) to reference.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:simpleType name="versionType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]+.[0-9]+(.[0-9]+)*"/>
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

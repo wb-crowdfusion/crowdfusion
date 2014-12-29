@@ -1,0 +1,10 @@
+{% begin contents %}
+                    <li id="page-title" class="input-full-width">
+                        <label for="Title">%Element.Name% Title</label>
+                        <div>
+                            <input id="Title" type="text" value="%Title%" name="Title"
+                                {% if Data:Status !eq 'published' || Data:CONTROL_ACTION_METHOD eq 'duplicate' || Data:CONTROL_ACTION_METHOD eq 'add' %}class="slug-update"{% endif %} maxlength="255"/>
+                        </div>
+                        {% template includes/slug.cft?inherit=true %}
+                    </li>
+{% end %}

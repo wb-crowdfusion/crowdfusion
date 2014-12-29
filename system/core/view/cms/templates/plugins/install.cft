@@ -1,0 +1,40 @@
+{% setGlobal BodyClass %}edit{% end %}
+
+{% setGlobal LogFiltered %}{% filter display-str-replace?haystack=Global:log&needle=\n&replace=&lt;br/&gt; %}{% end %}
+{% begin contents %}
+{% template _header.cft %}
+<div id="app-sidebar">
+	<a href="plugins/" class="back-link">Return to Plugins List</a>
+	<ul id="app-sub-menu"></ul>
+</div>
+<form method="post">
+<div id="app-main">
+	<div id="app-main-header">
+		<h2>{% filter display-upper-case-first?value=Global:action %} Plugin
+		    {% if Global:status eq 'success' %}
+		        <span style="color:green">Success!</span>
+            {% endif %}
+            {% if Global:status eq 'warn' %}
+                <span style="color:green">Success!</span> <span style="color:red">READ WARNING BELOW</span>
+            {% endif %}
+            {% if Global:status eq 'fail' %}
+                <span style="color:red">Failure!</span>
+            {% endif %}
+        </h2>
+	</div>
+
+	<div id="app-content">
+	    <fieldset>
+	        <h3>Installation Log</h3>
+	        <ul>
+	            <li>
+    	            <div>{% filter display-strReplace?haystack=Global:LogFiltered&needle=WARNING&replace=&lt;span style="color:red"&gt;WARNING&lt;/span&gt; %} </div>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+
+</div>
+</form>
+{% template _footer.cft %}
+{% end %}

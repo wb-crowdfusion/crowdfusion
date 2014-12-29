@@ -1,0 +1,7 @@
+#app-header {
+    background: #3a4750 url(../css/themes/purple-bg.png) repeat-x bottom left;
+    border-top: #000066 5px solid;
+}
+
+#app-header #utilities #hot-deploy {
+}

@@ -1,0 +1,123 @@
+{% set DataSource %}node-single{% end %}
+{% set Slugs.in %}%INPUT_SLUG%{% end %}
+{% set Elements.in %}%INPUT_ELEMENT%{% end %}
+{% set Meta.select %}all{% end %}
+{% set OutTags.select %}fields{% end %}
+{% set InTags.select %}fields{% end %}
+{% begin contents %}
+<tr id="expanded_%NodeRef.AsSafeSlug%" class="expanded">
+	<td colspan="6">
+	    <script type="text/javascript">
+	        $(document).ready(function(){
+
+                document.taggableRecord = new NodeObject({% filter node-json-encode?keys=Slug,Title,Status,ActiveDate,CreationDate,ModifiedDate,SortOrder,OutTags,InTags,Metas,NodeRef,Element,Site,RecordLink,Cheaters %});
+
+                document.tagFormManager = new TagFormManager(
+                    document.taggableRecord,
+                    '#inline-edit-form'
+                );
+	        });
+	    </script>
+		<div class="expanded-wrapper">
+            <div class="expanded-contents">
+                <form id="inline-edit-form" class="expanded-form">
+                    <fieldset class="expanded-record-fields">
+                        <ul>
+                            <li class="page-title">
+                                <label for="Title">Title</label>
+                                <div>
+                                    {% if permission-pass-node?action=edit %}
+                                        <input id="Title" type="text" value="%Title%" name="Title" maxlength="255"/>
+                                    {% else %}
+                                        <p class="read-only">%Title%</p>
+                                    {% endif %}
+                                </div>
+                            </li>
+                            <li class="datetime">
+                                <label for="ActiveDate">Active Date</label>
+                                {% if permission-pass-node?action=edit %}
+                                    <div id="%NodeRef.AsSafeSlug%_active-date-holder">
+                                        <input id="%NodeRef.AsSafeSlug%_active-date" type="text" value="{% filter date?value=Data:ActiveDate&format=Y-m-d H:i:s %}" name="ActiveDate" />
+                                    </div>
+                                    <script type="text/JavaScript">
+                                        new DateWidget('%NodeRef.AsSafeSlug%_active-date', '{% filter date?value=Data:ActiveDate&format=Y-m-d %}', '{% filter date?value=Data:ActiveDate&format=g:i A %}');
+                                    </script>
+                                {% else %}
+                                    <p class="read-only">{% filter date?value=Data:ActiveDate&format=M j, Y g:i A T&nonbreaking=true %}</p>
+                                {% endif %}
+                            </li>
+                            <li class="checkbox">
+                                <label>Status:</label>
+                                <div>
+
+                                    {% if Data:Status eq 'draft' %}
+
+                                        {% if permission-pass-node?action=publish %}
+                                        <input id="%NodeRef.AsSafeSlug%_status" type="checkbox" name="Status" value="published" {% if Data:Status eq 'published' %}checked="checked"{% endif %}/><label for="%NodeRef.AsSafeSlug%_status">Published</label>
+                                        <input type="hidden" name="_Status" value="draft" />
+                                        {% else %}
+                                        <input type="hidden" id="%NodeRef.AsSafeSlug%_status" name="Status" value="%Status%"/>
+                                        <label for="%NodeRef.AsSafeSlug%_status">{% if Data:Status eq 'published' %}Published{% else %}Draft{% endif %}</label>
+                                        {% endif %}
+
+                                    {% else %}
+
+                                        {% if permission-pass-node?action=unpublish %}
+                                        <input id="%NodeRef.AsSafeSlug%_status" type="checkbox" name="Status" value="published" {% if Data:Status eq 'published' %}checked="checked"{% endif %}/><label for="%NodeRef.AsSafeSlug%_status">Published</label>
+                                        <input type="hidden" name="_Status" value="draft" />
+                                        {% else %}
+                                        <input type="hidden" id="%NodeRef.AsSafeSlug%_status" name="Status" value="%Status%"/>
+                                        <label for="%NodeRef.AsSafeSlug%_status">{% if Data:Status eq 'published' %}Published{% else %}Draft{% endif %}</label>
+                                        {% endif %}
+
+                                    {% endif %}
+
+
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+
+                    <!-- include aspect fields here -->
+                    {% template node/aspects-inline-edit.xmod?inherit=true %}
+
+                    <div class="buttonrow">
+                        {% if permission-pass-node?action=edit || permission-pass-node?action=publish || permission-pass-node?action=unpublish %}
+                            <input type="image" value="Save Changes" src="{% asset version?src=/images/button_save-changes.png %}"/>
+                            <a href="#" class="cancel">Cancel</a>
+                        {% endif %}
+                        {% if permission-pass-node?action=delete %}
+                            <a href="%INPUT_ASPECT%/delete/%Element.Slug%/%Slug%/" class="delete">Delete &amp; Merge</a>
+                        {% endif %}
+                        <input type="hidden" name="action_nonce" value="{% filter nonce?action=node-edit %}" />
+
+                        <!-- The following three inputs represent the primary key for the record -->
+                        <input type="hidden" name="NodeSlug" value="%Slug%" />
+                        <input type="hidden" name="SiteSlug" value="%Site.Slug%" />
+                        <input type="hidden" name="ElementSlug" value="%Element.Slug%" />
+                    </div>
+                </form>
+            </div>
+		</div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+                document.taggableRecord.init();
+
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#expanded_%NodeRef.AsSafeSlug%')
+                    .data('ElementSlug','%Element.Slug%')
+                    .data('SiteSlug','%Site.Slug%')
+                    .data('Slug','%Slug%')
+                    .data('Type','node')
+                    .data('RowID','%NodeRef.AsSafeSlug%')
+            });
+        </script>
+	</td>
+</tr>
+{% end %}
+{% begin noresults %}
+{% end %}

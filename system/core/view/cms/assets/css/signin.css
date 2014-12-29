@@ -1,0 +1,42 @@
+/* something */
+
+#app-main {
+	background: transparent url(../images/bg_content.png) repeat;
+	overflow: hidden;
+	position: relative !important;
+	top: 12px;
+	left: 50%;
+	width: 300px;
+	margin-left: -150px;
+	border-top: 0;
+}
+
+#app-main-header {
+	background: #FFF; /*border-bottom:#49b4c1 1px solid;height: 42px;*/
+	z-index: 3;
+	height: 44px;
+	margin-left: 6px;
+}
+#app-content {
+	position: relative;
+	top: 0;
+	margin-bottom: 5px;
+	width: 293px;
+	background: #f3f6f6;
+	border-top: 2px solid #49B4C1;
+	padding: 0 0 5px;
+}
+
+form fieldset ul {
+	border-bottom: 0;
+}
+
+form .button-row {
+	text-align: center;
+	padding: 5px 0;
+}
+
+form .button-row input {
+	height: 28px;
+	width: 72px;
+}

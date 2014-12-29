@@ -1,0 +1,10 @@
+{% begin noresults %}
+{
+ "Errors" : [
+    {
+        "Code" : 404,
+        "Message" : "Not Found"
+    }
+ ]
+}
+{% end %}

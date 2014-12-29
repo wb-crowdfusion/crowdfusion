@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<context
+    xmlns="http://www.crowdfusion.com/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.crowdfusion.com/schema/context http://www.crowdfusion.com/schema/crowdfusion-context-2.0.xsd">
+    <info>
+        <title>Shared Application Context</title>
+        <provider>Crowd Fusion, Inc.</provider>
+        <description>Core object definitions for web MVC framework</description>
+        <version>1.0</version>
+        <priority>1000</priority>
+    </info>
+
+    <objects>
+        <!-- BEGIN SYSTEM -->
+        <object id="RequestContext" class="RequestContext" autowire="false"/>
+
+        <object id="Renderer" class="Renderer" scope="singleton">
+            <constructor-arg>
+                <value key="cft" ref="CFTemplateEngine"/>
+                <value key="mft" ref="MarkdownTemplateEngine"/>
+                <value key="xmod" ref="XModTemplateEngine"/>
+            </constructor-arg>
+            <constructor-arg id="defaultViewType" value="cft"/>
+        </object>
+        <!-- END SYSTEM -->
+
+        <!-- BEGIN DATABASE -->
+        <object id="DataSource" class="SingleDBDataSource">
+            <alias>SystemDataSource</alias>
+            <alias>NodeDataSource</alias>
+            <alias>SearchDataSource</alias>
+            <constructor-arg ref="TransactionManager"/>
+            <constructor-arg ref="ApplicationContext"/>
+            <constructor-arg id="Database" value="Database"/>
+            <constructor-arg property="db.connectionInfo"/>
+        </object>
+
+        <object id="Database" class="MySQLDatabase" scope="prototype"/>
+        <!-- END DATABASE -->
+
+        <!--  BEGIN CACHING -->
+
+        <!-- REQUIRED: PrimaryCacheStore -->
+        <object id="PrimaryCacheStore" class="NullCacheStore"/>
+        <!--<object id="PrimaryCacheStore" class="MemcachedCacheStore"/>-->
+        <!--<object id="PrimaryCacheStore" class="EacceleratorCacheStore"/>-->
+        <!--<object id="PrimaryCacheStore" class="APCCacheStore"/>-->
+        <!--<object id="PrimaryCacheStore" class="FileCacheStore"/>-->
+        <!--<object id="PrimaryCacheStore" class="SQLLiteCacheStore"/>-->
+        <!-- END CACHING -->
+    </objects>
+
+    <events>
+        <bind name="Dispatcher.preDeploy" ref="SiteInterceptor" method="preDeploy" priority="5"/>
+        <bind name="TransactionManager.commit" ref="SystemXMLParser" method="save" priority="10"/>
+        <bind name="TransactionManager.commit" ref="NodeCache" method="onCommit"/>
+    </events>
+
+</context>

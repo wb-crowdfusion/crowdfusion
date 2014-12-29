@@ -1,0 +1,74 @@
+/*---------------------------------
+	TAG WIDGET STYLES FOR IE7
+---------------------------------*/
+
+/* ------------------
+   SEARCH COMPONENT
+   ------------------ */
+div.tag-widget-search-container
+				> div.tag-widget-search-clipping-container
+					> div.tag-widget-search-shadow-container
+						> div.tag-widget-search-content-container
+							> div.tag-widget-search-results-container
+								> div.tag-widget-search-results-scrollpane
+									> ol
+										> li
+											> span.line-number {
+	display: none;
+}
+
+div.tag-widget-search-container
+				> div.tag-widget-search-clipping-container
+					> div.tag-widget-search-shadow-container
+						> div.tag-widget-search-content-container
+							> div.tag-widget-search-results-container
+								> div.tag-widget-search-results-toolbar {
+	margin: 0;
+	position: relative;
+	left: 21px;
+}
+
+
+
+/* HACKS */
+
+div.tag-widget-search-container
+				> div.tag-widget-search-clipping-container
+					> div.tag-widget-search-shadow-container
+						> div.tag-widget-search-content-container
+							> div.tag-widget-search-results-container
+								> div.tag-widget-search-results-toolbar
+									> span.quick-add-message,
+div.tag-widget-search-container
+				> div.tag-widget-search-clipping-container
+					> div.tag-widget-search-shadow-container
+						> div.tag-widget-search-content-container
+							> div.tag-widget-search-results-container
+								> div.tag-widget-search-results-toolbar
+									> span.upload-message {
+	position: relative;
+    top: -15px;
+}
+
+div.tag-widget-search-container
+				> div.tag-widget-search-clipping-container
+					> div.tag-widget-search-shadow-container
+						> div.tag-widget-search-content-container
+							> div.tag-widget-search-results-container
+								> div.tag-widget-search-results-toolbar
+									> a.cancel-upload {
+	position: relative;
+	top: 0px;
+}
+
+div.tag-widget-search-container
+				> div.tag-widget-search-clipping-container
+					> div.tag-widget-search-shadow-container
+						> div.tag-widget-search-content-container
+							> div.tag-widget-search-results-container
+								> div.tag-widget-search-results-toolbar
+									> div.upload-progress {
+	position: relative;
+	top: -17px;
+}
+

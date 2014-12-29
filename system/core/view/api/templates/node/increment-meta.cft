@@ -1,0 +1,34 @@
+{% set DataSource %}node-increment-meta{% end %}
+
+{% /* JSON */ %}
+{% begin json-contents %}
+{% filter node-json-encode?keys=SiteSlug,ElementSlug,NodeSlug,MetaID,Success %}
+{% end %}
+
+{% begin json-noresults %}
+{
+    "Errors" : {% filter errors-api-json %}
+}
+{% end %}
+
+
+{% /* XML */ %}
+{% begin xml-header %}
+<?xml version="1.0"?>
+<NodeIncrementMeta>
+{% end %}
+{% begin xml-contents %}
+{% filter node-xml-encode?keys=SiteSlug,ElementSlug,NodeSlug,MetaID,Success&rootNodeName=Node %}
+{% end %}
+{% begin xml-footer %}
+</NodeIncrementMeta>
+{% end %}
+
+{% begin xml-noresults %}
+<?xml version="1.0"?>
+<NodeIncrementMeta>
+    <Errors>
+        {% filter errors-api-xml %}
+    </Errors>
+</NodeIncrementMeta>
+{% end %}

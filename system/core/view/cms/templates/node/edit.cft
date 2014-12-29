@@ -1,0 +1,94 @@
+{% setGlobal PageTitle %}{% filter display-upper-case-first?value=%CONTROL_ACTION_METHOD% %} {% if Data:Title %}"%Title%"{% endif %} %Element.Name% | %SERVER_SERVER_NAME%{% end %}
+{% setGlobal BodyClass %}edit{% end %}
+
+{% set DataSource %}node-single{% end %}
+
+{% set Elements.in %}%INPUT_ELEMENT%{% end %}
+{% set Sites.in %}%INPUT_SITE%{% end %}
+{% set Slugs.in %}%INPUT_SLUG%{% end %}
+
+{% begin contents %}
+{% template _header.cft %}
+
+<script type="text/JavaScript">
+    $(document).ready( function() {
+
+        document.taggableRecord = new NodeObject({% filter node-json-encode?keys=Slug,Title,Status,ActiveDate,CreationDate,ModifiedDate,SortOrder,OutTags,InTags,Metas,NodeRef,Element,Site,RecordLink,Cheaters %});
+        //document.sectionableRecord = document.taggableRecord;
+
+        document.tagFormManager = new TagFormManager(
+            document.taggableRecord,
+            'form'
+        );
+
+    });
+</script>
+
+<div id="app-sidebar">
+    <a href="%INPUT_ASPECT%/" class="back-link">%Element.Name% List</a>
+    <ul id="app-sub-menu"></ul>
+</div>
+
+<form method="post">
+
+<input type="hidden" name="action_nonce" value="{% filter nonce %}" />
+
+<div id="app-main">
+    <div id="app-main-header">
+        <div id="status-header" class="header-control">
+            {% template includes/status.cft?inherit=true %}
+            {% if Data:CONTROL_ACTION_METHOD eq 'edit' %}
+            <a href="%RecordLink%" id="view-news" target="_blank">{% if Data:Status eq 'draft' || Data:ActiveDate > Data:TIME %}Preview{% else %}View{% endif %}</a>
+            {% endif %}
+        </div>
+
+        <h2>{% filter display-upper-case-first?value=%CONTROL_ACTION_METHOD% %} %Element.Name% <em>on %Site.Name%</em></h2>
+    </div>
+
+    <div id="app-content">
+
+
+        {% template _message-display.cft %}
+
+        {% if template-exists?name=elements/%INPUT_ELEMENT%-edit.cft %}
+
+            {% template elements/%INPUT_ELEMENT%-edit.cft?inherit=true %}
+
+        {% else %}
+
+            {% template node/basefields.cft?inherit=true %}
+
+            {% template node/aspects-edit.xmod?inherit=true %}
+
+        {% endif %}
+
+    </div>
+
+    <div id="app-main-footer">
+        <div class="left">
+            <input type="submit" class="button-save" name="b_saveandcontinue" value="Save" />
+            <input type="submit" class="button-save" name="b_save" value="Save &amp; Close" />
+            {% if permission-pass-node?action=add %}
+                <input type="submit" class="button-save-new" name="b_saveandnew" value="Save &amp; New" />
+            {% endif %}
+            {% if Data:CONTROL_ACTION_METHOD eq 'edit' && permission-pass-node?action=delete %}
+                <input type="submit" class="button-delete" name="b_confirmdelete" value="Delete" />
+            {% endif %}
+        </div>
+
+        <div class="left">
+            <input class="button-cancel" type="submit" name="b_cancel" value="Cancel" />
+        </div>
+    </div>
+</div>
+
+
+<script type="text/JavaScript">
+    $(document).ready( function() {
+        document.taggableRecord.init();
+    });
+</script>
+
+{% template _footer.cft %}
+
+{% end %}
