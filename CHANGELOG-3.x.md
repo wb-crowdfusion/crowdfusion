@@ -1,6 +1,9 @@
 CHANGELOG for 3.x.x
 ===================
 
+* 3.2.3 (2015-02-11)
+  * [NodeCache] Use the SchemaVersion from the Element object properties to form cache key.  ticket #1
+
 * 3.2.2 (2014-12-08)
     * [TransactionManager] Fixed the php doc blocks and made the entire class a fluent interface.
     * [Dispatcher] Added "Dispatcher.terminate" events to all branches that end the request.  ticket #227
