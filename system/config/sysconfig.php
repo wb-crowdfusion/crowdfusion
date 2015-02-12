@@ -4,7 +4,7 @@
 // SYSTEM VARIABLES / DO NOT EDIT!!! //
 // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv //
 
-$properties['cf.version'] = '3.2.2';
+$properties['cf.version'] = '3.2.3-dev';
 
 $properties['development.mode'] = $this->isHotDeploy();
 $properties['one.off.redeploy'] = $this->isOneOffRedeploy();
@@ -36,6 +36,7 @@ $properties['isAliasDomain'] = (!empty($_SERVER['MATCHED_ALIAS'])?$_SERVER['MATC
 
 $properties['isSiteDeployment'] = ($properties['context'] == 'web');
 $properties['nodeCache.keepLocal'] = ($properties['context'] != 'cli');
+$properties['nodeSchemaVersion'] = null;
 $properties['lock.system.changes'] = false;
 
 $properties['response.outputBuffering'] = ($properties['context'] != 'cli');
