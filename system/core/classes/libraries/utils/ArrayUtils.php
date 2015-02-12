@@ -223,14 +223,14 @@ class ArrayUtils
      * @param array  $array  A multi-dimensional array
      * @param string $column The column to extract
      *
-     * @return void
+     * @return array|null
      */
     public static function arrayMultiColumn($array, $column)
     {
         $newArray = array ();
         foreach ( $array as $key => $columns) {
             if ((!is_array($columns)  && !$columns instanceof ArrayAccess) || !isset ($columns[$column]))
-                return;
+                return null;
             $newArray[$key] = $columns[$column];
         }
         return $newArray;

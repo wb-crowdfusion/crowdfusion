@@ -2,7 +2,9 @@ CHANGELOG for 3.x.x
 ===================
 
 * 3.2.3 (2015-02-11)
-  * [NodeCache] Use the SchemaVersion from the Element object properties to form cache key.  ticket #1
+  * [NodeCache] Use an optional nodeSchemaVersion from `$properties['nodeSchemaVersion']` to form cache key instead
+    of using the system version which changes with every release.  ticket #1
+
 
 * 3.2.2 (2014-12-08)
     * [TransactionManager] Fixed the php doc blocks and made the entire class a fluent interface.

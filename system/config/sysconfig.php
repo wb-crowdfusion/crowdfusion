@@ -36,6 +36,7 @@ $properties['isAliasDomain'] = (!empty($_SERVER['MATCHED_ALIAS'])?$_SERVER['MATC
 
 $properties['isSiteDeployment'] = ($properties['context'] == 'web');
 $properties['nodeCache.keepLocal'] = ($properties['context'] != 'cli');
+$properties['nodeSchemaVersion'] = null;
 $properties['lock.system.changes'] = false;
 
 $properties['response.outputBuffering'] = ($properties['context'] != 'cli');

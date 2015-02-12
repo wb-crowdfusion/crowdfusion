@@ -46,9 +46,10 @@ abstract class AbstractCache
     /**
      * Returns an array of nodes from cache specified by key
      *
-     * @param array $cacheKeys An array of keys to fetch
+     * @param array $keys An array of keys to fetch
+     * @param bool $localOnly
      *
-     * @return void
+     * @return array
      */
     public function multiGet(array $keys, $localOnly = false)
     {
