@@ -93,7 +93,7 @@ class ApplicationContext {
         $this->hotDeploy = isset($config['hotDeploy']) ? $config['hotDeploy']:false;
 
         $this->autoloadExtension = isset($config['autoloadExtension'])?$config['autoloadExtension']:'.php';
-        $this->bypassDirectoriesForAutoload = isset($config['bypassDirectoriesForAutoload'])?$config['bypassDirectoriesForAutoload']:array('.AppleDouble', 'aspects', 'context', 'tests', 'view', 'vendors');
+        $this->bypassDirectoriesForAutoload = isset($config['bypassDirectoriesForAutoload'])?$config['bypassDirectoriesForAutoload']:array('.AppleDouble', 'aspects', 'context', 'tests', 'view', 'vendors', 'src');
 
         $this->pluginContextFile = isset($config['pluginContextFile'])?$config['pluginContextFile']:'context/context.xml';
         $this->sharedContextFile = isset($config['sharedContextFile'])?$config['sharedContextFile']:'context/shared-context.xml';
