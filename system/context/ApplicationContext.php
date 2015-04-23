@@ -93,7 +93,7 @@ class ApplicationContext {
         $this->hotDeploy = isset($config['hotDeploy']) ? $config['hotDeploy']:false;
 
         $this->autoloadExtension = isset($config['autoloadExtension'])?$config['autoloadExtension']:'.php';
-        $this->bypassDirectoriesForAutoload = isset($config['bypassDirectoriesForAutoload'])?$config['bypassDirectoriesForAutoload']:array('.AppleDouble', 'aspects', 'context', 'tests', 'view', 'vendors');
+        $this->bypassDirectoriesForAutoload = isset($config['bypassDirectoriesForAutoload'])?$config['bypassDirectoriesForAutoload']:array('.AppleDouble', 'aspects', 'context', 'tests', 'view', 'vendors', 'src');
 
         $this->pluginContextFile = isset($config['pluginContextFile'])?$config['pluginContextFile']:'context/context.xml';
         $this->sharedContextFile = isset($config['sharedContextFile'])?$config['sharedContextFile']:'context/shared-context.xml';
@@ -1015,11 +1015,6 @@ class ApplicationContext {
 
         } else {
             $this->oneOffRedeploy = true;
-
-            // ADD PSR-0 Compliant Classes from the SYSTEM
-            if (defined('PATH_SYSTEM') && is_dir(PATH_SYSTEM . DIRECTORY_SEPARATOR . 'src')) {
-                ClassLoader::addClassDirectory(PATH_SYSTEM . DIRECTORY_SEPARATOR . 'src');
-            }
 
             // ADD PSR-0 Compliant Classes from the APP
             /*

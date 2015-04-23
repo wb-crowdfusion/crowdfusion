@@ -1,6 +1,12 @@
 CHANGELOG for 3.x.x
 ===================
 
+* 3.2.4 (2015-04-23)
+  * [ApplicationContext] Bypass the `src` directory for autoloading.
+  * issue #2 [CFTemplateEngine] Automatically set/create `IS_$ENV_ENVIRONMENT` and `IS_DEV_ENVIRONMENT` constants.
+  * issue #2 Add config option `$properties['cft.constants']` to allow for injection of constants.
+
+
 * 3.2.3 (2015-02-11)
   * [NodeCache] Use an optional nodeSchemaVersion from `$properties['nodeSchemaVersion']` to form cache key instead
     of using the system version which changes with every release.  ticket #1

@@ -67,6 +67,13 @@ class CFTemplateEngine extends AbstractTemplateEngine
 
     protected $TemplateCache;
 
+    /**
+     * Constants that are injected from the ApplicationContext.
+     * can be configured via the $properties['cft.constants'] property.
+     * @var array
+     */
+    protected $cftGlobalConstants = [];
+
     public function setThrowRenderExceptions($throwRenderExceptions)
     {
         $this->throwRenderExceptions = $throwRenderExceptions;
@@ -138,6 +145,14 @@ class CFTemplateEngine extends AbstractTemplateEngine
     public function setDeviceView($deviceView)
     {
         $this->deviceView = $deviceView;
+    }
+
+    /**
+     * @param array $val
+     */
+    public function setCftConstants(array $val)
+    {
+        $this->cftGlobalConstants = $val;
     }
 
     /**
@@ -651,9 +666,8 @@ class CFTemplateEngine extends AbstractTemplateEngine
     protected function getConstants()
     {
         if ($this->constants === false) {
-            // TODO: use an event to populate constants
-
-            $constants = array();
+            // TODO: use an event to populate constants or is this sufficient?
+            $constants = $this->cftGlobalConstants;
 
             $constants['FULL_URL']          = $this->Request->getFullURL();
             $constants['BASE_URL']          = $this->Request->getBaseURL();
@@ -661,11 +675,12 @@ class CFTemplateEngine extends AbstractTemplateEngine
             $constants['TIME']              = $this->DateFactory->newLocalDate();
             $constants['USER_LOGGED_IN']    = ''.$this->RequestContext->isAuthenticatedUser();
             $constants['ENVIRONMENT'] = $this->environment;
+            $constants['IS_DEV_ENVIRONMENT'] = 'prod' == strtolower(trim($this->environment)) ? false : true;
+            $constants['IS_' . strtoupper($this->environment) . '_ENVIRONMENT'] = true;
             $constants['SERVER_DEVELOPMENT_MODE'] = $this->isDevelopmentMode;
             $constants['SYSTEM_EMAIL_ADDRESS'] = $this->systemEmailAddress;
             $constants['DEVICE_VIEW'] = $this->deviceView;
             $constants['SYSTEM_VERSION'] = $this->systemVersion;
-
 
             foreach ((array)$this->RequestContext->getControls()->getControls() as $name => $val) {
                 $constants['CONTROL_'.strtoupper(str_replace(' ','_',$name))] = $val;

@@ -4,7 +4,7 @@
 // SYSTEM VARIABLES / DO NOT EDIT!!! //
 // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv //
 
-$properties['cf.version'] = '3.2.3';
+$properties['cf.version'] = '3.2.4';
 
 $properties['development.mode'] = $this->isHotDeploy();
 $properties['one.off.redeploy'] = $this->isOneOffRedeploy();
@@ -41,6 +41,7 @@ $properties['lock.system.changes'] = false;
 
 $properties['response.outputBuffering'] = ($properties['context'] != 'cli');
 $properties['response.vary'] = $properties['context'] == 'web' ? 'Accept-Encoding, User-Agent' : 'Accept-Encoding';
+$properties['cft.constants'] = [];
 
 $properties['configFileLocation'] = PATH_BUILD.DIRECTORY_SEPARATOR.'pluginconfig.php';
 
