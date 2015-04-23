@@ -16,5 +16,4 @@ require PATH_SYSTEM . '/context/ApplicationContext.php';
 
 $loader = new ClassLoader();
 $loader->addDirectory(PATH_SYSTEM . '/core/classes/');
-$loader->addClassDirectory(PATH_SYSTEM . '/src/');
 $loader->addClassDirectory(PATH_ROOT . '/tests/');

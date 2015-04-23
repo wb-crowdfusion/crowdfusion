@@ -1016,11 +1016,6 @@ class ApplicationContext {
         } else {
             $this->oneOffRedeploy = true;
 
-            // ADD PSR-0 Compliant Classes from the SYSTEM
-            if (defined('PATH_SYSTEM') && is_dir(PATH_SYSTEM . DIRECTORY_SEPARATOR . 'src')) {
-                ClassLoader::addClassDirectory(PATH_SYSTEM . DIRECTORY_SEPARATOR . 'src');
-            }
-
             // ADD PSR-0 Compliant Classes from the APP
             /*
              * For the application itself we'll piggy back on composer's autoload class map if there's a composer.json
