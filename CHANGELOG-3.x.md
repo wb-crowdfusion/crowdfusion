@@ -1,7 +1,7 @@
 CHANGELOG for 3.x.x
 ===================
 
-* 3.2.4 (2015-04-??)
+* 3.2.4 (2015-04-23)
   * [ApplicationContext] Bypass the `src` directory for autoloading.
   * issue #2 [CFTemplateEngine] Automatically set/create `IS_$ENV_ENVIRONMENT` and `IS_DEV_ENVIRONMENT` constants.
   * issue #2 Add config option `$properties['cft.constants']` to allow for injection of constants.

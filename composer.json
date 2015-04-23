@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "require": {
     "php": ">=5.4",
-    "psr/log": "1.0.0",
+    "psr/log": "~1.0",
     "symfony/symfony": "~2.6"
   },
   "require-dev": {
