@@ -682,6 +682,7 @@ class CFTemplateEngine extends AbstractTemplateEngine
             $constants['DEVICE_VIEW'] = $this->deviceView;
             $constants['SYSTEM_VERSION'] = $this->systemVersion;
 
+
             foreach ((array)$this->RequestContext->getControls()->getControls() as $name => $val) {
                 $constants['CONTROL_'.strtoupper(str_replace(' ','_',$name))] = $val;
             }
