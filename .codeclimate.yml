@@ -2,11 +2,11 @@ exclude_paths:
   - '/vendor/*'
 
 engines:
-  #phpcodesniffer:
-  #  enabled: true
-  #  config:
-  #    file_extensions: 'php'
-  #    standard: 'PSR1,PSR2'
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: 'php'
+      standard: 'PEAR'
   phpmd:
     enabled: true
     config:
