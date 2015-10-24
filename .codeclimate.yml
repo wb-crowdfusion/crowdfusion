@@ -6,7 +6,7 @@ engines:
     enabled: true
     config:
       file_extensions: 'php'
-      standard: 'PEAR'
+      standard: 'PEAR,PSR1'
   phpmd:
     enabled: true
     config:
