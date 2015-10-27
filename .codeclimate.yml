@@ -6,12 +6,12 @@ engines:
     enabled: true
     config:
       file_extensions: 'php'
-      standard: 'PEAR,PSR1'
+      standard: 'PSR1'
   phpmd:
     enabled: true
     config:
       file_extensions: 'php'
-      rulesets: 'unusedcode'
+      rulesets: 'cleancode,codesize,design,naming,unusedcode'
 
 ratings:
   paths:
