@@ -1,6 +1,11 @@
 CHANGELOG for 3.x.x
 ===================
 
+
+* 3.2.6 (2016-03-18)
+  * issue #7: Update FileSystemUtils::getMimetype with more complete set of content types.
+
+
 * 3.2.5 (2015-04-27)
   * Remove .gitignore rules for `cache/` and `*.sql` since CF uses those.
 
