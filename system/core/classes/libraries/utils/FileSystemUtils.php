@@ -958,7 +958,7 @@ class FileSystemUtils
 
         $mimetype = 'application/octet-stream';
 
-        if (array_key_exists(strtolower($extension), $mimetypes)) {
+        if (isset($mimetypes[strtolower($extension)])) {
             $mimetype = $mimetypes[strtolower($extension)];
         }
 
