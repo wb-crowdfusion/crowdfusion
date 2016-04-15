@@ -2,6 +2,10 @@ CHANGELOG for 3.x.x
 ===================
 
 
+* 3.2.7 (2016-04-15)
+  * issue #10: Throw exception only when `simplexml_load_string` parse actually fails.
+
+
 * 3.2.6 (2016-03-18)
   * issue #7: Update FileSystemUtils::getMimetype with more complete set of content types.
 
