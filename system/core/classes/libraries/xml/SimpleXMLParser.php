@@ -49,7 +49,7 @@ class SimpleXMLParser implements SimpleXMLParserInterface
 
         $doc = simplexml_load_string($xmlString, $simpleXMLClass);
 
-        if (!$doc) {
+        if (false === $doc) {
             $xml = explode("\n", $xmlString);
 
             $errors = libxml_get_errors();
@@ -63,6 +63,7 @@ class SimpleXMLParser implements SimpleXMLParserInterface
 
             throw new SimpleXMLParserException("Unable to parse xml string:\n\n".$errorString);
         }
+
         return $doc;
     }
 
