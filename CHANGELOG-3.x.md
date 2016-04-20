@@ -3,7 +3,7 @@ CHANGELOG for 3.x.x
 
 
 * 3.2.8 (2016-04-20)
-  * issue #11: Optimized Symfony's related components.
+  * issue #11: Optimized symfony composer dependencies since we only currently need `"symfony/http-foundation": "~2.6|~3.0"`.
 
 
 * 3.2.7 (2016-04-15)
