@@ -2,6 +2,10 @@ CHANGELOG for 3.x.x
 ===================
 
 
+* 3.2.8 (2016-04-20)
+  * issue #11: Optimized Symfony's related components.
+
+
 * 3.2.7 (2016-04-15)
   * issue #10: Throw exception only when `simplexml_load_string` parse actually fails.
 
