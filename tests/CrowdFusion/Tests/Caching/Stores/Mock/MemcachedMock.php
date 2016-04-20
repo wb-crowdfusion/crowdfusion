@@ -2,8 +2,6 @@
 
 namespace CrowdFusion\Tests\Caching\Stores\Mock;
 
-use Symfony\Component\HttpKernel\Tests\Profiler\Mock\MemcachedMock as BaseMemcachedMock;
-
 class MemcachedMock extends BaseMemcachedMock
 {
     /** @var array */
