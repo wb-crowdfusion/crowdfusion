@@ -60,6 +60,20 @@ class SimpleXMLExtendedTest extends \PHPUnit_Framework_TestCase
   </metadata>
 </xml>
 "
+            ),
+            array(
+                'input' => '<xml><item><item>1</item><item><item>2</item><item>3</item></item></item></xml>',
+                'output' => "<?xml version=\"1.0\"?>
+<xml>
+  <item>
+    <item>1</item>
+    <item>
+      <item>2</item>
+      <item>3</item>
+    </item>
+  </item>
+</xml>
+"
             )
         );
     }
