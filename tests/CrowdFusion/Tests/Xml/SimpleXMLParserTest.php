@@ -4,7 +4,7 @@ namespace CrowdFusion\Tests\Xml;
 
 class SimpleXMLParserTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \SimpleXMLParser\ */
+    /** @var \SimpleXMLParser */
     private $parser;
 
     public function setUp()
@@ -21,7 +21,6 @@ class SimpleXMLParserTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getValidXmls
      *
      * @param string $string
-     * @param bool   $exception
      */
     public function testParseXMLString($string)
     {
