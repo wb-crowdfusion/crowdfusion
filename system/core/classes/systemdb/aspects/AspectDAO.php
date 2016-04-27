@@ -39,7 +39,7 @@ class AspectDAO extends AbstractSystemXMLDAO
         $this->PluginService = $PluginService;
     }
 
-    /** 
+    /**
      * Returns the {@link $obj} with the parsed NodeSchema attached
      *
      * @param ModelObject $obj The object to translate
@@ -55,7 +55,7 @@ class AspectDAO extends AbstractSystemXMLDAO
         if($obj->getXMLSchema() != '') {
             // resolve schema
             $schemaXML = "<?xml version='1.0'?><schema>";
-            $schemaXML .= $obj->getXMLSchema();
+            $schemaXML .= preg_replace('/\<\?xml([^\>\/]*)\>/', '' , $obj->getXMLSchema());
             $schemaXML .= "</schema>";
 
             try {
