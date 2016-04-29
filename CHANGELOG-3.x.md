@@ -2,6 +2,10 @@ CHANGELOG for 3.x.x
 ===================
 
 
+* 3.3.0 (2016-04-29)
+  * issue #15: Disabled `safeChown()` - an "Operation not permitted" warning is thrown by `chgrp`.
+
+
 * 3.2.9 (2016-04-27)
   * issue #13: Fixed pretty xml formatted output.
 

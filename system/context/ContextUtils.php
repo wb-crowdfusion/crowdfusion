@@ -180,9 +180,9 @@ class ContextUtils
 
     public static function safeChown($filename)
     {
-        $buildStat = stat(PATH_BUILD);
-        @chown($filename, intval($buildStat['uid']));
-        @chgrp($filename, intval($buildStat['gid']));
+        //$buildStat = stat(PATH_BUILD);
+        //@chown($filename, intval($buildStat['uid']));
+        //@chgrp($filename, intval($buildStat['gid']));
         return true;
     }
 }
