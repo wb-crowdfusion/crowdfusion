@@ -2,6 +2,10 @@ CHANGELOG for 3.x.x
 ===================
 
 
+* 3.2.9 (2016-04-27)
+  * issue #13: Fixed pretty xml formatted output.
+
+
 * 3.2.8 (2016-04-20)
   * issue #11: Optimized symfony composer dependencies since we only currently need `"symfony/http-foundation": "~2.6|~3.0"`.
 

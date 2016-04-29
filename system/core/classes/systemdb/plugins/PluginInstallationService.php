@@ -511,7 +511,7 @@ class PluginInstallationService
                         {
 
                             $schemaXML = "<?xml version='1.0'?><schema>";
-                            $schemaXML .= $aspect->getXMLSchema();
+                            $schemaXML .= preg_replace('/\<\?xml([^\>\/]*)\>/', '' , $aspect->getXMLSchema());
                             $schemaXML .= "</schema>";
 
                             try {

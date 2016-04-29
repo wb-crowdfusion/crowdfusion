@@ -201,50 +201,20 @@ class SimpleXMLExtended extends SimpleXMLElement
      *
      * @return string Beautifully formatted XML code that will make your mom smile. Use your manners!
      *
-     * In the event that pretty-printing fails (e.g. due to memory constraints), defaults to
-     * returning $this->asXML().
+     * @deprecated $level is deprecated in 3.2.9, to be removed in 3.3.
      */
     public function asPrettyXML($level = 4)
     {
-        // get an array containing each XML element
-        $xml = preg_replace('/<((\S+)([^>]+)?)><\/\2>/s', "<$1/>\n", $this->asXML());
-        $xml = explode("\n", preg_replace('/>\s*</s', ">\n<", $xml));
+        // removed duplicate XML start of the document declaration
+        $xml = preg_replace('/\<\?xml([^\>\/]*)\>/', '' , $this->asXML());
 
-        // hold current indentation level
-        $indent = 0;
+        $dom = new DOMDocument();
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xml);
+        $formatted = $dom->saveXml();
 
-        // hold the XML segments
-        $pretty = array();
-
-        // shift off opening XML tag if present
-        if (count($xml) && preg_match('/^<\?\s*xml/', $xml[0])) {
-            $pretty[] = array_shift($xml);
-        }
-
-        foreach ($xml as $el) {
-            if (preg_match('/^<([\w])+[^>]*[^\/]>$/U', $el)) {
-                // opening tag, increase indent
-                $pretty[] = str_repeat(' ', $indent) . $el;
-                $indent += $level;
-            } else {
-                if (preg_match('/^<\/.+>$/', $el)) {
-                    // closing tag, decrease indent
-                    $indent -= $level;
-                }
-                if(preg_match('/^</', $el))
-                    $pretty[] = str_repeat(' ', abs($indent)) . $el;
-                else
-                    $pretty[] = $el;
-            }
-        }
-
-        $prettyXML = implode("\n", $pretty);
-
-        // The above implementation relies extensively on regexp functions, which can fail due to config settings,
-        // yet not throw an exception (see http://nz.php.net/manual/en/function.preg-last-error.php). Rather
-        // than check every call, simply fall back to $this->asXML() if the pretty-print result winds up
-        // empty (which is the likely result of such a failure).
-        return (!empty($prettyXML) ? $prettyXML : $this->asXML());
+        return $formatted;
     }
 
     /**
