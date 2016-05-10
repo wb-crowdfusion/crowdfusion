@@ -128,18 +128,35 @@ class JSONUtils
         $strLen    = strlen($json);
         $indentStr = $html ? '&nbsp;&nbsp;' : '  ';
         $newLine   = $html ? "<br/>\n" : "\n";
+        $inQuote   = false;
+        $escape    = false;
 
         for ($i = 0; $i <= $strLen; $i++) {
 
             // Grab the next character in the string
             $char = substr($json, $i, 1);
 
+            // intercept escape char
+            // if next char is double qouts, escape it!
+            if ($char == '\\') {
+                $escape = true;
+                $result .= $char;
+                continue;
+            }
+
+            // if prev is escape char, and current char is double qoutes
+            // consider it is just a string, not the interperter
+            // other wise, consider it's a regular string. @see line 176
+            if ($char == '"' && !$escape) {
+                $inQuote = !$inQuote;
+            }
+
             // If this character is the end of an element,
             // output a new line and indent the next line
             if ($char == '}'/* || $char == ']'*/) {
                 $result .= $newLine;
-                $pos --;
-                for ($j=0; $j<$pos; $j++) {
+                $pos--;
+                for ($j = 0; $j < $pos; $j++) {
                     $result .= $indentStr;
                 }
             }
@@ -149,15 +166,18 @@ class JSONUtils
 
             // If the last character was the beginning of an element,
             // output a new line and indent the next line
-            if ($char == ',' || $char == '{' /*|| $char == '['*/) {
+            if (($char == ',' && !$inQuote) || $char == '{' /*|| $char == '['*/) {
                 $result .= $newLine;
                 if ($char == '{' || $char == '[') {
-                    $pos ++;
+                    $pos++;
                 }
                 for ($j = 0; $j < $pos; $j++) {
                     $result .= $indentStr;
                 }
             }
+
+            // reset $escape
+            $escape = false;
         }
 
         return $result;
