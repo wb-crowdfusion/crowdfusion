@@ -83,7 +83,7 @@ class JSONUtilsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getTestArray
-     * 
+     *
      * @param array $phpArray
      */
     public function testFormat(array $phpArray)
@@ -107,13 +107,10 @@ class JSONUtilsTest extends \PHPUnit_Framework_TestCase
     public function getEmptyJson()
     {
         return array(
-            ['string' => ''],
-
-            ['string' => '{}'],
-
-            ['string' => '[]'],
-
-            ['string' => null]
+            array('string' => ''),
+            array('string' => '{}'),
+            array('string' => '[]'),
+            array('string' => null)
         );
     }
 
@@ -123,14 +120,25 @@ class JSONUtilsTest extends \PHPUnit_Framework_TestCase
     public function getInvalidJsons()
     {
         return array(
-            ['string' => 'bad json'],
-
-            ['string' => '[{bad json]'],
-
-            ['string' => '{bad, json}'],
-
-            ['string' => '{"bad": "json"},']
+            array('string' => 'bad json'),
+            array('string' => '[{bad json]'),
+            array('string' => '{bad, json}'),
+            array('string' => '{"bad": "json"},')
         );
+    }
+
+    /**
+     * @dataProvider getTestTypes
+     *
+     * @param array  $phpArray
+     * @param string $json
+     * @param string $pretty
+     */
+    public function testCompareTypes(array $phpArray, $json, $pretty)
+    {
+        $this->assertJsonStringEqualsJsonString(\JSONUtils::encode($phpArray), $json);
+        $this->assertJsonStringEqualsJsonString(\JSONUtils::encode($phpArray, true), $pretty);
+        $this->assertJsonStringEqualsJsonString(\JSONUtils::format($json), $pretty);
     }
 
     /**
@@ -139,13 +147,45 @@ class JSONUtilsTest extends \PHPUnit_Framework_TestCase
     public function getTestArray()
     {
         return array(
-                [array(
-                    'foo'   => 'look, here are the com,mas,',
-                    'bar'   => 'and " so\'me single &&& do\\uble """ qou,t@#$%^&*()es!',
-                    'baz'   => ['test' => 'from json [] enc\'".,ode php'],
+            array(
+                array(
+                    'foo' => 'look, here are the com,mas,',
+                    'bar' => 'and " so\'me single &&& do\\uble """ qou,t@#$%^&*()es!',
+                    'baz' => array(
+                        'test' => 'from json [] enc\'".,ode php'
+                    ),
                     'space' => 'trailing spaces             ', // <-- trailing spaces
-                    "tags"  => "web,mbr,dash,,,,           ", // <--- extra comma at the end
-                )]
+                    "tags" => "web,mbr,dash,,,,           ", // <--- extra comma at the end
+                )
+            )
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getTestTypes()
+    {
+        return array(
+            array(
+                'array' => array(
+                    'a' => '123',
+                    'b' => 456,
+                    'c' => array(
+                        'a', 'b', 'c'
+                    )
+                ),
+                'json' => '{"a":"123","b":456,"c":["a","b","c"]}',
+                'pretty' => '{
+  "a": "123",
+  "b": 456,
+  "c": [
+    "a",
+    "b",
+    "c"
+  ]
+}',
+            )
         );
     }
 }

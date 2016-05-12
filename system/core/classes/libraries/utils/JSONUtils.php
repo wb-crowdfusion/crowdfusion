@@ -33,13 +33,9 @@ class JSONUtils
      */
     public static function isValid($string)
     {
-        //todo: pass back exact error message
-
         try {
             self::decode($string);
         } catch (JSONException $e) {
-            // print_r($e->getMessage());
-
             return false;
         }
 
@@ -115,35 +111,43 @@ class JSONUtils
      */
     public static function format($json, $html = false)
     {
-        $prettyJson = json_encode(
-                        self::decode(
-                            str_replace(
-                                [
-                                    "\n",
-                                    '  ',
-                                    ', }',
-                                    ', ]',
-                                    ',}',
-                                    ',]',
-                                ],
-                                [
-                                    '',
-                                    '',
-                                    '}',
-                                    '}',
-                                    '}',
-                                    ']',
-                                ],
-                                $json
-                            )
-                        ),
-                        JSON_PRETTY_PRINT
-                    );
+        $format = str_replace(
+            [
+                '    ',
+                '\/',
+            ], [
+                '  ',
+                '/',
+            ], json_encode(
+                json_decode(
+                    str_replace(
+                        [
+                            "\n",
+                            '  ',
+                            ', }',
+                            ', ]',
+                            ',}',
+                            ',]',
+                        ],
+                        [
+                            '',
+                            '',
+                            '}',
+                            '}',
+                            '}',
+                            ']',
+                        ],
+                        $json
+                    )
+                ),
+                JSON_PRETTY_PRINT
+            )
+        );
 
         if ($html) {
-            return str_replace("\n", '<br/>', $prettyJson);
+            return str_replace("\n", '<br/>', $format);
         }
 
-        return $prettyJson;
+        return $format;
     }
 }
