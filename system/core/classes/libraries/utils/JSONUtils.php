@@ -24,7 +24,6 @@
  */
 class JSONUtils
 {
-
     /**
      * Validates a JSON string for syntax errors
      *
@@ -34,21 +33,17 @@ class JSONUtils
      */
     public static function isValid($string)
     {
-        json_decode($string);
-
         //todo: pass back exact error message
 
-        if (function_exists('json_last_error') ) {
-            switch (json_last_error()) {
-            case JSON_ERROR_NONE:
-                return true;
-            default:
-                return false;
-            }
+        try {
+            self::decode($string);
+        } catch (JSONException $e) {
+            // print_r($e->getMessage());
+
+            return false;
         }
 
-        //todo: change this to true
-        return false;
+        return true;
     }
 
     /**
@@ -64,22 +59,20 @@ class JSONUtils
     {
         $result = json_decode($string, $returnArrays);
 
-        if (function_exists('json_last_error') ) {
-
+        if (function_exists('json_last_error')) {
             switch (json_last_error()) {
-            case JSON_ERROR_DEPTH:
-                throw new JSONException('json_decode - Maximum stack depth exceeded');
+                case JSON_ERROR_DEPTH:
+                    throw new JSONException('json_decode - Maximum stack depth exceeded');
 
-            case JSON_ERROR_CTRL_CHAR:
-                throw new JSONException('json_decode - Unexpected control character found');
+                case JSON_ERROR_CTRL_CHAR:
+                    throw new JSONException('json_decode - Unexpected control character found');
 
-            case JSON_ERROR_SYNTAX:
-                throw new JSONException('json_decode - Syntax error, malformed JSON');
-
+                case JSON_ERROR_SYNTAX:
+                    throw new JSONException('json_decode - Syntax error, malformed JSON');
             }
-
-        } else if ($result === null)
-                throw new JSONException('Invalid JSON');
+        } elseif ($result === null) {
+            throw new JSONException('Invalid JSON');
+        }
 
         return $result;
     }
@@ -98,8 +91,9 @@ class JSONUtils
     {
         $s = json_encode($obj);
 
-        if($pretty)
+        if ($pretty) {
             return self::format($s, $html);
+        }
 
         return $s;
     }
@@ -111,75 +105,45 @@ class JSONUtils
 
     /**
      * Indents a flat JSON string to make it more human-readable
+     * Use php function JSON_PRETTY_PRINT. Require php >= 5.4
      *
      * @param string  $json The original JSON string to process
      * @param boolean $html If true, return the JSON in a format suitable for display in a web browser
      *                          Default: false
      *
-     * @see http://recurser.com/articles/2008/03/11/format-json-with-php/
-     * @author recurser.com
-     *
      * @return string Indented version of the original JSON string
      */
     public static function format($json, $html = false)
     {
-        $result    = '';
-        $pos       = 0;
-        $strLen    = strlen($json);
-        $indentStr = $html ? '&nbsp;&nbsp;' : '  ';
-        $newLine   = $html ? "<br/>\n" : "\n";
-        $inQuote   = false;
-        $escape    = false;
+        $prettyJson = json_encode(
+                        self::decode(
+                            str_replace(
+                                [
+                                    "\n",
+                                    '  ',
+                                    ', }',
+                                    ', ]',
+                                    ',}',
+                                    ',]',
+                                ],
+                                [
+                                    '',
+                                    '',
+                                    '}',
+                                    '}',
+                                    '}',
+                                    ']',
+                                ],
+                                $json
+                            )
+                        ),
+                        JSON_PRETTY_PRINT
+                    );
 
-        for ($i = 0; $i <= $strLen; $i++) {
-
-            // Grab the next character in the string
-            $char = substr($json, $i, 1);
-
-            // intercept escape char
-            // if next char is double qouts, escape it!
-            if ($char == '\\') {
-                $escape = true;
-                $result .= $char;
-                continue;
-            }
-
-            // if prev is escape char, and current char is double qoutes
-            // consider it is just a string, not the interperter
-            // other wise, consider it's a regular string. @see line 176
-            if ($char == '"' && !$escape) {
-                $inQuote = !$inQuote;
-            }
-
-            // If this character is the end of an element,
-            // output a new line and indent the next line
-            if ($char == '}'/* || $char == ']'*/) {
-                $result .= $newLine;
-                $pos--;
-                for ($j = 0; $j < $pos; $j++) {
-                    $result .= $indentStr;
-                }
-            }
-
-            // Add the character to the result string
-            $result .= $char;
-
-            // If the last character was the beginning of an element,
-            // output a new line and indent the next line
-            if (($char == ',' && !$inQuote) || $char == '{' /*|| $char == '['*/) {
-                $result .= $newLine;
-                if ($char == '{' || $char == '[') {
-                    $pos++;
-                }
-                for ($j = 0; $j < $pos; $j++) {
-                    $result .= $indentStr;
-                }
-            }
-
-            // reset $escape
-            $escape = false;
+        if ($html) {
+            return str_replace("\n", '<br/>', $prettyJson);
         }
 
-        return $result;
+        return $prettyJson;
     }
 }
