@@ -57,6 +57,9 @@ class JSONUtils
 
         if (function_exists('json_last_error')) {
             switch (json_last_error()) {
+                case JSON_ERROR_NONE:
+                    return $result;
+
                 case JSON_ERROR_DEPTH:
                     throw new JSONException('json_decode - Maximum stack depth exceeded');
 
@@ -65,6 +68,9 @@ class JSONUtils
 
                 case JSON_ERROR_SYNTAX:
                     throw new JSONException('json_decode - Syntax error, malformed JSON');
+
+                default:
+                    throw new JSONException('Invalid JSON');
             }
         } elseif ($result === null) {
             throw new JSONException('Invalid JSON');
