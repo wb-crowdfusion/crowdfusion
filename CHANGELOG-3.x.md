@@ -142,9 +142,6 @@ This changelog references the relevant changes done in 3.x versions.
 * [Dispatcher] new event announced "Dispatcher.terminate" with Transport argument.  ticket #100
 
 
-
-#### base rev 2.20.1
-
 ## v3.0.0
 * Make framework device aware.  ticket #75
   * $_SERVER['DEVICE_VIEW'] is used to determine which device view to render to a client.
