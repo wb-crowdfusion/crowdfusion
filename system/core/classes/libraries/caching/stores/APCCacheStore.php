@@ -40,7 +40,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
      *
      * @var boolean
      */
-    protected $apcFuncPrefix;
+    protected $apcFuncPrefix = 'apc';
 
     /**
      * Contains our cache prefix key
