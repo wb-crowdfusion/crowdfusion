@@ -2,6 +2,10 @@ CHANGELOG for 3.x.x
 ===================
 
 
+* 3.3.1 (2016-06-07)
+  * issue #18: Use `APCu` functions when available.
+
+
 * 3.3.0 (2016-04-29)
   * issue #15: Disabled `safeChown()` - an "Operation not permitted" warning is thrown by `chgrp`.
 

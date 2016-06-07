@@ -28,7 +28,6 @@
  */
 class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
 {
-
     /**
      * Flag to determine if cache system is enabled
      *
@@ -61,8 +60,9 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
     public function __construct(LoggerInterface $Logger, $apcCachePrefixKey = '', $apcEnabled = false)
     {
         if ($apcEnabled) {
-            if (!function_exists('apc_store'))
+            if (!function_exists('apc_store') && !function_exists('apcu_store')) {
                 throw new CacheException('APC shared memory functions are not installed');
+            }
 
             // Set our vars
             $this->cachePrefixKey = str_replace(' ', '', $apcCachePrefixKey);
@@ -92,7 +92,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
 
         $has_key = false;
 
-        apc_fetch($this->key($key), $has_key);
+        $this->apc('fetch', array($this->key($key), &$has_key));
 
         // $this->Logger->debug("Cache contains {$key}? " . (($has_key) ? 'TRUE' : 'FALSE'));
 
@@ -125,7 +125,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
 
 
         $key_fetched = false;
-        $data        = unserialize(apc_fetch($this->key($key), $key_fetched));
+        $data        = unserialize($this->apc('fetch', array($this->key($key), &$key_fetched)));
 
 //        $this->Logger->debug($data);
 
@@ -170,7 +170,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
             $key = $this->key($key);
 
         // Fetch the CachedObjects
-        $data = apc_fetch($keys);
+        $data = $this->apc('fetch', array($keys));
 
         $results = array();
         if ($data !== false) {
@@ -205,7 +205,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
 
         $key_fetched = false;
 
-        $data = unserialize(apc_fetch($this->key($key, $key_fetched)));
+        $data = unserialize($this->apc('fetch', array($this->key($key), &$key_fetched)));
 
         if ($key_fetched == false) {
 
@@ -257,7 +257,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
             $serializedData =  serialize($data);
 
             // Store the cache object
-            $has_set = apc_store($this->key($key), $serializedData, $ttl);
+            $has_set = $this->apc('store', array($this->key($key), $serializedData, $ttl));
 
         } catch (Exception $e) {
             throw new CacheException($e->getMessage(), $e->getCode());
@@ -291,7 +291,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
             throw new CacheException("Invalid Duration: {$duration}");
 
         $has_key     = false;
-        $storedArray = unserialize(apc_fetch($key, $has_key));
+        $storedArray = unserialize($this->apc('fetch', array($this->key($key), &$has_key)));
 
         if (!$has_key)
             return false;
@@ -300,7 +300,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
         $storedArray['duration'] = $duration;
 
         $this->Logger->debug("Update duration for {$key} to {$duration}");
-        return apc_store($this->key($key), serialize($storedArray), $duration);
+        return $this->apc('store', array($this->key($key), serialize($storedArray), $duration));
     }
 
     /**
@@ -316,7 +316,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
             return true;
 
         $this->Logger->debug("Delete key: {$key}");
-        return apc_delete($this->key($key));
+        return $this->apc('delete', array($this->key($key)));
     }
 
     /**
@@ -327,7 +327,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
      */
     public function getStats()
     {
-        return array_merge(apc_cache_info(), ini_get_all('apc'));
+        return array_merge($this->apc('cache_info'), ini_get_all('apc'));
     }
 
     /**
@@ -345,9 +345,9 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
 
         $this->Logger->debug('Expire all keys');
 
-        apc_clear_cache();
+        $this->apc('clear_cache');
 
-        return apc_clear_cache('user');
+        return $this->apc('clear_cache', array('user'));
     }
 
     /**
@@ -361,4 +361,19 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
         return true; // Handled automatically.
     }
 
+    /**
+     * @param string $callback
+     * @param string $parameters
+     *
+     * @return mixed
+     */
+    private function apc($callback, array $parameters = array())
+    {
+        $callback = function_exists('apcu_add')
+            ? 'apcu_'.$callback
+            : 'apc_'.$callback
+        ;
+
+        return call_user_func_array($callback, $parameters);
+    }
 }
