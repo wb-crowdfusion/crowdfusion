@@ -4,6 +4,7 @@ WB CrowdFusion
 [![Build Status](https://api.travis-ci.org/wb-crowdfusion/crowdfusion.svg)](https://travis-ci.org/wb-crowdfusion/crowdfusion)
 [![Code Climate](https://codeclimate.com/github/wb-crowdfusion/crowdfusion/badges/gpa.svg)](https://codeclimate.com/github/wb-crowdfusion/crowdfusion)
 
+
 Summary Overview of Crowd Fusion file structure
 -----------------------------------------------
 
