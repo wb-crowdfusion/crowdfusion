@@ -1,12 +1,8 @@
 WB CrowdFusion
 ========================
 
-todo:
-
-* write vm install instructions or link to wiki
-* write folder structure ref, add psr-0 details and tests dir
-* setup private composer repos... https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md
-
+[![Build Status](https://api.travis-ci.org/wb-crowdfusion/crowdfusion.svg)](https://travis-ci.org/wb-crowdfusion/crowdfusion)
+[![Code Climate](https://codeclimate.com/github/wb-crowdfusion/crowdfusion/badges/gpa.svg)](https://codeclimate.com/github/wb-crowdfusion/crowdfusion)
 
 Summary Overview of Crowd Fusion file structure
 -----------------------------------------------
@@ -138,4 +134,5 @@ The only item in the above structure that is required is the `plugin.xml` file, 
 * `bootstrap.php` -allows plugins to execute code during the loading process, before the Dispatcher or any classes in the container are called. When all plugins are loaded into the context, the container will iterate through them in priority order, and execute a single bootstrap.php file contained at the root of each plugin.  If the file does not exist, the container continues to the next plugin.
 * `plugin.xml` -defines the plugin and is the only file required by a plugin.
 
-For more information, please refer to [Assembla Wiki](https://www.assembla.com/spaces/wb-crowdfusion/wiki).
+
+&copy; 2016 Warner Bros. Entertainment Inc. All rights reserved.

@@ -18,7 +18,7 @@ class JSONUtilsTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getTestArray
      *
-     * @param array phpArray
+     * @param array
      */
     public function testIsValid(array $phpArray)
     {
