@@ -2,6 +2,10 @@
 This changelog references the relevant changes done in 3.x versions.
 
 
+## v3.2.11
+* issue #18: Use `apcu` functions when available.
+
+
 ## v3.2.10
 * issue 16: BUG :: `JSONUtils` format() currently formats comma in string into a new line.
 
