@@ -2,7 +2,7 @@
 This changelog references the relevant changes done in 3.x versions.
 
 
-## v3.3.0
+## v3.2.11
 * issue #18: Use `apcu` functions when available.
 
 
