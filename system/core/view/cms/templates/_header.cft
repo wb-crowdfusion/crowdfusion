@@ -113,6 +113,7 @@ window.onerror=function(msg, url, linenumber){
 
 {% asset js?src=js/List.js&min=true %}
 {% asset js?src=js/Edit.js&min=true %}
+{% asset js?src=js/main.js&min=true %}
 {% asset js?src=js/Navigation.js&min=true %}
 {% asset js?src=js/SlugHelper.js&pack=true %}
 {% asset js?src=js/HotDeploy.js&min=true %}
