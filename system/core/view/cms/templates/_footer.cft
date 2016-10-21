@@ -18,15 +18,15 @@
 
 {% if Global:BodyID !eq 'signin' %}
 <script language="JavaScript" type="text/javascript">
+$(document).ready(function(){
+  FieldsetExpander.init();
+});
 
-    $(document).ready(function(){
-        FieldsetExpander.init();
-    });
-
-    $(window).load(function() { $(document).trigger('hide_initial_error'); });
-
+$(window).load(function() { $(document).trigger('hide_initial_error'); });
 </script>
 {% endif %}
+
+{% template _js-footer-scripts.cft %}
 </body></html>
 
 {% end %}

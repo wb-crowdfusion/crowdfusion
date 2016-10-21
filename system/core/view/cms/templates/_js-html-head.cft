@@ -1,0 +1,6 @@
+{% /*
+At site level, replicate this file and insert any additional scripts that may be needed in the CMS
+*/ %}
+
+{% begin contents %}
+{% end %}

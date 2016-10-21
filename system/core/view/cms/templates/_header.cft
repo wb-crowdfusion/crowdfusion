@@ -16,18 +16,18 @@
 <meta http-equiv="imagetoolbar" content="no" />
 
 <script type="text/javascript" language="JavaScript">
-    window.onerror=function(msg, url, linenumber){
-        if(typeof console != 'undefined') {
-            var err = 'An unexpected error occurred:\n\nCause: '+msg+'\n\nURL: '+url+'\n\nLine Number: '+linenumber;
-            {% if cms-onerror-alert-enabled %}
-            alert(err);
-            {% else %}
-            if(typeof console != 'undefined')
-                console.log(err);
-            {% endif %}
-        }
-        return true;
-    }
+window.onerror=function(msg, url, linenumber){
+  if(typeof console != 'undefined') {
+    var err = 'An unexpected error occurred:\n\nCause: '+msg+'\n\nURL: '+url+'\n\nLine Number: '+linenumber;
+    {% if cms-onerror-alert-enabled %}
+    alert(err);
+    {% else %}
+    if(typeof console != 'undefined')
+      console.log(err);
+    {% endif %}
+  }
+  return true;
+}
 </script>
 
 {% asset css?src=css/master.css&min=true %}
@@ -69,6 +69,8 @@
 {% asset js?src=js/jquery/effects/jquery.effects.core.js&pack=true %}
 {% asset js?src=js/jquery/effects/jquery.effects.highlight.js&pack=true %}
 
+{% asset js?src=js/requirejs/2.3.2/require.js&pack=true %}
+
 {% asset js?src=js/general.js&pack=true %}
 
 {% asset js?src=js/JSON.js&pack=true %}
@@ -79,7 +81,6 @@
 {% asset js?src=js/FieldClasses.js&pack=true %}
 {% asset js?src=js/BulkActionToolbar.js&pack=true %}
 {% asset js?src=js/BulkTagAction.js&pack=true %}
-
 
 {% asset js?src=js/TagFormManager.js&pack=true %}
 {% asset js?src=js/SectionFormManager.js&pack=true %}
@@ -101,7 +102,6 @@
 {% asset js?src=js/model/Tag.js&pack=true %}
 {% asset js?src=js/model/TagPartial.js&pack=true %}
 
-
 {% asset js?src=js/services/SystemService.js&pack=true %}
 {% asset js?src=js/services/NodeService.js&pack=true %}
 {% asset js?src=js/services/SectionsService.js&pack=true %}
@@ -118,22 +118,20 @@
 {% asset js?src=js/HotDeploy.js&min=true %}
 {% asset js?src=js/ie.js&min=true %}
 
+{% template _js-html-head.cft %}
+
 {% filter event?name=cms-head&allowTemplateCode=true %}
 
 <script language="JavaScript" type="text/javascript">
+SystemService.init({% template _js-sites.cft %},{% template _js-elements.cft %},{% template _js-aspects.cft %});
+if(typeof $ != 'undefined') {
+  $(document).ready(function() {
+    {% template _js-errors.cft %}
+  });
+}
 
-	SystemService.init({% template _js-sites.cft %},{% template _js-elements.cft %},{% template _js-aspects.cft %});
-
-    if(typeof $ != 'undefined') {
-	    $(document).ready(function() {
-    		{% template _js-errors.cft %}
-    	});
-    };
-
-    document.assetBasePath = '{% asset resolve?src=/ %}';
-
+document.assetBasePath = '{% asset resolve?src=/ %}';
 </script>
-
 
 </head>
 <body id="%BodyID%" class="%BodyClass%">
@@ -142,25 +140,24 @@
 		<h1><a href="/"><img src="{% asset version?src=/images/cluster-logo.png %}" alt="%SERVER_CLUSTER%" border="0"/></a></h1>
 
 		<div id="utilities">
-            <div>
-            {% if permission?action=hotdeploy-toggle %}
-                {% if Data:SERVER_DEVELOPMENT_MODE %}
-                    <div id="hot-deploy" class=""><span>Hot Deploy Mode</span></div>
-                {% else %}
-                    <div id="hot-deploy" class="off"><span>Pre-Compiled Mode</span><a href="#" title="Refresh Deployed Files">redeploy</a></div>
-                {% endif %}
-            {% endif %}
+      <div>
+      {% if permission?action=hotdeploy-toggle %}
+        {% if Data:SERVER_DEVELOPMENT_MODE %}
+        <div id="hot-deploy" class=""><span>Hot Deploy Mode</span></div>
+        {% else %}
+        <div id="hot-deploy" class="off"><span>Pre-Compiled Mode</span><a href="#" title="Refresh Deployed Files">redeploy</a></div>
+        {% endif %}
+      {% endif %}
 
-            {% filter event?name=cms-utilities %}
-            </div>
+      {% filter event?name=cms-utilities %}
+      </div>
 		</div>
 
 		<div id="cms-error" class="cms-error">Loading: Please Wait!</div>
-        <div id="app-menu">
-            {% filter cms-menu?id=primarynav&class=menu %}
-        </div>
+      <div id="app-menu">
+      {% filter cms-menu?id=primarynav&class=menu %}
+      </div>
     </div>
 
-	<div id="app-body">
-
+  <div id="app-body">
 {% end %}
