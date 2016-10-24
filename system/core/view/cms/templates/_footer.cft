@@ -27,6 +27,10 @@ $(window).load(function() { $(document).trigger('hide_initial_error'); });
 {% endif %}
 
 {% template _js-footer-scripts.cft %}
+
+<script>
+var wbq=wbq||[],WbQueue=function(){this.push=function(){for(var n=window.console&&"undefined"!=typeof window.console.log,e=0;e<arguments.length;e++)try{if("function"==typeof arguments[e]){try{arguments[e].name&&n&&window.console.log("[DEBUG] wbq::"+arguments[e].name)}catch(o){}arguments[e]()}}catch(o){}}},old_wbq=wbq;wbq=new WbQueue,wbq.push.apply(wbq,old_wbq);
+</script>
 </body></html>
 
 {% end %}

@@ -16,6 +16,11 @@
 <meta http-equiv="imagetoolbar" content="no" />
 
 <script type="text/javascript" language="JavaScript">
+var wbq = wbq || [];
+var DEVICE_VIEW = '%DEVICE_VIEW%';
+var ASSETS_BASEURL = '%ASSETS_BASEURL%';
+var require = {baseUrl: ASSETS_BASEURL + 'js/', urlArgs: 'bust=' + (new Date()).getTime()};
+
 window.onerror=function(msg, url, linenumber){
   if(typeof console != 'undefined') {
     var err = 'An unexpected error occurred:\n\nCause: '+msg+'\n\nURL: '+url+'\n\nLine Number: '+linenumber;
