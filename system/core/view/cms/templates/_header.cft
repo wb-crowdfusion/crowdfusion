@@ -19,7 +19,7 @@
 var wbq = wbq || [];
 var DEVICE_VIEW = '%DEVICE_VIEW%';
 var ASSETS_BASEURL = '%ASSETS_BASEURL%';
-var require = {baseUrl: ASSETS_BASEURL + 'js/', urlArgs: 'bust=' + (new Date()).getTime()};
+var require = {baseUrl: ASSETS_BASEURL + 'js/'{% if Data:IS_DEV_ENVIRONMENT %}, urlArgs: 'bust=' + (new Date()).getTime(){% endif %}};
 
 window.onerror=function(msg, url, linenumber){
   if(typeof console != 'undefined') {
