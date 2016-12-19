@@ -108,8 +108,8 @@ class Encryption implements EncryptionInterface
         if(empty($value))
             return false;
 
-        include_once PATH_SYSTEM . '/vendors/phpseclib0/Crypt/Rijndael.php';
-        include_once PATH_SYSTEM . '/vendors/phpseclib0/Crypt/AES.php';
+        include_once PATH_SYSTEM . '/vendors/phpseclib1.0.5/Crypt/Rijndael.php';
+        include_once PATH_SYSTEM . '/vendors/phpseclib1.0.5/Crypt/AES.php';
 
         $this->Crypt = new Crypt_AES();
         $this->Crypt->setKey($this->key);
@@ -131,9 +131,9 @@ class Encryption implements EncryptionInterface
     {
         if(empty($value))
             return false;
-        
-        include_once PATH_SYSTEM . '/vendors/phpseclib0/Crypt/Rijndael.php';
-        include_once PATH_SYSTEM . '/vendors/phpseclib0/Crypt/AES.php';
+
+        include_once PATH_SYSTEM . '/vendors/phpseclib1.0.5/Crypt/Rijndael.php';
+        include_once PATH_SYSTEM . '/vendors/phpseclib1.0.5/Crypt/AES.php';
 
         $this->Crypt = new Crypt_AES();
         $this->Crypt->setKey($this->key);
