@@ -178,7 +178,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
 //         $this->Logger->debug($keys);
 
         foreach ($keys as &$key) {
-            $key = $this->key($key);
+            $key = (string) $this->key($key);
         }
 
         // Fetch the CachedObjects
