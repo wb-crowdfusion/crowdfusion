@@ -41,7 +41,7 @@ class NodeLookupDAO extends AbstractNodeDAO
     * [IoC]
     * @param NodeEvents $NodeEvents
     */
-    public function setNodeEvents($NodeEvents){
+    public function setNodeEvents(NodeEvents $NodeEvents){
         $this->NodeEvents = $NodeEvents;
     }
 
