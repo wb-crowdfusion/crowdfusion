@@ -103,8 +103,11 @@ class AssetService extends AbstractFileDeploymentService
             $timestamp = $headFile->getTimestamp();
         }catch(StorageFacilityException $sfe) {}
 
-        if($timestamp != $ts)
-            return $this->getStorageFacility()->putFile($this->getStorageFacilityParams(), new StorageFacilityFile($relpath, $filename, null, null, $ts));
+        if ($timestamp != $ts) {
+            $file = new StorageFacilityFile($relpath, $filename, null, null, $ts);
+
+            return $this->getStorageFacility()->putFile($this->getStorageFacilityParams(), $file);
+        }
 
         return $this->getStorageFacility()->resolveFile($this->getStorageFacilityParams(), $relpath);
     }
