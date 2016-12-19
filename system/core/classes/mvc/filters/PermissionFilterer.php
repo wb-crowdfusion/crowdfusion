@@ -44,9 +44,10 @@ class PermissionFilterer extends AbstractFilterer
 
     protected function passNode()
     {
-        $action      = $this->getParameter('action');
+        $action = $this->getParameter('action');
+        $nodeRef = $this->getLocal('NodeRef');
 
-        return $this->NodePermissions->check($action, $this->getLocal('NodeRef'));
+        return $this->NodePermissions->check($action, $nodeRef);
     }
 
     /**
@@ -59,9 +60,10 @@ class PermissionFilterer extends AbstractFilterer
      */
     public function pass()
     {
-        $action      = $this->getParameter('action');
+        $action = $this->getParameter('action');
+        $siteSlug = $this->getLocal('SiteSlug');
 
-        return $this->Permissions->checkPermission($action, $this->getLocal('SiteSlug'));
+        return $this->Permissions->checkPermission($action, $siteSlug);
     }
 
     /**
