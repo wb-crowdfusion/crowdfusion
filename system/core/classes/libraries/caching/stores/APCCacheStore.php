@@ -366,9 +366,13 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
         $this->Logger->debug('Expire all keys');
 
         $apcMethod = $this->apcFuncPrefix.'_clear_cache';
-        $apcMethod();
+        $result = $apcMethod();
 
-        return $apcMethod('user');
+        if ($this->apcFuncPrefix == 'apc') {
+            return $apcMethod('user');
+        }
+
+        return $result;
     }
 
     /**
