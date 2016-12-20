@@ -118,8 +118,8 @@ class NodeCmsController extends AbstractCmsController
 
             $this->NodeMapper->defaultsOnNode($node);
 
-            $this->NodeBinder->bindPersistentFields($node, $this->getErrors(), $this->params, $this->rawParams);
-            $this->NodeBinder->fireAddBindEvents($node, $this->getErrors(), $this->params, $this->rawParams);
+            $this->NodeBinder->bindPersistentFields($node, $this->error, $this->params, $this->rawParams);
+            $this->NodeBinder->fireAddBindEvents($node, $this->error, $this->params, $this->rawParams);
 
             $location = 'load';
             $this->Events->trigger('NodeCmsController.add'.'.'.$location, $this->errors, $this->templateVars, $node);
@@ -164,8 +164,8 @@ class NodeCmsController extends AbstractCmsController
                 $node = $nodeRef->generateNode();
 
                 //bind posted params to form backing object
-                $this->NodeBinder->bindPersistentFields($node, $this->getErrors(), $this->params, $this->rawParams);
-                $this->NodeBinder->fireAddBindEvents($node, $this->getErrors(), $this->params, $this->rawParams);
+                $this->NodeBinder->bindPersistentFields($node, $this->error, $this->params, $this->rawParams);
+                $this->NodeBinder->fireAddBindEvents($node, $this->error, $this->params, $this->rawParams);
 
                 //FIRE EVENTS FOR PRE-ADD
                 $location = 'pre';
@@ -343,8 +343,8 @@ class NodeCmsController extends AbstractCmsController
 
 
                 //bind posted params to form backing object ($page)
-                $this->NodeBinder->bindPersistentFields($node, $this->getErrors(), $this->params, $this->rawParams);
-                $this->NodeBinder->fireEditBindEvents($node, $this->getErrors(), $this->params, $this->rawParams);
+                $this->NodeBinder->bindPersistentFields($node, $this->error, $this->params, $this->rawParams);
+                $this->NodeBinder->fireEditBindEvents($node, $this->error, $this->params, $this->rawParams);
 
                 $location = 'pre';
                 $this->Events->trigger('NodeCmsController.edit'.'.'.$location,
@@ -514,8 +514,8 @@ class NodeCmsController extends AbstractCmsController
                 $node = $nodeRef->generateNode();
 
                 //bind posted params to form backing object
-                $this->NodeBinder->bindPersistentFields($node, $this->getErrors(), $this->params, $this->rawParams);
-                $this->NodeBinder->fireAddBindEvents($node, $this->getErrors(), $this->params, $this->rawParams);
+                $this->NodeBinder->bindPersistentFields($node, $this->error, $this->params, $this->rawParams);
+                $this->NodeBinder->fireAddBindEvents($node, $this->error, $this->params, $this->rawParams);
 
                 $location = 'pre';
                 $this->Events->trigger('NodeCmsController.duplicate'.'.'.$location,
