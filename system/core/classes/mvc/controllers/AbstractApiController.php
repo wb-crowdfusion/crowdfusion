@@ -166,8 +166,6 @@ abstract class AbstractApiController extends AbstractController
                                 <Value>'+htmlentities($error->getValue())+'</Value>\
                                 <Message>'+htmlentities($this->errorCodeResolver->resolveMessageCode(
                                         $error->getFailureCode(),
-                                        $error->getFieldResolved(),
-                                        $error->getFieldType(),
                                         array(
                                             $error->getFieldTitle(),
                                             $error->getValue(),
@@ -181,8 +179,6 @@ abstract class AbstractApiController extends AbstractController
                                 <Code>'+htmlentities($error->getErrorCode())+'</Code>\
                                 <Message>'+htmlentities($this->errorCodeResolver->resolveMessageCode(
                             $error->getErrorCode(),
-                            null,
-                            null,
                             null,
                             $error->getDefaultErrorMessage()))+'</Message>\
                                 </Error>';
@@ -216,8 +212,6 @@ abstract class AbstractApiController extends AbstractController
                                 'Value'=>$error->getValue(),
                                 'Message'=>$this->errorCodeResolver->resolveMessageCode(
                                         $error->getFailureCode(),
-                                        $error->getFieldResolved(),
-                                        $error->getFieldType(),
                                         array(
                                             $error->getFieldTitle(),
                                             $error->getValue(),
@@ -231,8 +225,6 @@ abstract class AbstractApiController extends AbstractController
                                 'Code'=>$error->getErrorCode(),
                                 'Message'=>$this->errorCodeResolver->resolveMessageCode(
                             $error->getErrorCode(),
-                            null,
-                            null,
                             null,
                             $error->getDefaultErrorMessage())
                             );

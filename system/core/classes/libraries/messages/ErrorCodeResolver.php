@@ -29,9 +29,7 @@ class ErrorCodeResolver extends MessageCodeResolver
     /**
      * Returns the best matching error message for the {@link $code} given.
      *
-     * @param string $errorCode      The error code to resolve
-     * @param string $field          The name of the field that is in error
-     * @param string $fieldType      The fieldtype that is in error
+     * @param string $code           The error code to resolve
      * @param array  $args           An array of arguments, used to process the message
      *                                  (usually dynamic content that's part of the resultant string)
      * @param string $defaultMessage The default message to display,
@@ -39,7 +37,7 @@ class ErrorCodeResolver extends MessageCodeResolver
      *
      * @return string The best matching message for the given code
      */
-    public function resolveMessageCode($errorCode, $field, $fieldType, $args = null, $defaultMessage = '')
+    public function resolveMessageCode($code, $args = NULL, $defaultMessage = ''))
     {
         $best  = null;
         $paths = $this->getPropertyFilepaths();
@@ -49,16 +47,6 @@ class ErrorCodeResolver extends MessageCodeResolver
 
             // code (least specific)
             $code = $this->prefix.$errorCode;
-            if (array_key_exists($code, $props))
-                $best = $this->processMessage($props[$code], $args);
-
-            // code + fieldtype (medium specific)
-            $code = $this->prefix.$errorCode.'.'.$fieldType;
-            if (array_key_exists($code, $props))
-                $best = $this->processMessage($props[$code], $args);
-
-            // code + field (most specific)
-            $code = $this->prefix.$errorCode.'.'.$field;
             if (array_key_exists($code, $props))
                 $best = $this->processMessage($props[$code], $args);
         }

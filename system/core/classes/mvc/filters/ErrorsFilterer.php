@@ -55,8 +55,6 @@ class ErrorsFilterer extends MsgFilterer
                         'Value'=>$error->getValue(),
                         'Message'=>$this->errorCodeResolver->resolveMessageCode(
                                 $error->getFailureCode(),
-                                $error->getFieldResolved(),
-                                $error->getFieldType(),
                                 array(
                                     $error->getFieldTitle(),
                                     $error->getValue(),
@@ -70,8 +68,6 @@ class ErrorsFilterer extends MsgFilterer
                         'Code'=>$error->getErrorCode(),
                         'Message'=>$this->errorCodeResolver->resolveMessageCode(
                     $error->getErrorCode(),
-                    null,
-                    null,
                     null,
                     $error->getDefaultErrorMessage())
                     );
@@ -107,8 +103,6 @@ class ErrorsFilterer extends MsgFilterer
                         <Value>'+htmlentities($error->getValue())+'</Value>\
                         <Message>'+htmlentities($this->errorCodeResolver->resolveMessageCode(
                                 $error->getFailureCode(),
-                                $error->getFieldResolved(),
-                                $error->getFieldType(),
                                 array(
                                     $error->getFieldTitle(),
                                     $error->getValue(),
@@ -122,8 +116,6 @@ class ErrorsFilterer extends MsgFilterer
                         <Code>'+htmlentities($error->getErrorCode())+'</Code>\
                         <Message>'+htmlentities($this->errorCodeResolver->resolveMessageCode(
                     $error->getErrorCode(),
-                    null,
-                    null,
                     null,
                     $error->getDefaultErrorMessage()))+'</Message>\
                         </Error>';
@@ -141,7 +133,11 @@ class ErrorsFilterer extends MsgFilterer
 
         foreach((array)$errors as $error) {
             if(!($error instanceof ValidationError)) continue;
-            return $this->errorCodeResolver->resolveMessageCode($error->getErrorCode(),null,null,null,$error->getDefaultErrorMessage());
+            return $this->errorCodeResolver->resolveMessageCode(
+                $error->getErrorCode(),
+                null,
+                $error->getDefaultErrorMessage()
+            );
         }
 
     }
@@ -208,8 +204,6 @@ class ErrorsFilterer extends MsgFilterer
                 $msg = $this->errorCodeResolver->resolveMessageCode(
                     $error->getErrorCode(),
                     null,
-                    null,
-                    null,
                     $error->getDefaultErrorMessage());
 
                 if($mode == 'br')
@@ -237,8 +231,6 @@ class ErrorsFilterer extends MsgFilterer
 
                     $msg = $this->errorCodeResolver->resolveMessageCode(
                         $error->getFailureCode(),
-                        $error->getFieldResolved(),
-                        $error->getFieldType(),
                         array(
                             $error->getFieldTitle(),
                             $error->getValue(),
