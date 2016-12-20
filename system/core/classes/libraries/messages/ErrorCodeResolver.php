@@ -37,7 +37,7 @@ class ErrorCodeResolver extends MessageCodeResolver
      *
      * @return string The best matching message for the given code
      */
-    public function resolveMessageCode($code, $args = NULL, $defaultMessage = ''))
+    public function resolveMessageCode($code, $args = NULL, $defaultMessage = '')
     {
         $best  = null;
         $paths = $this->getPropertyFilepaths();
