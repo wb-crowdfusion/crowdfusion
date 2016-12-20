@@ -61,7 +61,7 @@ class PluginsCliController extends AbstractCmsController
     {
         $obj = $this->PluginService->getBySlug($this->Request->getParameter('slug'));
 
-        list($log, $status) = $this->PluginInstallationService->installPlugin($obj->Path, $this->getErrors());
+        list($log, $status) = $this->PluginInstallationService->installPlugin($obj->Path, $this->errors);
 
         echo "STATUS: ".$status."\n\n";
         echo $log;
@@ -82,7 +82,7 @@ class PluginsCliController extends AbstractCmsController
     {
         $obj = $this->PluginService->getBySlug($this->Request->getParameter('slug'));
 
-        list($log,$status) = $this->PluginInstallationService->upgradePlugin($obj->Slug,$obj->Path, $this->getErrors());
+        list($log,$status) = $this->PluginInstallationService->upgradePlugin($obj->Slug,$obj->Path, $this->errors);
 
         echo "STATUS: ".$status."\n\n";
         echo $log;
@@ -92,7 +92,7 @@ class PluginsCliController extends AbstractCmsController
     {
         $obj = $this->PluginService->getBySlug($this->Request->getParameter('slug'));
 
-        list($log,$status) = $this->PluginInstallationService->uninstallPlugin($obj->Slug, $this->getErrors());
+        list($log,$status) = $this->PluginInstallationService->uninstallPlugin($obj->Slug, $this->errors);
 
         echo "STATUS: ".$status."\n\n";
         echo $log;
@@ -103,7 +103,7 @@ class PluginsCliController extends AbstractCmsController
     {
         $obj = $this->PluginService->getBySlug($this->Request->getParameter('slug'));
 
-        list($log,$status) = $this->PluginInstallationService->uninstallPlugin($obj->Slug, $this->getErrors(), true);
+        list($log,$status) = $this->PluginInstallationService->uninstallPlugin($obj->Slug, $this->errors, true);
 
         echo "STATUS: ".$status."\n\n";
         echo $log;

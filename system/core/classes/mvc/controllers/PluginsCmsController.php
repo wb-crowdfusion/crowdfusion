@@ -70,7 +70,7 @@ class PluginsCmsController extends AbstractCmsController
         {
             $obj = $this->PluginService->getByID($this->Request->getParameter('id'));
 
-            list($log, $status) = $this->PluginInstallationService->installPlugin($obj->Path, $this->getErrors());
+            list($log, $status) = $this->PluginInstallationService->installPlugin($obj->Path, $this->errors);
 
             return new View('plugins/install.cft',array('action'=>__FUNCTION__, 'log'=>$log,'status'=>$status));
         }
@@ -88,7 +88,7 @@ class PluginsCmsController extends AbstractCmsController
         {
             $obj = $this->PluginService->getByID($this->Request->getParameter('id'));
 
-            list($log,$status) = $this->PluginInstallationService->upgradePlugin($obj->Slug,$obj->Path, $this->getErrors());
+            list($log,$status) = $this->PluginInstallationService->upgradePlugin($obj->Slug,$obj->Path, $this->errors);
 
             return new View('plugins/install.cft',array('action' => __FUNCTION__, 'log'=>$log,'status'=>$status));
         }
@@ -106,7 +106,7 @@ class PluginsCmsController extends AbstractCmsController
         {
             $obj = $this->PluginService->getByID($this->Request->getParameter('id'));
 
-            list($log,$status) = $this->PluginInstallationService->uninstallPlugin($obj->Slug, $this->getErrors());
+            list($log,$status) = $this->PluginInstallationService->uninstallPlugin($obj->Slug, $this->errors);
 
             return new View('plugins/install.cft',array('action' => __FUNCTION__, 'log'=>$log,'status'=>$status));
 
@@ -126,7 +126,7 @@ class PluginsCmsController extends AbstractCmsController
         {
             $obj = $this->PluginService->getByID($this->Request->getParameter('id'));
 
-            list($log,$status) = $this->PluginInstallationService->uninstallPlugin($obj->Slug, $this->getErrors(), true);
+            list($log,$status) = $this->PluginInstallationService->uninstallPlugin($obj->Slug, $this->errors, true);
 
             return new View('plugins/install.cft',array('action' => 'uninstall', 'log'=>$log,'status'=>$status));
 
