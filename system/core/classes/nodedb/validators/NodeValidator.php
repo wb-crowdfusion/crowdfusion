@@ -51,12 +51,12 @@ class NodeValidator extends AbstractValidator
 
     protected function add(Node $node)
     {
-        $errors =& $this->getErrors();
-        $nodeRef =& $node->getResolvedNodeRef();
+        $errors = $this->getErrors();
+        $nodeRef = $node->getResolvedNodeRef();
 
         $this->NodeEvents->fireValidationEvents(__FUNCTION__, $errors, $nodeRef, $node);
 
-        $nodeRef =& $node->getResolvedNodeRef();
+        $nodeRef = $node->getResolvedNodeRef();
 
         $this->validateNode($node, 'add');
 
@@ -77,8 +77,8 @@ class NodeValidator extends AbstractValidator
             $this->getErrors()->reject('Record not found for NodeRef: '.$node->getNodeRef()->getRefURL())->throwOnError();
         }
 
-        $errors =& $this->getErrors();
-        $nodeRef =& $node->getNodeRef();
+        $errors = $this->getErrors();
+        $nodeRef = $node->getNodeRef();
 
         $this->NodeEvents->fireValidationEvents(__FUNCTION__, $errors, $nodeRef, $node);
 

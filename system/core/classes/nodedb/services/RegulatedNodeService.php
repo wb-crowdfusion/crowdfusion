@@ -36,35 +36,37 @@ class RegulatedNodeService extends NodeService
 
     public function add(Node $node)
     {
-        $this->NodePermissions->checkThrow(__FUNCTION__, $node->getNodeRef(), $node, false);
+        $nodeRef = $node->getNodeRef();
+        $this->NodePermissions->checkThrow(__FUNCTION__, $nodeRef, $node, false);
         if ($node->Status == 'published')
-            $this->NodePermissions->checkThrow('publish', $node->getNodeRef(), $node, false);
+            $this->NodePermissions->checkThrow('publish', $nodeRef, $node, false);
 
         return parent::add($node);
     }
 
     public function edit(Node $node)
     {
-        $existingNode = $this->getByNodeRef($node->getNodeRef());
+        $nodeRef = $node->getNodeRef();
+        $existingNode = $this->getByNodeRef($nodeRef);
 
-        $this->NodePermissions->checkThrow(__FUNCTION__, $node->getNodeRef(), $node, false);
+        $this->NodePermissions->checkThrow(__FUNCTION__, $nodeRef, $node, false);
 
-        if ($node->getNodeRef()->getSlug() != $node->getSlug()) {
-            $newNodeRef = new NodeRef( $node->getNodeRef()->getElement(), $node->getSlug());
-            $this->NodePermissions->checkThrow('rename', $node->getNodeRef(), $newNodeRef, false);
+        if ($nodeRef->getSlug() != $node->getSlug()) {
+            $newNodeRef = new NodeRef( $nodeRef->getElement(), $node->getSlug());
+            $this->NodePermissions->checkThrow('rename', $nodeRef, $newNodeRef, false);
         }
 
         if($existingNode->Status == 'deleted' && $node->Status != 'deleted')
-            return $this->undelete($node->getNodeRef());
+            return $this->undelete($nodeRef);
 
         if($existingNode->Status != 'deleted' && $node->Status == 'deleted')
-            return $this->delete($node->getNodeRef());
+            return $this->delete($nodeRef);
 
         if ($existingNode->Status != 'published' && $node->Status == 'published')
-            $this->NodePermissions->checkThrow('publish', $node->getNodeRef(), $node, false);
+            $this->NodePermissions->checkThrow('publish', $nodeRef, $node, false);
 
         if ($existingNode->Status == 'published' && $node->Status != 'published')
-            $this->NodePermissions->checkThrow('unpublish', $node->getNodeRef(), $node, false);
+            $this->NodePermissions->checkThrow('unpublish', $nodeRef, $node, false);
 
 
         return parent::edit($node);
