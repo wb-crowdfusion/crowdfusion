@@ -34,7 +34,9 @@ class JSONUtils
     public static function isValid($string)
     {
         try {
-            self::decode($string);
+            if (!empty($string)) {
+                self::decode($string);
+            }
         } catch (JSONException $e) {
             return false;
         }
