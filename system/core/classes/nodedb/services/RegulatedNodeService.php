@@ -139,7 +139,7 @@ class RegulatedNodeService extends NodeService
     {
         $metaID = ltrim($metaID, '#');
         $this->NodePermissions->checkThrow(__FUNCTION__, $nodeRef, $metaID, false);
-        return parent::updateMeta($nodeRef, $metaID, $value);
+        parent::updateMeta($nodeRef, $metaID, $value);
     }
 
     public function incrementMeta(NodeRef $nodeRef, $metaID, $value = 1)

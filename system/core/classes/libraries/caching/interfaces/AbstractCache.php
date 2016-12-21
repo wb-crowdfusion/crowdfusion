@@ -103,7 +103,7 @@ abstract class AbstractCache
      * @param string $cacheKey The cacheKey to remove
      *
      * @access public
-     * @return void
+     * @return bool
      */
     public function delete($key, $localOnly = false)
     {
@@ -122,7 +122,7 @@ abstract class AbstractCache
      * @param string $cacheKey The cacheKey to retrieve
      *
      * @access public
-     * @return void
+     * @return mixed
      */
     public function get($key, $localOnly = false)
     {

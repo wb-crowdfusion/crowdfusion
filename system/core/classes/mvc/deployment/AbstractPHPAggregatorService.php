@@ -33,7 +33,7 @@ abstract class AbstractPHPAggregatorService extends AbstractDeploymentService
     public function findAll()
     {
         if (empty($this->context) || empty($this->siteDomain) || empty($this->deviceView) || empty($this->design))
-            return;
+            return array();
 
         if ($this->isSiteDeployment) {
             $design = $this->design;

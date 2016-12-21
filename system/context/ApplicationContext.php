@@ -303,8 +303,8 @@ class ApplicationContext {
 
                                 case 'context':
                                     $context = array('sites'=> array());
-                                    foreach($node->attributes() as $name => $value)
-                                        $context[$name] = (string)$value;
+                                    foreach($node->attributes() as $key => $value)
+                                        $context[$key] = (string)$value;
 
                                     if(empty($context['enabled']) || !$this->strBool($context['enabled']))
                                         break;

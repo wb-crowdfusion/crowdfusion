@@ -226,7 +226,7 @@ class AbstractSystemXMLDAO implements DAOInterface
      *
      * @param string $slug The slug of the aspect to remove
      *
-     * @return void
+     * @return bool
      */
     public function delete($slug)
     {

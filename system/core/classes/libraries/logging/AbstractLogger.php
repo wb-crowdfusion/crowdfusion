@@ -150,7 +150,7 @@ abstract class AbstractLogger implements LoggerInterface
     /**
      * Returns the name of the class that called the logger function
      *
-     * @return void
+     * @return mixed
      */
     protected function getCalleeClass()
     {
@@ -173,7 +173,7 @@ abstract class AbstractLogger implements LoggerInterface
     /**
      * Returns the name of the method that called the logger function
      *
-     * @return void
+     * @return mixed
      */
     protected function getCalleeMethod()
     {
@@ -318,20 +318,20 @@ abstract class AbstractLogger implements LoggerInterface
             }
         }
 
-        $klass = $this->getCalleeClass();
+        $calleeClass = $this->getCalleeClass();
 
-        if (is_array($this->blockedClasses) && in_array($klass, $this->blockedClasses)) return null;
+        if (is_array($this->blockedClasses) && in_array($calleeClass, $this->blockedClasses)) return null;
 
-        if ($this->permittedClasses === 'all' || (is_array($this->permittedClasses) && in_array($klass, $this->permittedClasses))) {
+        if ($this->permittedClasses === 'all' || (is_array($this->permittedClasses) && in_array($calleeClass, $this->permittedClasses))) {
             $method = $this->getCalleeMethod();
             $output = is_scalar($message) ? $message : print_r($message, true);
 
-            if (!isset($this->history[$klass]))
-                $this->history[$klass] = array();
+            if (!isset($this->history[$calleeClass]))
+                $this->history[$calleeClass] = array();
 
-            $this->history[$klass][] = $output;
+            $this->history[$calleeClass][] = $output;
 
-            $this->logLine("[{$this->environment}][{$this->siteSlug}][{$this->context}]" . ($this->isSiteDeployment ? "[{$this->deviceView}:{$this->design}]" : '')  . "[{$this->levels[$level]}][{$klass}][{$method}] $output");
+            $this->logLine("[{$this->environment}][{$this->siteSlug}][{$this->context}]" . ($this->isSiteDeployment ? "[{$this->deviceView}:{$this->design}]" : '')  . "[{$this->levels[$level]}][{$calleeClass}][{$method}] $output");
             return $output;
         }
 

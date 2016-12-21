@@ -249,7 +249,7 @@ class ArrayUtils
      *
      * @params array Two or more multi-dimensional arrays
      *
-     * @return void
+     * @return array
      */
     public static function arrayMultiMergeKeys()
     {

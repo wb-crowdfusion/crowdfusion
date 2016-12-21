@@ -86,7 +86,9 @@ class SystemCache extends AbstractCache implements SystemCacheInterface
      */
     public function put($key, $value, $duration, $localOnly = false)
     {
-        return parent::put($key, $value, $this->cacheExpiration);
+        parent::put($key, $value, $this->cacheExpiration);
+
+        return true;
     }
 
 }

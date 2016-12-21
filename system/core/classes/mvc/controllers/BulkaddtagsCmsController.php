@@ -24,13 +24,6 @@
  */
 class BulkaddtagsCmsController extends AbstractBulkActionController
 {
-    protected $RegulatedNodeService;
-
-    public function setRegulatedNodeService(RegulatedNodeService $RegulatedNodeService)
-    {
-        $this->RegulatedNodeService = $RegulatedNodeService;
-    }
-
     public function execute() {
 
         $this->_beginBulkaction();

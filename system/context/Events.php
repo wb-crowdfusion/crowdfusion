@@ -53,12 +53,12 @@ class Events {
      */
     public function bindEvent($eventName, $objectNameOrObject, $eventMethod, $priority = PHP_INT_MAX, $passContext = false)
     {
-        return $this->ApplicationContext->bindEvent($eventName, $objectNameOrObject, $eventMethod, $priority, $passContext);
+        $this->ApplicationContext->bindEvent($eventName, $objectNameOrObject, $eventMethod, $priority, $passContext);
     }
 
     public function unbindEvent($eventName, $objectName, $eventMethod)
     {
-        return $this->ApplicationContext->unbindEvent($eventName, $objectName, $eventMethod);
+        $this->ApplicationContext->unbindEvent($eventName, $objectName, $eventMethod);
     }
 
     /**
@@ -81,7 +81,7 @@ class Events {
      * @param mixed  $v, ...    Unlimited number of objects or variables to
      *                              pass thru to the event callback
      *
-     * @return void
+     * @return int
      * @throws EventsException If callback was invalid
      */
     public function trigger($eventName, $arg1 = 'NULLPARAMETER')

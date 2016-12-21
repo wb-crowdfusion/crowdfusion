@@ -177,7 +177,7 @@ class StringUtils
      * @param string $quote  The quote character (must be one character)
      * @param string $escape The escape character or character set
      *
-     * @return void
+     * @return bool
      */
     public static function lineIsOpenQuoted($line, $quote, $escape)
     {

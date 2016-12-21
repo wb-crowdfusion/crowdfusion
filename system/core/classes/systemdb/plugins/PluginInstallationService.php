@@ -430,7 +430,7 @@ class PluginInstallationService
      * @param Plugin $plugin The plugin to analyze
      * @param string &$log   A variable that will get logging detail appended
      *
-     * @return void
+     * @return bool
      */
     public function processAspects(Plugin $plugin, &$log = '')
     {

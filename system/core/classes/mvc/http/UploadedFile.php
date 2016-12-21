@@ -79,6 +79,8 @@ class UploadedFile {
 
     /**
      * @param errorCode - http://us.php.net/manual/en/features.file-upload.errors.php
+     *
+     * @return string
      */
     protected static function decodeUploadError($errorCode) {
         switch($errorCode) {

@@ -589,7 +589,7 @@ margin:             0 0 4px 0;
             $c = str_replace("\n", "<br/>", $c);
         }
 
-        $body = '<p><font face="&#39;courier new&#39;, monospace">' . $c . '</font></p>';
+        $body = '<p style="font-face="&#39;courier new&#39;, monospace">' . $c . '</p>';
 
         $this->Email->clear();
         $this->Email->from($this->sendEmailsFrom);

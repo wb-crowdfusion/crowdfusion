@@ -95,14 +95,16 @@ class Renderer implements RendererInterface {
     }
 
    /**
-     * @param string $contentType The name of the handler that the template engine should use to render the output.
-     *                            Types: XHTML, RSS, XML, JSON, JSONp, JavaScript, SerializedPHP, PlainText, HTTPGET
-     *                            A template engine may or may not support all of these handlers.
-     *
-     * @throws Exception If template engine doesn't support requested content type (thrown from TemplateEngine)
-     * @throws Exception If no template engine is capable of rendering the view template supplied
-     * @throws Exception If the template engine doesn't support the handler type.
-     */
+    * @param string $contentType The name of the handler that the template engine should use to render the output.
+    *                            Types: XHTML, RSS, XML, JSON, JSONp, JavaScript, SerializedPHP, PlainText, HTTPGET
+    *                            A template engine may or may not support all of these handlers.
+    *
+    * @return array
+    *
+    * @throws Exception If template engine doesn't support requested content type (thrown from TemplateEngine)
+    * @throws Exception If no template engine is capable of rendering the view template supplied
+    * @throws Exception If the template engine doesn't support the handler type.
+    */
     public function renderView(View $view, $contentType, $cacheEnabled = true, $pushCache = false)
     {
 

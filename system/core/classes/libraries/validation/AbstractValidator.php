@@ -97,7 +97,7 @@ abstract class AbstractValidator implements ValidatorInterface
 
         $this->postValidate();
 
-        return $this->errors;
+        return $this->errors->getErrors();
     }
 
     /**

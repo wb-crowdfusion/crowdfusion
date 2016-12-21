@@ -164,7 +164,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
      *
      * @param array $keys An array of cache keys to retrieve
      *
-     * @return array Associative array of keys to values.  If a key is not found
+     * @return array|bool Associative array of keys to values.  If a key is not found
      *  or expired in the key store, that key will be missing from the
      *  returned array.  If no keys were found, this function will return FALSE.
      */
@@ -208,7 +208,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
      *
      * @param string $key Cache key associated to the data
      *
-     * @return CachedObject Object representation of stored data and cache metadata.
+     * @return CachedObject|bool Object representation of stored data and cache metadata.
      *  Returns FALSE if the key was not found or the item has expired.
      */
     public function getCachedObject($key)
@@ -256,7 +256,7 @@ class APCCacheStore extends AbstractCacheStore implements CacheStoreInterface
      *  retained in the cache store before expiring or becoming invalid. If
      *  set to 0, the value will not expire.
      *
-     * @return boolean True upon success, false on failure
+     * @return array|bool True upon success, false on failure
      */
     public function put($key, $data, $ttl)
     {

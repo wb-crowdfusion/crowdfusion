@@ -520,6 +520,10 @@ class MySQLDatabase implements DatabaseInterface
         if(empty($parameters))
             throw new DatabaseException('bulkInsertRecords: no parameters.');
 
+        if (!is_array($parameters)) {
+            $parameters = array($parameters);
+        }
+
         $count      = 0;
         $tcount     = 0;
         $totalcount = count($parameters);

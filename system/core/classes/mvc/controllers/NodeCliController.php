@@ -345,7 +345,7 @@ class NodeCliController extends AbstractCliController
         // Defaults to true
         $migrateInTags =$this->Request->getRequiredParameter('migrateintags');
         if ($migrateInTags != 'true' && $migrateInTags != 'false') {
-            echo 'Error - No Action Taken: value of migrateintags must be true or false: '."\n"; return;
+            echo 'Error - No Action Taken: value of migrateintags must be true or false: '."\n";
             return;
         }
         $migrateInTags = StringUtils::strToBool($migrateInTags);

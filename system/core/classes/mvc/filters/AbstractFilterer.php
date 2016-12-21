@@ -61,7 +61,7 @@ abstract class AbstractFilterer implements FiltererInterface
     /**
      * Informs the invoking class that the filter result contains template code
      *
-     * @return void
+     * @return self
      */
     protected function allowTemplateCode()
     {

@@ -168,7 +168,7 @@ class FileCacheStore extends AbstractCacheStore implements CacheStoreInterface
      * @param string $filename The filename to write to
      * @param string $value    The data to write.
      *
-     * @return void
+     * @return bool
      */
     protected function writeFile($filename, $value)
     {
