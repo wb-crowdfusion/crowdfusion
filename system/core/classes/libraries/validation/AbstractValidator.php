@@ -72,7 +72,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * @param mixed  $arg, $arg, ... Using func_get_args() these arguments will be passed to the validator function
      *                                  invoked by this function.
      *
-     * @return array an array of Errors (or empty array)
+     * @return Errors
      */
     public function validateFor($context)
     {
@@ -97,7 +97,7 @@ abstract class AbstractValidator implements ValidatorInterface
 
         $this->postValidate();
 
-        return $this->errors->getErrors();
+        return $this->errors;
     }
 
     /**
