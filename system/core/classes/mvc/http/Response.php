@@ -52,6 +52,9 @@ class Response
     protected $sentHeaders = array();
     protected $cookies = array();
 
+    protected $cachedRedirectTTL = 0;
+    protected $DateFactory;
+
     /** @var \LoggerInterface */
     protected $Logger;
 
@@ -117,6 +120,16 @@ class Response
             //return $this->RequestContext->getSite()->getBaseURL().'/'.ltrim($uri, '/');
 
         return $uri;
+    }
+
+    public function setCachedRedirectTtl($cachedRedirectTTL)
+    {
+        $this->cachedRedirectTTL = $cachedRedirectTTL;
+    }
+
+    public function setDateFactory(DateFactory $DateFactory)
+    {
+        $this->DateFactory = $DateFactory;
     }
 
     /**
@@ -187,7 +200,8 @@ class Response
         $location = $this->resolveURI($location);
 
         $this->Logger->info("Sent Redirect to {$location} [STATUS: {$this->sc}]");
-        $this->addHeader('Cache-Control', 'max-age=120');
+        $this->addHeader('Cache-Control', 'max-age=' . $this->cachedRedirectTTL);
+        $this->addHeader('Expires', $this->DateFactory->newLocalDate('+' . $this->cachedRedirectTTL . ' seconds')->toRFCDate());
         $this->setProtocol($this->sc);
         $this->prepareResponse();
 
