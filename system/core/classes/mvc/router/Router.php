@@ -230,7 +230,6 @@ class Router implements RouterInterface
                 return;
 
             // let's not let the browser cache these permanently
-            $this->setCachedRedirectTtl(120);
             $this->Response->addHeader('Cache-Control', 'max-age=' . $this->cachedRedirectTTL);
             $this->Response->addHeader('Expires', $this->DateFactory->newLocalDate('+' . $this->cachedRedirectTTL . ' seconds')->toRFCDate());
 

@@ -187,6 +187,7 @@ class Response
         $location = $this->resolveURI($location);
 
         $this->Logger->info("Sent Redirect to {$location} [STATUS: {$this->sc}]");
+        $this->addHeader('Cache-Control', 'max-age=120');
         $this->setProtocol($this->sc);
         $this->prepareResponse();
 
