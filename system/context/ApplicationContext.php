@@ -37,50 +37,50 @@ include('ContextUtils.php');
  */
 class ApplicationContext {
 
-    private $context = array();
+    protected $context = array();
 
-    private $contextFile = null;
-    private $changedContext = false;
+    protected $contextFile = null;
+    protected $changedContext = false;
 
-    private $numInstances = 0;
+    protected $numInstances = 0;
 
-    private $propertyResources = array();
-    private $objects = array();
+    protected $propertyResources = array();
+    protected $objects = array();
 
-    private $properties = array();
-    private $aliasMap = array();
+    protected $properties = array();
+    protected $aliasMap = array();
 
-    private $plugins;
-    private $contextResources;
-    private $originalContextResources;
-    private $pluginDirectories;
-    private $enabledPluginDirectories;
+    protected $plugins;
+    protected $contextResources;
+    protected $originalContextResources;
+    protected $pluginDirectories;
+    protected $enabledPluginDirectories;
 
-    private $lastPriority = 0;
-    private $clearedContextFiles = false;
+    protected $lastPriority = 0;
+    protected $clearedContextFiles = false;
 
-    private $writeCache = true;
+    protected $writeCache = true;
 
-    private $cacheDir;
-    private $hotDeploy;
-    private $oneOffRedeploy = false;
-    private $autoloadExtension;
-    private $bypassDirectoriesForAutoload;
-    private $pluginContextFile;
-    private $sharedContextFile;
-    private $pluginInstallFile;
-    private $bootstrapFile;
+    protected $cacheDir;
+    protected $hotDeploy;
+    protected $oneOffRedeploy = false;
+    protected $autoloadExtension;
+    protected $bypassDirectoriesForAutoload;
+    protected $pluginContextFile;
+    protected $sharedContextFile;
+    protected $pluginInstallFile;
+    protected $bootstrapFile;
 
-    private $systemFile;
-    private $environmentsFile;
+    protected $systemFile;
+    protected $environmentsFile;
 
-    private $events = array();
-    private $contextEvents = array();
+    protected $events = array();
+    protected $contextEvents = array();
 
-    private $deploymentBase = null;
-    private $determineContext = false;
+    protected $deploymentBase = null;
+    protected $determineContext = false;
 
-    private $env = 'default';
+    protected $env = 'default';
 
     public function __construct($contextResources, $config = array(), $postSystemContextResources = array()) {
 
@@ -152,15 +152,15 @@ class ApplicationContext {
         $this->load();
     }
 
-    private $masterCacheFile = null;
+    protected $masterCacheFile = null;
 
     // variables cached in masterCacheFile
-    private $uris = null;
-    private $masterTimestamp = false;
-    private $systemTimestamp = false;
-    private $enabledPluginsByID = array();
-    private $rewriteBase = '';
-    private $anchorSite = null;
+    protected $uris = null;
+    protected $masterTimestamp = false;
+    protected $systemTimestamp = false;
+    protected $enabledPluginsByID = array();
+    protected $rewriteBase = '';
+    protected $anchorSite = null;
 
     public function reloadSystem()
     {
@@ -1387,7 +1387,7 @@ class ApplicationContext {
         return array_key_exists($eventName, $this->events)?$this->events[$eventName]:false;
     }
 
-    private function _urilenCompare($a, $b) {
+    protected function _urilenCompare($a, $b) {
         $a = (int)strlen($a);
         $b = (int)strlen($b);
 
@@ -1397,7 +1397,7 @@ class ApplicationContext {
         return ($a > $b) ? -1 : 1;
     }
 
-    private function _priorityCompare($a, $b) {
+    protected function _priorityCompare($a, $b) {
         $a = (int)array_key_exists('priority', $a)?$a['priority']:PHP_INT_MAX;
         $b = (int)array_key_exists('priority', $b)?$b['priority']:PHP_INT_MAX;
 
