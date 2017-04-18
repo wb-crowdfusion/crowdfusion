@@ -2,6 +2,10 @@
 This changelog references the relevant changes done in 3.x versions.
 
 
+## v3.2.14
+* issue #27: BUG :: Require js in cms breaks some modules when umd factory runs.
+
+
 ## v3.2.13
 * issue #20: Add cache headers to redirects
 * issue #21: Add RequireJS, main.js and js-html-head/footer-scripts files for CMS.
