@@ -3,4 +3,11 @@ At site level, replicate this file and insert any additional scripts that may be
 */ %}
 
 {% begin contents %}
+<script>
+var DEVICE_VIEW = '%DEVICE_VIEW%';
+var ASSETS_BASEURL = '%ASSETS_BASEURL%';
+var require = {baseUrl: ASSETS_BASEURL + 'js/'{% if Data:IS_DEV_ENVIRONMENT %}, urlArgs: 'bust=' + (new Date()).getTime(){% endif %}};
+</script>
+{% asset js?src=js/requirejs/2.3.2/require.js&min=true %}
+{% asset js?src=js/main.js&min=true %}
 {% end %}

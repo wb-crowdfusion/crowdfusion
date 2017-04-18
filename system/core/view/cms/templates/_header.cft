@@ -17,10 +17,6 @@
 
 <script type="text/javascript" language="JavaScript">
 var wbq = wbq || [];
-var DEVICE_VIEW = '%DEVICE_VIEW%';
-var ASSETS_BASEURL = '%ASSETS_BASEURL%';
-var require = {baseUrl: ASSETS_BASEURL + 'js/'{% if Data:IS_DEV_ENVIRONMENT %}, urlArgs: 'bust=' + (new Date()).getTime(){% endif %}};
-
 window.onerror=function(msg, url, linenumber){
   if(typeof console != 'undefined') {
     var err = 'An unexpected error occurred:\n\nCause: '+msg+'\n\nURL: '+url+'\n\nLine Number: '+linenumber;
@@ -74,8 +70,6 @@ window.onerror=function(msg, url, linenumber){
 {% asset js?src=js/jquery/effects/jquery.effects.core.js&pack=true %}
 {% asset js?src=js/jquery/effects/jquery.effects.highlight.js&pack=true %}
 
-{% asset js?src=js/requirejs/2.3.2/require.js&pack=true %}
-
 {% asset js?src=js/general.js&pack=true %}
 
 {% asset js?src=js/JSON.js&pack=true %}
@@ -118,15 +112,14 @@ window.onerror=function(msg, url, linenumber){
 
 {% asset js?src=js/List.js&min=true %}
 {% asset js?src=js/Edit.js&min=true %}
-{% asset js?src=js/main.js&min=true %}
 {% asset js?src=js/Navigation.js&min=true %}
 {% asset js?src=js/SlugHelper.js&pack=true %}
 {% asset js?src=js/HotDeploy.js&min=true %}
 {% asset js?src=js/ie.js&min=true %}
 
-{% template _js-html-head.cft %}
-
 {% filter event?name=cms-head&allowTemplateCode=true %}
+
+{% template _js-html-head.cft %}
 
 <script language="JavaScript" type="text/javascript">
 SystemService.init({% template _js-sites.cft %},{% template _js-elements.cft %},{% template _js-aspects.cft %});
