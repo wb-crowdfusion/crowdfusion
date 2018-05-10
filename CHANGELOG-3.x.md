@@ -2,6 +2,10 @@
 This changelog references the relevant changes done in 3.x versions.
 
 
+## v3.2.15
+* Add `viewerCountry` to config from environment variable `VIEWER_COUNTRY` and add to template engine and template cache keys.
+
+
 ## v3.2.14
 * issue #27: BUG :: Require js in cms breaks some modules when umd factory runs.
 

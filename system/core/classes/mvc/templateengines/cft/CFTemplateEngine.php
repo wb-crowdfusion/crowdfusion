@@ -37,6 +37,7 @@ class CFTemplateEngine extends AbstractTemplateEngine
 
     protected $environment;
     protected $deviceView;
+    protected $viewerCountry = '';
     protected $systemEmailAddress;
     protected $systemVersion;
     protected $isDevelopmentMode;
@@ -145,6 +146,14 @@ class CFTemplateEngine extends AbstractTemplateEngine
     public function setDeviceView($deviceView)
     {
         $this->deviceView = $deviceView;
+    }
+
+    /**
+     * @param string $viewerCountry
+     */
+    public function setViewerCountry($viewerCountry)
+    {
+        $this->viewerCountry = $viewerCountry;
     }
 
     /**
@@ -680,8 +689,8 @@ class CFTemplateEngine extends AbstractTemplateEngine
             $constants['SERVER_DEVELOPMENT_MODE'] = $this->isDevelopmentMode;
             $constants['SYSTEM_EMAIL_ADDRESS'] = $this->systemEmailAddress;
             $constants['DEVICE_VIEW'] = $this->deviceView;
+            $constants['VIEWER_COUNTRY'] = $this->viewerCountry;
             $constants['SYSTEM_VERSION'] = $this->systemVersion;
-
 
             foreach ((array)$this->RequestContext->getControls()->getControls() as $name => $val) {
                 $constants['CONTROL_'.strtoupper(str_replace(' ','_',$name))] = $val;

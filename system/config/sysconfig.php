@@ -4,7 +4,7 @@
 // SYSTEM VARIABLES / DO NOT EDIT!!! //
 // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv //
 
-$properties['cf.version'] = '3.2.14';
+$properties['cf.version'] = '3.2.15';
 
 $properties['development.mode'] = $this->isHotDeploy();
 $properties['one.off.redeploy'] = $this->isOneOffRedeploy();
@@ -27,6 +27,7 @@ $properties['context'] = (!empty($_SERVER['CONTEXT'])?(string)$_SERVER['CONTEXT'
 $properties['siteDomain'] = (!empty($_SERVER['DOMAIN'])?(string)$_SERVER['DOMAIN']:'');
 $properties['deviceView'] = (!empty($_SERVER['DEVICE_VIEW'])?(string)$_SERVER['DEVICE_VIEW']:'main');
 $properties['design'] = (!empty($_SERVER['DESIGN'])?(string)$_SERVER['DESIGN']:'default');
+$properties['viewerCountry'] = strtoupper(trim((!empty($_SERVER['VIEWER_COUNTRY'])?(string)$_SERVER['VIEWER_COUNTRY']:'US')));
 $properties['rewriteBase'] = (!empty($_SERVER['REWRITE_BASE'])?(string)$_SERVER['REWRITE_BASE']:'');
 $properties['routerBase'] = (!empty($_SERVER['ROUTER_BASE'])?(string)$_SERVER['ROUTER_BASE']:'');
 $properties['site'] = (!empty($_SERVER['SITE'])?$_SERVER['SITE']:array());
@@ -41,7 +42,9 @@ $properties['lock.system.changes'] = false;
 
 $properties['response.outputBuffering'] = ($properties['context'] != 'cli');
 $properties['response.vary'] = $properties['context'] == 'web' ? 'Accept-Encoding, User-Agent' : 'Accept-Encoding';
-$properties['cft.constants'] = [];
+$properties['cft.constants'] = [
+    'VIEWER_COUNTRY' => $properties['viewerCountry'],
+];
 
 $properties['configFileLocation'] = PATH_BUILD.DIRECTORY_SEPARATOR.'pluginconfig.php';
 

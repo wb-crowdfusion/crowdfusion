@@ -35,6 +35,7 @@ class TemplateCache extends AbstractCache implements TemplateCacheInterface
     protected $siteDomain;
     protected $deviceView = 'main';
     protected $design     = 'default';
+    protected $viewerCountry = '';
 
 
     /**
@@ -124,6 +125,16 @@ class TemplateCache extends AbstractCache implements TemplateCacheInterface
         $this->deviceView = $deviceView;
     }
 
+    /**
+     * @param string $viewerCountry
+     *
+     * @return void
+     */
+    public function setViewerCountry($viewerCountry)
+    {
+        $this->viewerCountry = $viewerCountry;
+    }
+
     public function setRouterBase($routerBase)
     {
         $this->routerBase = $routerBase;
@@ -143,7 +154,7 @@ class TemplateCache extends AbstractCache implements TemplateCacheInterface
 
     protected function cacheKey($key)
     {
-        return "{$this->keyPrefix}-{$this->VersionService->getSystemVersion()}-{$this->VersionService->getDeploymentRevision()}-{$this->context}-{$this->siteDomain}-{$this->routerBase}-{$this->deviceView}-{$this->design}-{$key}";
+        return "{$this->keyPrefix}-{$this->VersionService->getSystemVersion()}-{$this->VersionService->getDeploymentRevision()}-{$this->context}-{$this->siteDomain}-{$this->routerBase}-{$this->deviceView}-{$this->design}-{$this->viewerCountry}-{$key}";
     }
 
     /**

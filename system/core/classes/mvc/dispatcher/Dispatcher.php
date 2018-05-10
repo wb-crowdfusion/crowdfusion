@@ -45,6 +45,7 @@ class Dispatcher
      * @param string $siteDomain
      * @param string $deviceView
      * @param string $design
+     * @param string $viewerCountry
      * @param bool $isSiteDeployment
      * @param string $charset
      * @param string $view404
@@ -72,6 +73,7 @@ class Dispatcher
             $siteDomain,
             $deviceView,
             $design,
+            $viewerCountry,
             $isSiteDeployment,
             $charset,
             $view404 = '404.cft'
@@ -101,6 +103,7 @@ class Dispatcher
         $this->siteDomain = $siteDomain;
         $this->deviceView = $deviceView;
         $this->design = $design;
+        $this->viewerCountry = $viewerCountry;
         $this->isSiteDeployment = $isSiteDeployment;
 
         $this->charset = $charset;
@@ -111,6 +114,7 @@ class Dispatcher
         $this->Logger->debug("Sitename: {$this->siteDomain}");
         $this->Logger->debug("Device View  : {$this->deviceView}");
         $this->Logger->debug("Design  : {$this->design}");
+        $this->Logger->debug("Viewer Country  : {$this->viewerCountry}");
         $this->Logger->debug("Sites?  : {$this->isSiteDeployment}");
 
         if (empty($this->context)) {
@@ -342,7 +346,7 @@ class Dispatcher
                 && $this->Response->getStatus() === Response::SC_OK
                 && !$this->Response->containsHeader('ETag')
         ) {
-            $etag = $this->ApplicationContext->getSystemVersionTimestamp() . "-{$this->deviceView}-{$this->design}-" . $globals['ETag'] . ($this->Request->acceptsGzip() ? '-gzip' : '');
+            $etag = $this->ApplicationContext->getSystemVersionTimestamp() . "-{$this->deviceView}-{$this->design}-{$this->viewerCountry}-" . $globals['ETag'] . ($this->Request->acceptsGzip() ? '-gzip' : '');
             $globals['ETag'] = md5($etag);
             $this->Logger->info('Raw ETag=' . $etag. ', md5=' . $globals['ETag']);
 
