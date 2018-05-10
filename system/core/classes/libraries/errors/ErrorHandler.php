@@ -551,11 +551,12 @@ margin:             0 0 4px 0;
 
         $deviceView = (isset($_SERVER['DEVICE_VIEW']) ? $_SERVER['DEVICE_VIEW'] : '');
         $design = (isset($_SERVER['DESIGN']) ? $_SERVER['DESIGN'] : '');
+        $viewerCountry = (isset($_SERVER['VIEWER_COUNTRY']) ? $_SERVER['VIEWER_COUNTRY'] : 'US');
 
         if (!empty($deviceView) && !empty($design)) {
-            $errorPrefix = "[{$this->environment}][$appName][$context][$deviceView:$design][$prefix]";
+            $errorPrefix = "[{$this->environment}][$appName][$viewerCountry][$context][$deviceView:$design][$prefix]";
         } else {
-            $errorPrefix = "[{$this->environment}][$appName][$context][$prefix]";
+            $errorPrefix = "[{$this->environment}][$appName][$viewerCountry][$context][$prefix]";
         }
 
         $subject = "$errorPrefix $subject";
