@@ -2,6 +2,10 @@
 This changelog references the relevant changes done in 3.x versions.
 
 
+## v3.2.16
+* Add `HTTPS` from environment variable to template cache keys since templates can be different based on requested protocol.
+
+
 ## v3.2.15
 * Add `viewerCountry` to config from environment variable `VIEWER_COUNTRY` and add to template engine and template cache keys.
 

@@ -33,7 +33,7 @@ abstract class Object implements ArrayAccess, Serializable, JsonSerializable
     /**
      * Define the $fields in your object to define what fields will be on the object
      *
-     * @var string
+     * @var array
      */
     protected $fields = array();
 

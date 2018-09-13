@@ -154,7 +154,8 @@ class TemplateCache extends AbstractCache implements TemplateCacheInterface
 
     protected function cacheKey($key)
     {
-        return "{$this->keyPrefix}-{$this->VersionService->getSystemVersion()}-{$this->VersionService->getDeploymentRevision()}-{$this->context}-{$this->siteDomain}-{$this->routerBase}-{$this->deviceView}-{$this->design}-{$this->viewerCountry}-{$key}";
+        $https = isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http';
+        return "{$this->keyPrefix}-{$this->VersionService->getSystemVersion()}-{$this->VersionService->getDeploymentRevision()}-{$this->context}-{$this->siteDomain}-{$this->routerBase}-{$this->deviceView}-{$this->design}-{$this->viewerCountry}-{$https}-{$key}";
     }
 
     /**
