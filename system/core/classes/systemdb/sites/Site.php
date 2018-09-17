@@ -21,19 +21,19 @@
  * Site
  *
  * @package     CrowdFusion
- * @property string $Slug
+ * @property string  $Slug
  * @property boolean $Enabled
  * @property boolean $SSL
  * @property boolean $Anchor
- * @property string $Name
- * @property string $Description
- * @property string $Domain
- * @property string $DomainBaseURI
- * @property string $DomainRedirects
- * @property string $DomainAlias
- * @property string $ExcludeFinalSlash
- * @property string $BaseURL
- * @property string $LiveBaseURL
+ * @property string  $Name
+ * @property string  $Description
+ * @property string  $Domain
+ * @property string  $DomainBaseURI
+ * @property string  $DomainRedirects
+ * @property string  $DomainAlias
+ * @property string  $ExcludeFinalSlash
+ * @property string  $BaseURL
+ * @property string  $LiveBaseURL
  */
 class Site extends ModelObject
 {
@@ -67,10 +67,10 @@ class Site extends ModelObject
 
     public function getStorageFacilityInfo($for = null)
     {
-        if(is_null($for))
+        if (is_null($for))
             return !empty($this->fields['StorageFacilityInfo'])?$this->fields['StorageFacilityInfo']:array();
 
-        if(!isset($this->fields['StorageFacilityInfo'][$for]))
+        if (!isset($this->fields['StorageFacilityInfo'][$for]))
             return null;
 
         return $this->fields['StorageFacilityInfo'][$for];
